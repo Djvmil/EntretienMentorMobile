@@ -23,9 +23,7 @@ class DetailViewModel(
     val updateMovieUseCase: UpdateMovieUseCase
 ) : ViewModel() {
 
-    private val _uiState =
-        MutableStateFlow<ResultEM<MovieUiModel, ErrorEM>>(
-            ResultEM.Loading)
+    private val _uiState = MutableStateFlow<ResultEM<MovieUiModel, ErrorEM>>(ResultEM.Loading)
     val uiState = _uiState.asStateFlow()
 
     fun getMovie(movieId: Int) {

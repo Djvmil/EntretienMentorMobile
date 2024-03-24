@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -14,7 +16,7 @@
         android:theme="@style/Theme.EntretienMentor"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.presentation.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EntretienMentor">
             <intent-filter>
@@ -23,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

@@ -1,10 +1,9 @@
 package com.djvmil.entretienmentor.presentation.presentation.home
 
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,13 +11,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,29 +26,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import com.djvmil.core.ResultEM
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.djvmil.entretienmentor.R
 import com.djvmil.entretienmentor.presentation.model.MovieUiModel
-import com.djvmil.entretienmentor.presentation.util.BANNER_IMAGE_URL
 import com.djvmil.entretienmentor.presentation.util.ShimmerMovieItemCount
 import com.djvmil.entretienmentor.ui.theme.EmptyMovieSize
 import com.djvmil.entretienmentor.ui.theme.EmptyTextStyle
-import com.djvmil.entretienmentor.ui.theme.HighPadding
-import com.djvmil.entretienmentor.ui.theme.HomeBannerHeight
-import com.djvmil.entretienmentor.ui.theme.HomeTextTitleStyle
 import com.djvmil.entretienmentor.ui.theme.MovieItemHeight
-import com.djvmil.entretienmentor.ui.theme.MovieItemRound
 import com.djvmil.entretienmentor.ui.theme.NormalPadding
-import com.djvmil.entretienmentor.ui.theme.SmallPadding
-import com.djvmil.entretienmentor.ui.widget.AppBarHome
 import kotlinx.collections.immutable.PersistentList
 import org.koin.androidx.compose.koinViewModel
 
@@ -61,20 +52,11 @@ fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
     onShowDetail: (movieId: Int) -> Unit
 ) {
-    Scaffold(topBar = {
-        AppBarHome(
-            title = stringResource(R.string.screen_home),
-            onFavoriteClicked = { isFavorite ->
-                viewModel.getFavoriteMovies(isFavorite)
-            }
-        )
-    }) { paddingValues ->
-        HomeContent(
-            viewModel = viewModel,
-            modifier = modifier.padding(paddingValues),
-            onShowDetail = onShowDetail
-        )
-    }
+    HomeContent(
+        viewModel = viewModel,
+        modifier = modifier,
+        onShowDetail = onShowDetail
+    )
 }
 
 @Composable
@@ -98,17 +80,8 @@ fun HomeContent(
     ) {
         TopBanner()
 
-        Text(
-            text = stringResource(R.string.list_of_movies),
-            style = HomeTextTitleStyle,
-            modifier = Modifier.padding(
-                top = NormalPadding,
-                start = HighPadding,
-                bottom = NormalPadding
-            )
-        )
 
-        when (uiState) {
+      /*  when (uiState) {
             ResultEM.Loading -> {
                 isEnableShimmer = true
 
@@ -136,36 +109,47 @@ fun HomeContent(
                     )
                 }
             }
-        }
+        }*/
     }
 }
 
 @Composable
 fun TopBanner() {
-    val context = LocalContext.current
-
-    Box(
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(
-                start = SmallPadding,
-                end = SmallPadding,
-                top = NormalPadding,
-                bottom = SmallPadding,
-            )
-            .fillMaxWidth()
+            .height(100.dp)
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            //.clip(Shapes.)
     ) {
-        Image(
+        Column(modifier = Modifier.weight(0.4f)) {
+            Text(
+                text = "Entretien",
+                fontSize = 28.sp,
+                fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
+                fontWeight = FontWeight.ExtraBold,
+                lineHeight = 0.sp,
+                )
+
+            Text(
+                modifier = Modifier.weight(0.4f),
+                text = "Mentor",
+                fontSize = 28.sp,
+                textAlign = TextAlign.End,
+                lineHeight = 0.sp,
+                fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
+                fontWeight = FontWeight.Medium)
+        }
+
+        Icon(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(HomeBannerHeight)
-                .clip(RoundedCornerShape(size = MovieItemRound)),
-            painter = rememberAsyncImagePainter(
-                model = ImageRequest.Builder(context).data(BANNER_IMAGE_URL).build()
-            ),
-            contentScale = ContentScale.Crop,
-            contentDescription = null
+                .weight(0.1f)
+                .size(25.dp),
+            painter = painterResource(id = R.drawable.outline_bell),
+            contentDescription = "notification"
         )
     }
+
 }
 
 @Composable

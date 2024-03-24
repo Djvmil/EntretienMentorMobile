@@ -45,7 +45,6 @@ import com.djvmil.entretienmentor.ui.theme.MovieDetailItemTextStyle
 import com.djvmil.entretienmentor.ui.theme.MovieDetailTextStyle
 import com.djvmil.entretienmentor.ui.theme.NormalPadding
 import com.djvmil.entretienmentor.ui.theme.SmallPadding
-import com.djvmil.entretienmentor.ui.widget.AppBarDetail
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -74,20 +73,11 @@ fun DetailScreen(
 
         is ResultEM.Success -> {
             val movie = (uiState as ResultEM.Success<MovieUiModel>).value
-            Scaffold(
-                topBar = {
-                    AppBarDetail(
-                        title = movie.title,
-                        onBackClicked = onBackClicked
-                    )
-                }
-            ) { paddingValues ->
-                DetailContent(
-                    modifier = modifier.padding(paddingValues),
-                    movie = movie,
-                    viewModel = viewModel
-                )
-            }
+            DetailContent(
+                modifier = modifier,
+                movie = movie,
+                viewModel = viewModel
+            )
         }
     }
 }

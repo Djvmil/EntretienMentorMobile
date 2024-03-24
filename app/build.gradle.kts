@@ -12,7 +12,7 @@ android {
         applicationId = "com.djvmil.entretienmentor"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":core"))
     implementation(project(":di"))
+    implementation(project(":common"))
 
     val composeBom = platform(libs.compose.bom)
 

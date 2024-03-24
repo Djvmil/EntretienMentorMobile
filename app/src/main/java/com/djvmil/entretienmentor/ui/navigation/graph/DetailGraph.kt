@@ -15,7 +15,7 @@ fun NavGraphBuilder.detail(
     navActions: NavigationActions
 ) {
     composable(
-        Destinations.DETAIL_ROUT,
+        Destinations.DETAIL_ROUTE,
         arguments = listOf(
             navArgument(DestinationsArgs.MOVIE_DETAIL_ID_ARG) { type = NavType.IntType }
         )
