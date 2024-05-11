@@ -26,7 +26,10 @@ plugins {
         alias(libs.plugins.ben.manes.versions)
 
     }
+    //apply("${project.rootDir}/gradle/toml-updater-config.gradle.kts")
 }
+
+
 
 subprojects{
 
