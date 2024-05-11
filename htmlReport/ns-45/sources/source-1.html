@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AnimateWiggleButtonAsStateKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton</a>
+</div>
+
+<h1>Coverage Summary for Class: AnimateWiggleButtonAsStateKt (com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AnimateWiggleButtonAsStateKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AnimateWiggleButtonAsStateKt$animateWiggleButtonAsState$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton
+&nbsp;
+&nbsp;import androidx.annotation.FloatRange
+&nbsp;import androidx.compose.animation.core.*
+&nbsp;import androidx.compose.runtime.*
+&nbsp;
+&nbsp;@Stable
+&nbsp;data class WiggleButtonParams(
+&nbsp;    @FloatRange(from = 0.0, to = 1.0) val scale: Float = 1f,
+&nbsp;    @FloatRange(from = 0.0, to = 1.0) val alpha: Float = 1f,
+&nbsp;    val radius: Float = 10f
+&nbsp;)
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun animateWiggleButtonAsState(
+&nbsp;    isSelected: Boolean,
+&nbsp;    enterExitAnimationSpec: AnimationSpec&lt;Float&gt;,
+&nbsp;    wiggleAnimationSpec: AnimationSpec&lt;Float&gt;,
+&nbsp;    maxRadius: Float,
+<b class="nc">&nbsp;): State&lt;WiggleButtonParams&gt; {</b>
+<b class="nc">&nbsp;    val enterExitFraction = animateFloatAsState(</b>
+<b class="nc">&nbsp;        targetValue = if (isSelected) 1f else 0f,</b>
+<b class="nc">&nbsp;        animationSpec = enterExitAnimationSpec</b>
+&nbsp;    )
+&nbsp;
+<b class="nc">&nbsp;    val wiggleFraction = animateFloatAsState(</b>
+<b class="nc">&nbsp;        targetValue = if (isSelected) 1f else 0f,</b>
+<b class="nc">&nbsp;        animationSpec = wiggleAnimationSpec</b>
+&nbsp;    )
+&nbsp;
+<b class="nc">&nbsp;    val isAnimationRequired by rememberUpdatedState(newValue = isSelected)</b>
+&nbsp;
+<b class="nc">&nbsp;    return produceState(</b>
+<b class="nc">&nbsp;        initialValue = WiggleButtonParams(),</b>
+<b class="nc">&nbsp;        key1 = enterExitFraction.value,</b>
+<b class="nc">&nbsp;        key2 = wiggleFraction.value</b>
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        this.value = this.value.copy(</b>
+<b class="nc">&nbsp;            scale = scaleInterpolator(enterExitFraction.value),</b>
+<b class="nc">&nbsp;            alpha = alphaInterpolator(enterExitFraction.value),</b>
+<b class="nc">&nbsp;            radius = if (isAnimationRequired) calculateRadius(</b>
+<b class="nc">&nbsp;                maxRadius = maxRadius * 0.8f,</b>
+<b class="nc">&nbsp;                fraction = radiusInterpolator(wiggleFraction.value),</b>
+<b class="nc">&nbsp;                minRadius = mildRadius * maxRadius</b>
+<b class="nc">&nbsp;            ) else mildRadius * maxRadius</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;const val mildRadius = 0.55f
+&nbsp;
+<b class="nc">&nbsp;fun scaleInterpolator(fraction: Float): Float = 1 + fraction * 0.2f</b>
+&nbsp;
+<b class="nc">&nbsp;fun alphaInterpolator(fraction: Float): Float = fraction / 2 + 0.5f - 0.01f</b>
+&nbsp;
+&nbsp;fun calculateRadius(
+&nbsp;    maxRadius: Float,
+&nbsp;    fraction: Float,
+&nbsp;    minRadius: Float,
+<b class="nc">&nbsp;) = (fraction * (maxRadius - minRadius)) + minRadius</b>
+&nbsp;
+&nbsp;fun radiusInterpolator(
+&nbsp;    fraction: Float
+<b class="nc">&nbsp;): Float = if (fraction &lt; 0.5f) {</b>
+<b class="nc">&nbsp;    fraction * 2</b>
+&nbsp;} else {
+<b class="nc">&nbsp;    (1 - fraction) * 2</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

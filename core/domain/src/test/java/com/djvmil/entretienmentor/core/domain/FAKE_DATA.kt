@@ -26,6 +26,12 @@ object FAKE_DATA {
         ),
         timestamp = "123454872"
     )
+    val fakeRequestRegisterResult = RequestResult(
+        code = 200,
+        message = "success login",
+        data = "",
+        timestamp = "123454872"
+    )
 
     val fakeAppSettingData =  AppSettings(
         theme =  AppTheme.Dark,

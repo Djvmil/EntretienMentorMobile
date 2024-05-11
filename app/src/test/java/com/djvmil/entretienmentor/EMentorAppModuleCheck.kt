@@ -14,21 +14,20 @@ class EMentorAppModuleCheck {
     @OptIn(KoinExperimentalAPI::class)
     @Test
     fun checkKoinModule() {
+/*
+       getAppModules().verify(
+           extraTypes = listOf(
+               Context::class,
+               SavedStateHandle::class,
+               WorkerParameters::class
+           )
+       )
+*/
+    //Arrange //Act //Assert
+       //Given //When //Then
 
-        getAppModules().verify(
-            extraTypes = listOf(
-                Context::class,
-                SavedStateHandle::class,
-                WorkerParameters::class
-            )
-        )
-
-        /*
-        //Arrange //Act //Assert
-        //Given //When //Then
-
-        koinApplication {
-            getAppModules()
-        }*/
-    }
+       koinApplication {
+           getAppModules()
+       }
+   }
 }

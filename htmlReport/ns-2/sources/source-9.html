@@ -1,0 +1,285 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > KotlinAndroidKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor</a>
+</div>
+
+<h1>Coverage Summary for Class: KotlinAndroidKt (com.djvmil.entretienmentor)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KotlinAndroidKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlin$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlin$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlinAndroid$$inlined$getByType$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlinAndroid$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlinAndroid$1$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KotlinAndroidKt$configureKotlinAndroid$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode"><b class="nc">&nbsp;package com.djvmil.entretienmentor</b>
+&nbsp;
+&nbsp;import com.android.build.api.dsl.CommonExtension
+&nbsp;import org.gradle.api.JavaVersion
+&nbsp;import org.gradle.api.Project
+&nbsp;import org.gradle.api.artifacts.VersionCatalogsExtension
+&nbsp;import org.gradle.kotlin.dsl.dependencies
+&nbsp;import org.gradle.kotlin.dsl.getByType
+&nbsp;import org.gradle.kotlin.dsl.provideDelegate
+&nbsp;import org.gradle.kotlin.dsl.withType
+&nbsp;import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+&nbsp;
+&nbsp;/**
+&nbsp; * Configure base Kotlin with Android options
+&nbsp; */
+&nbsp;internal fun Project.configureKotlinAndroid(
+&nbsp;    commonExtension: CommonExtension&lt;*, *, *, *, *, *&gt;,
+&nbsp;) {
+<b class="nc">&nbsp;    commonExtension.apply {</b>
+<b class="nc">&nbsp;        compileSdk = 34</b>
+&nbsp;
+<b class="nc">&nbsp;        defaultConfig {</b>
+<b class="nc">&nbsp;            minSdk = 24</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        compileOptions {</b>
+<b class="nc">&nbsp;            sourceCompatibility = JavaVersion.VERSION_17</b>
+<b class="nc">&nbsp;            targetCompatibility = JavaVersion.VERSION_17</b>
+<b class="nc">&nbsp;            isCoreLibraryDesugaringEnabled = true</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        configureKotlin()</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+<b class="nc">&nbsp;    val libs = extensions.getByType&lt;VersionCatalogsExtension&gt;().named(&quot;libs&quot;)</b>
+&nbsp;
+<b class="nc">&nbsp;    dependencies {</b>
+<b class="nc">&nbsp;        add(&quot;coreLibraryDesugaring&quot;, libs.findLibrary(&quot;android.desugarJdkLibs&quot;).get())</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;/**
+&nbsp; * Configure base Kotlin options
+&nbsp; */
+&nbsp;private fun Project.configureKotlin() {
+&nbsp;    // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
+<b class="nc">&nbsp;    tasks.withType&lt;KotlinCompile&gt;().configureEach {</b>
+<b class="nc">&nbsp;        kotlinOptions {</b>
+<b class="nc">&nbsp;            jvmTarget = JavaVersion.VERSION_17.toString()</b>
+&nbsp;            // Treat all Kotlin warnings as errors (disabled by default)
+&nbsp;            // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
+<b class="nc">&nbsp;            val warningsAsErrors: String? by project</b>
+<b class="nc">&nbsp;            allWarningsAsErrors = warningsAsErrors.toBoolean()</b>
+<b class="nc">&nbsp;            freeCompilerArgs = freeCompilerArgs + listOf(</b>
+&nbsp;                // Enable experimental coroutines APIs, including Flow
+<b class="nc">&nbsp;                &quot;-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi&quot;,</b>
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

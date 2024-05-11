@@ -1,0 +1,355 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > WiggleButtonKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton</a>
+</div>
+
+<h1>Coverage Summary for Class: WiggleButtonKt (com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WiggleButtonKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/130)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">WiggleButtonKt$DrawWithBlendMode$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WiggleButtonKt$DrawWithBlendMode$2$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WiggleButtonKt$DrawWithBlendMode$3</td>
+  </tr>
+  <tr>
+    <td class="name">WiggleButtonKt$DrawWithBlendMode$offset$2$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WiggleButtonKt$WiggleButton$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WiggleButtonKt$WiggleButton$3</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/149)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.ui.bottombar.items.wigglebutton
+&nbsp;
+&nbsp;import androidx.annotation.DrawableRes
+&nbsp;import androidx.compose.animation.core.AnimationSpec
+&nbsp;import androidx.compose.animation.core.spring
+&nbsp;import androidx.compose.foundation.Canvas
+&nbsp;import androidx.compose.foundation.ExperimentalFoundationApi
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.fillMaxSize
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.runtime.*
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.geometry.Size
+&nbsp;import androidx.compose.ui.graphics.*
+&nbsp;import androidx.compose.ui.graphics.vector.ImageVector
+&nbsp;import androidx.compose.ui.graphics.vector.rememberVectorPainter
+&nbsp;import androidx.compose.ui.layout.onGloballyPositioned
+&nbsp;import androidx.compose.ui.platform.LocalDensity
+&nbsp;import androidx.compose.ui.res.vectorResource
+&nbsp;import androidx.compose.ui.unit.Dp
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.toSize
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.noRippleClickable
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
+&nbsp;
+&nbsp;/**
+&nbsp; *
+&nbsp; *A composable button that displays an icon with a wiggle part background.
+&nbsp; *
+&nbsp; *@param modifier  Modifier to be applied to the composable
+&nbsp; *@param isSelected Boolean value indicating whether the view is selected or not
+&nbsp; *@param onClick Callback to be executed when the button is clicked
+&nbsp; *@param icon Drawable resource of the ImageVector resource used for the icon
+&nbsp; *@param backgroundIcon Drawable resource of the ImageVector resource used for the background icon
+&nbsp; *@param contentDescription Content description used to describe the view for accessibility purposes
+&nbsp; *@param wiggleColor Color of the arc drawn on top of the view
+&nbsp; *@param iconSize Icon size
+&nbsp; *@param backgroundIconColor Color of the background icon in the view,
+&nbsp; *@param outlineColor Outline icon color
+&nbsp; *@param enterExitAnimationSpec Animation spec for appearing/disappearing
+&nbsp; *@param wiggleAnimationSpec Animation spec for wiggle effect
+&nbsp; */
+&nbsp;@Composable
+&nbsp;fun WiggleButton(
+<b class="nc">&nbsp;    modifier: Modifier = Modifier,</b>
+&nbsp;    isSelected: Boolean,
+&nbsp;    onClick: () -&gt; Unit,
+&nbsp;    @DrawableRes icon: Int,
+&nbsp;    @DrawableRes backgroundIcon: Int,
+<b class="nc">&nbsp;    contentDescription: String? = null,</b>
+<b class="nc">&nbsp;    backgroundIconColor: Color = Color.White,</b>
+<b class="nc">&nbsp;    wiggleColor: Color = Color.Blue,</b>
+<b class="nc">&nbsp;    outlineColor: Color = Color.LightGray,</b>
+<b class="nc">&nbsp;    iconSize: Dp = 25.dp,</b>
+<b class="nc">&nbsp;    enterExitAnimationSpec: AnimationSpec&lt;Float&gt; = spring(),</b>
+&nbsp;    wiggleAnimationSpec: AnimationSpec&lt;Float&gt; =
+<b class="nc">&nbsp;        spring(dampingRatio = 0.6f, stiffness = 35f)</b>
+<b class="nc">&nbsp;) {</b>
+&nbsp;
+<b class="nc">&nbsp;    Box(</b>
+<b class="nc">&nbsp;        modifier = modifier</b>
+<b class="nc">&nbsp;            .noRippleClickable {</b>
+<b class="nc">&nbsp;                onClick()</b>
+&nbsp;            }
+&nbsp;    ) {
+&nbsp;
+<b class="nc">&nbsp;        DrawWithBlendMode(</b>
+<b class="nc">&nbsp;            modifier = Modifier</b>
+<b class="nc">&nbsp;                .size(iconSize)</b>
+<b class="nc">&nbsp;                .align(Alignment.Center),</b>
+<b class="nc">&nbsp;            icon = icon,</b>
+<b class="nc">&nbsp;            backgroundIcon = backgroundIcon,</b>
+<b class="nc">&nbsp;            isSelected = isSelected,</b>
+<b class="nc">&nbsp;            wiggleColor = wiggleColor,</b>
+<b class="nc">&nbsp;            backgroundIconColor = backgroundIconColor,</b>
+<b class="nc">&nbsp;            outlineColor = outlineColor,</b>
+<b class="nc">&nbsp;            contentDescription = contentDescription,</b>
+<b class="nc">&nbsp;            enterExitAnimationSpec = enterExitAnimationSpec,</b>
+<b class="nc">&nbsp;            wiggleAnimationSpec = wiggleAnimationSpec,</b>
+<b class="nc">&nbsp;            size = iconSize,</b>
+&nbsp;        )
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;@OptIn(ExperimentalFoundationApi::class)
+&nbsp;@Composable
+&nbsp;fun DrawWithBlendMode(
+&nbsp;    modifier: Modifier,
+&nbsp;    isSelected: Boolean,
+&nbsp;    @DrawableRes icon: Int,
+&nbsp;    @DrawableRes backgroundIcon: Int,
+<b class="nc">&nbsp;    contentDescription: String? = null,</b>
+&nbsp;    wiggleColor: Color,
+&nbsp;    size: Dp,
+&nbsp;    backgroundIconColor: Color,
+&nbsp;    enterExitAnimationSpec: AnimationSpec&lt;Float&gt;,
+&nbsp;    wiggleAnimationSpec: AnimationSpec&lt;Float&gt;,
+&nbsp;    outlineColor: Color,
+<b class="nc">&nbsp;) {</b>
+&nbsp;
+<b class="nc">&nbsp;    val vector = ImageVector.vectorResource(id = icon)</b>
+<b class="nc">&nbsp;    val painter = rememberVectorPainter(image = vector)</b>
+&nbsp;
+<b class="nc">&nbsp;    val backgroundVector = ImageVector.vectorResource(id = backgroundIcon)</b>
+<b class="nc">&nbsp;    val backgroundPainter = rememberVectorPainter(image = backgroundVector)</b>
+&nbsp;
+<b class="nc">&nbsp;    var canvasSize by remember { mutableStateOf(Size.Zero) }</b>
+&nbsp;
+<b class="nc">&nbsp;    val density = LocalDensity.current</b>
+<b class="nc">&nbsp;    val sizePx = remember(size) { size.toPxf(density) }</b>
+&nbsp;
+<b class="nc">&nbsp;    val wiggleButtonParams = animateWiggleButtonAsState(</b>
+<b class="nc">&nbsp;        isSelected = isSelected,</b>
+<b class="nc">&nbsp;        enterExitAnimationSpec = enterExitAnimationSpec,</b>
+<b class="nc">&nbsp;        wiggleAnimationSpec = wiggleAnimationSpec,</b>
+<b class="nc">&nbsp;        maxRadius = sizePx</b>
+&nbsp;    )
+&nbsp;
+<b class="nc">&nbsp;    val offset by remember {</b>
+<b class="nc">&nbsp;        derivedStateOf {</b>
+<b class="nc">&nbsp;            mutableStateOf(</b>
+<b class="nc">&nbsp;                Offset(x = canvasSize.width / 2, y = canvasSize.height)</b>
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    Canvas(</b>
+<b class="nc">&nbsp;        modifier = modifier</b>
+<b class="nc">&nbsp;            .graphicsLayer(</b>
+<b class="nc">&nbsp;                alpha = wiggleButtonParams.value.alpha,</b>
+<b class="nc">&nbsp;                scaleX = wiggleButtonParams.value.scale,</b>
+<b class="nc">&nbsp;                scaleY = wiggleButtonParams.value.scale</b>
+&nbsp;            )
+<b class="nc">&nbsp;            .fillMaxSize()</b>
+<b class="nc">&nbsp;            .onGloballyPositioned { canvasSize = it.size.toSize() },</b>
+<b class="nc">&nbsp;        contentDescription = contentDescription ?: &quot;&quot;</b>
+<b class="nc">&nbsp;    ) {</b>
+&nbsp;
+<b class="nc">&nbsp;        with(backgroundPainter) {</b>
+<b class="nc">&nbsp;            draw(</b>
+<b class="nc">&nbsp;                size = Size(sizePx, sizePx),</b>
+<b class="nc">&nbsp;                colorFilter = ColorFilter.tint(color = backgroundIconColor)</b>
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        drawCircle(</b>
+<b class="nc">&nbsp;            color = wiggleColor,</b>
+<b class="nc">&nbsp;            center = offset.value,</b>
+<b class="nc">&nbsp;            radius = wiggleButtonParams.value.radius,</b>
+<b class="nc">&nbsp;            blendMode = BlendMode.SrcIn</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        with(painter) {</b>
+<b class="nc">&nbsp;            draw(</b>
+<b class="nc">&nbsp;                size = Size(sizePx, sizePx),</b>
+<b class="nc">&nbsp;                colorFilter = ColorFilter.tint(color = outlineColor)</b>
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

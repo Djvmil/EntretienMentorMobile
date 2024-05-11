@@ -9,6 +9,7 @@ import com.djvmil.entretienmentor.core.data.model.auth.RequestResult
 import com.djvmil.entretienmentor.core.data.model.auth.ResponseAuthData
 import com.djvmil.entretienmentor.core.data.repository.AuthRepository
 import com.djvmil.entretienmentor.core.domain.usecase.LoginUseCase
+import com.djvmil.entretienmentor.core.domain.usecase.RegisterUseCase
 import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -28,47 +29,45 @@ class RegisterUseCaseTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @MockK lateinit var authRepository: AuthRepository
-    private lateinit var loginUseCase: LoginUseCase
+    private lateinit var registerUseCase: RegisterUseCase
 
     @Before
     fun setup(){
-        loginUseCase = LoginUseCase(authRepository)
+        registerUseCase = RegisterUseCase(authRepository)
     }
 
     @Test
-    fun test_invoke_success_login_use_case() = runTest{
+    fun test_invoke_success_register_use_case() = runTest{
         //GIVEN
         val expectedDataRequest = FAKE_DATA.fakeAuthRequest
-        coEvery { authRepository.login(expectedDataRequest) } returns flowOf (
+        coEvery { authRepository.register(expectedDataRequest) } returns flowOf (
                         ResultEM.Success(
-                            FAKE_DATA.fakeRequestResult
+                            FAKE_DATA.fakeRequestRegisterResult
                         )
             )
 
         //WHEN
-        val actualResponse = loginUseCase.invoke(expectedDataRequest)
+        val actualResponse = registerUseCase.invoke(expectedDataRequest)
 
         //THEN
         actualResponse.test {
-            Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Success(FAKE_DATA.fakeRequestResult))
+            Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Success(FAKE_DATA.fakeRequestRegisterResult))
             awaitComplete()
         }
     }
 
     @Test
-    fun test_invoke_error_login_use_case() = runTest{
+    fun test_invoke_error_register_use_case() = runTest{
         //GIVEN
         val expectedDataRequest = FAKE_DATA.fakeAuthRequest
-        coEvery {
-            authRepository.login(FAKE_DATA.fakeAuthRequest)
-        } returns flowOf (
-                        ResultEM.Failure(
-                            ErrorEM("error")
-                        )
-                    )
+        coEvery { authRepository.register(expectedDataRequest) } returns flowOf (
+            ResultEM.Failure(
+                ErrorEM("error")
+            )
+        )
 
         //WHEN
-        val actualResponse = loginUseCase.invoke(expectedDataRequest)
+        val actualResponse = registerUseCase.invoke(expectedDataRequest)
 
         //THEN
         actualResponse.test {

@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EMDatabaseSourceImplKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.data</a>
+</div>
+
+<h1>Coverage Summary for Class: EMDatabaseSourceImplKt (com.djvmil.entretienmentor.data)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EMDatabaseSourceImplKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.`data`
+&nbsp;
+&nbsp;import app.cash.sqldelight.TransacterImpl
+&nbsp;import app.cash.sqldelight.db.AfterVersion
+&nbsp;import app.cash.sqldelight.db.QueryResult
+&nbsp;import app.cash.sqldelight.db.SqlDriver
+&nbsp;import app.cash.sqldelight.db.SqlSchema
+&nbsp;import com.djvmil.entretienmentor.EMDatabaseSource
+&nbsp;import com.djvmil.sqldelight.Blog_tableQueries
+&nbsp;import com.djvmil.sqldelight.Community_tableQueries
+&nbsp;import com.djvmil.sqldelight.Interview_tableQueries
+&nbsp;import kotlin.Long
+&nbsp;import kotlin.Unit
+&nbsp;import kotlin.reflect.KClass
+&nbsp;
+&nbsp;internal val KClass&lt;EMDatabaseSource&gt;.schema: SqlSchema&lt;QueryResult.Value&lt;Unit&gt;&gt;
+<b class="fc">&nbsp;  get() = EMDatabaseSourceImpl.Schema</b>
+&nbsp;
+&nbsp;internal fun KClass&lt;EMDatabaseSource&gt;.newInstance(driver: SqlDriver): EMDatabaseSource =
+<b class="fc">&nbsp;    EMDatabaseSourceImpl(driver)</b>
+&nbsp;
+&nbsp;private class EMDatabaseSourceImpl(
+&nbsp;  driver: SqlDriver,
+&nbsp;) : TransacterImpl(driver), EMDatabaseSource {
+&nbsp;  override val blog_tableQueries: Blog_tableQueries = Blog_tableQueries(driver)
+&nbsp;
+&nbsp;  override val community_tableQueries: Community_tableQueries = Community_tableQueries(driver)
+&nbsp;
+&nbsp;  override val interview_tableQueries: Interview_tableQueries = Interview_tableQueries(driver)
+&nbsp;
+&nbsp;  public object Schema : SqlSchema&lt;QueryResult.Value&lt;Unit&gt;&gt; {
+&nbsp;    override val version: Long
+&nbsp;      get() = 1
+&nbsp;
+&nbsp;    override fun create(driver: SqlDriver): QueryResult.Value&lt;Unit&gt; {
+&nbsp;      driver.execute(null, &quot;&quot;&quot;
+&nbsp;          |CREATE TABLE blogTable (
+&nbsp;          |    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+&nbsp;          |    title TEXT NOT NULL,
+&nbsp;          |    content TEXT,
+&nbsp;          |    dateCreated TEXT,
+&nbsp;          |    dateUpdated TEXT
+&nbsp;          |)
+&nbsp;          &quot;&quot;&quot;.trimMargin(), 0)
+&nbsp;      driver.execute(null, &quot;&quot;&quot;
+&nbsp;          |CREATE TABLE communityTable (
+&nbsp;          |    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+&nbsp;          |    name TEXT NOT NULL,
+&nbsp;          |    description TEXT,
+&nbsp;          |    dateCreated TEXT,
+&nbsp;          |    dateUpdated TEXT
+&nbsp;          |)
+&nbsp;          &quot;&quot;&quot;.trimMargin(), 0)
+&nbsp;      driver.execute(null, &quot;&quot;&quot;
+&nbsp;          |CREATE TABLE interviewTable (
+&nbsp;          |    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+&nbsp;          |    title TEXT NOT NULL,
+&nbsp;          |    description TEXT,
+&nbsp;          |    requiredSkills TEXT,
+&nbsp;          |    company TEXT,
+&nbsp;          |    dateCreated TEXT,
+&nbsp;          |    dateUpdated TEXT
+&nbsp;          |)
+&nbsp;          &quot;&quot;&quot;.trimMargin(), 0)
+&nbsp;      return QueryResult.Unit
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun migrate(
+&nbsp;      driver: SqlDriver,
+&nbsp;      oldVersion: Long,
+&nbsp;      newVersion: Long,
+&nbsp;      vararg callbacks: AfterVersion,
+&nbsp;    ): QueryResult.Value&lt;Unit&gt; = QueryResult.Unit
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

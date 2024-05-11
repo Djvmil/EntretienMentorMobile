@@ -1,0 +1,204 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Item</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.dashboard</a>
+</div>
+
+<h1>Coverage Summary for Class: Item (com.djvmil.entretienmentor.feature.ui.dashboard)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Item</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.dashboard
+&nbsp;
+&nbsp;import androidx.annotation.DrawableRes
+&nbsp;import androidx.annotation.StringRes
+&nbsp;import androidx.compose.animation.core.Spring
+&nbsp;import androidx.compose.animation.core.spring
+&nbsp;import androidx.compose.animation.core.tween
+&nbsp;import androidx.compose.runtime.Stable
+&nbsp;import androidx.compose.ui.unit.DpOffset
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import com.djvmil.entretienmentor.feature.R
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.BellColorButton
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.ButtonBackground
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.CalendarAnimation
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.ColorButtonAnimation
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.GearColorButton
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons.PlusColorButton
+&nbsp;
+<b class="nc">&nbsp;@Stable</b>
+&nbsp;data class Item(
+<b class="nc">&nbsp;    @DrawableRes val icon: Int,</b>
+<b class="nc">&nbsp;    var isSelected: Boolean,</b>
+<b class="nc">&nbsp;    @StringRes val description: Int,</b>
+<b class="nc">&nbsp;    val animationType: ColorButtonAnimation = BellColorButton(</b>
+<b class="nc">&nbsp;        tween(500),</b>
+<b class="nc">&nbsp;        background = ButtonBackground(R.drawable.plus)</b>
+&nbsp;    ),
+&nbsp;)
+&nbsp;
+&nbsp;val colorButtons = listOf(
+&nbsp;    Item(
+&nbsp;        icon = R.drawable.outline_home,
+&nbsp;        isSelected = true,
+&nbsp;        description = R.string.Home,
+&nbsp;        animationType = BellColorButton(
+&nbsp;            animationSpec = spring(dampingRatio = 0.7f, stiffness = 20f),
+&nbsp;            background = ButtonBackground(
+&nbsp;                icon = R.drawable.circle_background,
+&nbsp;                offset = DpOffset(2.5.dp, 3.dp)
+&nbsp;            ),
+&nbsp;        )
+&nbsp;    ),
+&nbsp;    Item(
+&nbsp;        icon = R.drawable.outline_bell,
+&nbsp;        isSelected = false,
+&nbsp;        description = R.string.Bell,
+&nbsp;        animationType = BellColorButton(
+&nbsp;            animationSpec = spring(dampingRatio = 0.7f, stiffness = 20f),
+&nbsp;            background = ButtonBackground(
+&nbsp;                icon = R.drawable.rectangle_background,
+&nbsp;                offset = DpOffset(1.dp, 2.dp)
+&nbsp;            ),
+&nbsp;        )
+&nbsp;    ),
+&nbsp;    Item(
+&nbsp;        icon = R.drawable.rounded_rect,
+&nbsp;        isSelected = false,
+&nbsp;        description = R.string.Plus,
+&nbsp;        animationType = PlusColorButton(
+&nbsp;            animationSpec = spring(
+&nbsp;                dampingRatio = 0.3f,
+&nbsp;                stiffness = Spring.StiffnessVeryLow
+&nbsp;            ),
+&nbsp;            background = ButtonBackground(
+&nbsp;                icon = R.drawable.polygon_background,
+&nbsp;                offset = DpOffset(1.6.dp, 2.dp)
+&nbsp;            ),
+&nbsp;        )
+&nbsp;    ),
+&nbsp;    Item(
+&nbsp;        icon = R.drawable.calendar,
+&nbsp;        isSelected = false,
+&nbsp;        description = R.string.Calendar,
+&nbsp;        animationType = CalendarAnimation(
+&nbsp;            animationSpec = spring(
+&nbsp;                dampingRatio = 0.3f,
+&nbsp;                stiffness = Spring.StiffnessVeryLow
+&nbsp;            ),
+&nbsp;            background = ButtonBackground(
+&nbsp;                icon = R.drawable.quadrangle_background,
+&nbsp;                offset = DpOffset(1.dp, 1.5.dp)
+&nbsp;            ),
+&nbsp;        )
+&nbsp;    ),
+&nbsp;    Item(
+&nbsp;        icon = R.drawable.quadrangle_background,
+&nbsp;        isSelected = false,
+&nbsp;        description = R.string.Settings,
+&nbsp;        animationType = GearColorButton(
+&nbsp;            animationSpec = spring(
+&nbsp;                dampingRatio = 0.3f,
+&nbsp;                stiffness = Spring.StiffnessVeryLow
+&nbsp;            ),
+&nbsp;            background = ButtonBackground(
+&nbsp;                icon = R.drawable.quadrangle_background,
+&nbsp;                offset = DpOffset(2.5.dp, 3.dp)
+&nbsp;            ),
+&nbsp;        )
+&nbsp;    )
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

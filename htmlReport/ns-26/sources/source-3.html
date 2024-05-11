@@ -1,0 +1,217 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GraghKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.navigation</a>
+</div>
+
+<h1>Coverage Summary for Class: GraghKt (com.djvmil.entretienmentor.feature.navigation)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GraghKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GraghKt$NavGraph$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">GraghKt$NavGraph$2</td>
+  </tr>
+  <tr>
+    <td class="name">GraghKt$WhenMappings</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/46)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.navigation
+&nbsp;
+&nbsp;import android.util.Log
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.navigation.NavHostController
+&nbsp;import androidx.navigation.compose.NavHost
+&nbsp;import androidx.navigation.compose.currentBackStackEntryAsState
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.AppSettings
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.StepsStarting
+&nbsp;import com.djvmil.entretienmentor.feature.ui.auth.auth.navigation.auth
+&nbsp;import com.djvmil.entretienmentor.feature.ui.auth.forgetpassword.navigation.forgetPassword
+&nbsp;import com.djvmil.entretienmentor.feature.ui.blog.navigation.blog
+&nbsp;import com.djvmil.entretienmentor.feature.ui.chat.navigation.chat
+&nbsp;import com.djvmil.entretienmentor.feature.ui.community.navigation.community
+&nbsp;import com.djvmil.entretienmentor.feature.ui.detail.navigation.detail
+&nbsp;import com.djvmil.entretienmentor.feature.ui.auth.login.navigation.login
+&nbsp;import com.djvmil.entretienmentor.feature.ui.profile.navigation.profile
+&nbsp;import com.djvmil.entretienmentor.feature.ui.auth.register.navigation.register
+&nbsp;import com.djvmil.entretienmentor.feature.ui.home.navigation.home
+&nbsp;import com.djvmil.entretienmentor.feature.ui.onboarding.navigation.onBoarding
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun NavGraph(
+&nbsp;    navController: NavHostController,
+&nbsp;    navActions: NavigationHelpers,
+&nbsp;    appSettings: AppSettings,
+<b class="nc">&nbsp;    modifier: Modifier = Modifier,</b>
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    val startDestination: String = when(appSettings.stepsStarting){</b>
+<b class="nc">&nbsp;        StepsStarting.ON_BOARDING -&gt; { Destinations.ON_BOARDING_ROUTE }</b>
+<b class="nc">&nbsp;        StepsStarting.ON_HOME_USER -&gt; { Destinations.HOME_ROUTE }</b>
+<b class="nc">&nbsp;        StepsStarting.ON_GUEST_PAGE -&gt; { Destinations.HOME_GUEST_ROUTE }</b>
+<b class="nc">&nbsp;        StepsStarting.ON_AUTH_PAGE -&gt; { Destinations.AUTH_ROUTE }</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    Log.e(&quot;NavGraph&quot;, &quot;startDestination: $startDestination &quot;, )</b>
+<b class="nc">&nbsp;    val currentNavBackStackEntry by navController.currentBackStackEntryAsState()</b>
+<b class="nc">&nbsp;    val currentRoute = currentNavBackStackEntry?.destination?.route ?: startDestination</b>
+<b class="nc">&nbsp;    NavHost(</b>
+<b class="nc">&nbsp;        navController = navController,</b>
+<b class="nc">&nbsp;        startDestination = startDestination,</b>
+<b class="nc">&nbsp;        modifier = modifier</b>
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        auth(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        login(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        register(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        forgetPassword(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        home(</b>
+<b class="nc">&nbsp;            navActions = navActions,</b>
+<b class="nc">&nbsp;            isGuest = startDestination == Destinations.HOME_GUEST_ROUTE</b>
+&nbsp;        )
+<b class="nc">&nbsp;        onBoarding(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        detail(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        blog(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        community(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        chat(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+<b class="nc">&nbsp;        profile(</b>
+<b class="nc">&nbsp;            navActions = navActions</b>
+&nbsp;        )
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

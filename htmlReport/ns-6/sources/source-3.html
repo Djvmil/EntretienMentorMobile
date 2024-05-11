@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ResultEM</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.common.model</a>
+</div>
+
+<h1>Coverage Summary for Class: ResultEM (com.djvmil.entretienmentor.core.common.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ResultEM</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ResultEM$Failure</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ResultEM$Loading</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ResultEM$Success</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.common.model
+&nbsp;
+&nbsp;/*
+&nbsp; V = Value
+&nbsp; E = Error
+&nbsp; */
+<b class="fc">&nbsp;sealed class ResultEM&lt;out V, out E&gt; {</b>
+&nbsp;
+<b class="fc">&nbsp;    object Loading : ResultEM&lt;Nothing, Nothing&gt;()</b>
+<b class="fc">&nbsp;    data class Success&lt;out V : Any?&gt;(val value: V) : ResultEM&lt;V, Nothing&gt;()</b>
+<b class="fc">&nbsp;    data class Failure&lt;out E : Any?&gt;(val error: E) : ResultEM&lt;Nothing, E&gt;()</b>
+&nbsp;}
+&nbsp;
+&nbsp;inline fun &lt;V, reified E : Any?&gt; ResultEM&lt;V, E&gt;.fold(
+&nbsp;    loading: (Unit) -&gt; Unit,
+&nbsp;    success: (V) -&gt; Unit,
+&nbsp;    failure: (E) -&gt; Unit
+&nbsp;) =
+&nbsp;    when (this) {
+&nbsp;        is ResultEM.Loading -&gt; loading(Unit)
+&nbsp;        is ResultEM.Success -&gt; success(value)
+&nbsp;        is ResultEM.Failure -&gt; failure(error)
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;inline fun &lt;V, U, reified E : Any?&gt; ResultEM&lt;V, E&gt;.map(transform: (V) -&gt; U): ResultEM&lt;U, E&gt; {
+&nbsp;
+&nbsp;    return when (this) {
+&nbsp;        ResultEM.Loading -&gt; ResultEM.Loading
+&nbsp;        is ResultEM.Success -&gt; ResultEM.Success(transform(value))
+&nbsp;        is ResultEM.Failure -&gt; ResultEM.Failure(error)
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

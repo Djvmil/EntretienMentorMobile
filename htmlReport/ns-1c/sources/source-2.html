@@ -1,0 +1,302 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Parabolic</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.balltrajectory</a>
+</div>
+
+<h1>Coverage Summary for Class: Parabolic (com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.balltrajectory)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Parabolic</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/131)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Parabolic$animateAsState$2$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Parabolic$animateAsState$3$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Parabolic$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/157)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.balltrajectory
+&nbsp;
+&nbsp;import android.graphics.Path
+&nbsp;import android.graphics.PathMeasure
+&nbsp;import androidx.compose.animation.core.Animatable
+&nbsp;import androidx.compose.animation.core.FiniteAnimationSpec
+&nbsp;import androidx.compose.animation.core.spring
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.LaunchedEffect
+&nbsp;import androidx.compose.runtime.Stable
+&nbsp;import androidx.compose.runtime.State
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.produceState
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.geometry.isUnspecified
+&nbsp;import androidx.compose.ui.platform.LocalDensity
+&nbsp;import androidx.compose.ui.unit.Dp
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.ballSize
+&nbsp;
+&nbsp;/**
+&nbsp; *Describing parabola ball animation
+&nbsp; *@param [animationSpec] animation spec of parabolic ball trajectory
+&nbsp; *@param [maxHeight] max height of parabola trajectory
+&nbsp; */
+&nbsp;
+<b class="nc">&nbsp;@Stable</b>
+<b class="nc">&nbsp;class Parabolic(</b>
+<b class="nc">&nbsp;    private val animationSpec: FiniteAnimationSpec&lt;Float&gt; = spring(),</b>
+<b class="nc">&nbsp;    private val maxHeight: Dp = 100.dp,</b>
+&nbsp;) : BallAnimation {
+&nbsp;    @Composable
+<b class="nc">&nbsp;    override fun animateAsState(targetOffset: Offset): State&lt;BallAnimInfo&gt; {</b>
+<b class="nc">&nbsp;        if (targetOffset.isUnspecified) {</b>
+<b class="nc">&nbsp;            return remember { mutableStateOf(BallAnimInfo()) }</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        var from by remember { mutableStateOf(targetOffset) }</b>
+<b class="nc">&nbsp;        var to by remember { mutableStateOf(targetOffset) }</b>
+<b class="nc">&nbsp;        val fraction = remember { Animatable(0f) }</b>
+&nbsp;
+<b class="nc">&nbsp;        val path = remember { Path() }</b>
+<b class="nc">&nbsp;        val pathMeasurer = remember { PathMeasure() }</b>
+<b class="nc">&nbsp;        val pathLength = remember { mutableStateOf(0f) }</b>
+<b class="nc">&nbsp;        val pos = remember { floatArrayOf(Float.MAX_VALUE, Float.MAX_VALUE) }</b>
+<b class="nc">&nbsp;        val tan = remember { floatArrayOf(0f, 0f) }</b>
+&nbsp;
+<b class="nc">&nbsp;        val density = LocalDensity.current</b>
+<b class="nc">&nbsp;        val maxHeightPx = remember(maxHeight) { maxHeight.toPxf(density) }</b>
+&nbsp;
+&nbsp;        fun measurePosition() {
+<b class="nc">&nbsp;            pathMeasurer.getPosTan(pathLength.value * fraction.value, pos, tan)</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        LaunchedEffect(targetOffset) {</b>
+<b class="nc">&nbsp;            var height = if (to != targetOffset) {</b>
+<b class="nc">&nbsp;                maxHeightPx</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                startMinHeight</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (isNotRunning(fraction.value)) {</b>
+<b class="nc">&nbsp;                from = to</b>
+<b class="nc">&nbsp;                to = targetOffset</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                measurePosition()</b>
+<b class="nc">&nbsp;                from = Offset(x = pos[0], y = pos[1])</b>
+<b class="nc">&nbsp;                to = targetOffset</b>
+<b class="nc">&nbsp;                height = maxHeightPx + pos[1]</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            path.createParabolaTrajectory(from = from, to = to, height = height)</b>
+&nbsp;
+<b class="nc">&nbsp;            pathMeasurer.setPath(path, false)</b>
+<b class="nc">&nbsp;            pathLength.value = pathMeasurer.length</b>
+&nbsp;
+<b class="nc">&nbsp;            fraction.snapTo(0f)</b>
+<b class="nc">&nbsp;            fraction.animateTo(1f, animationSpec)</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        val verticalOffset = remember { 2.dp.toPxf(density) }</b>
+<b class="nc">&nbsp;        val ballSizePx = remember { ballSize.toPxf(density) }</b>
+&nbsp;
+<b class="nc">&nbsp;        return produceState(</b>
+<b class="nc">&nbsp;            initialValue = BallAnimInfo(),</b>
+<b class="nc">&nbsp;            key1 = pos,</b>
+<b class="nc">&nbsp;            key2 = ballSizePx,</b>
+<b class="nc">&nbsp;            key3 = fraction.value,</b>
+<b class="nc">&nbsp;        ) {</b>
+<b class="nc">&nbsp;            measurePosition()</b>
+<b class="nc">&nbsp;            if (pos[0] == Float.MAX_VALUE) {</b>
+<b class="nc">&nbsp;                BallAnimInfo()</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                this.value = this.value.copy(</b>
+<b class="nc">&nbsp;                    offset = calculateNewOffset(</b>
+<b class="nc">&nbsp;                        pos,</b>
+<b class="nc">&nbsp;                        ballSizePx,</b>
+<b class="nc">&nbsp;                        verticalOffset</b>
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun Path.createParabolaTrajectory(from: Offset, to: Offset, height: Float) {
+<b class="nc">&nbsp;        reset()</b>
+<b class="nc">&nbsp;        moveTo(from.x, from.y)</b>
+<b class="nc">&nbsp;        quadTo(</b>
+<b class="nc">&nbsp;            (from.x + to.x) / 2f,</b>
+<b class="nc">&nbsp;            from.y - height,</b>
+<b class="nc">&nbsp;            to.x,</b>
+<b class="nc">&nbsp;            to.y</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun calculateNewOffset(
+&nbsp;        pos: FloatArray,
+&nbsp;        ballSizePx: Float,
+&nbsp;        verticalOffset: Float
+<b class="nc">&nbsp;    ) = Offset(</b>
+<b class="nc">&nbsp;        x = pos[0] - (ballSizePx / 2),</b>
+<b class="nc">&nbsp;        y = pos[1] - verticalOffset</b>
+&nbsp;    )
+&nbsp;
+<b class="nc">&nbsp;    private fun isNotRunning(fraction: Float) = fraction == 0f || fraction == 1f</b>
+&nbsp;
+<b class="nc">&nbsp;    companion object {</b>
+&nbsp;        const val startMinHeight = -50f
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

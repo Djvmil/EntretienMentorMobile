@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TextFieldNotEmptyStateKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.auth.login.model</a>
+</div>
+
+<h1>Coverage Summary for Class: TextFieldNotEmptyStateKt (com.djvmil.entretienmentor.feature.ui.auth.login.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TextFieldNotEmptyStateKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.auth.login.model
+&nbsp;
+&nbsp;class TextFieldNotEmptyState(val value: String? = null, override val label: String? = null) :
+&nbsp;    TextFieldState(validator = ::isValueValid, errorFor = ::validationError) {
+&nbsp;    init {
+&nbsp;        value?.let {
+&nbsp;            text = it
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+&nbsp;/**
+&nbsp; * Returns an error to be displayed or null if no error was found
+&nbsp; */
+&nbsp;private fun validationError(value: String): String {
+<b class="nc">&nbsp;    return &quot;Required value&quot;</b>
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;private fun isValueValid(value: String): Boolean {
+<b class="nc">&nbsp;    return value.isNotBlank()</b>
+&nbsp;}
+&nbsp;
+<b class="nc">&nbsp;val TextFieldNotEmptyStateSaver = textFieldStateSaver(TextFieldNotEmptyState())</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ApiOperationKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.data.model</a>
+</div>
+
+<h1>Coverage Summary for Class: ApiOperationKt (com.djvmil.entretienmentor.core.data.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ApiOperationKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90,9%
+  </span>
+  <span class="absValue">
+    (10/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.data.model
+&nbsp;
+&nbsp;import com.djvmil.entretienmentor.core.data.model.auth.RequestExceptionResult
+&nbsp;import kotlinx.serialization.Serializable
+&nbsp;
+&nbsp;@Serializable
+&nbsp;sealed interface ApiOperation&lt;T&gt; {
+&nbsp;    data class Success&lt;T&gt;(val data: T) : ApiOperation&lt;T&gt;
+&nbsp;    data class Failure&lt;T&gt;(val exception: RequestExceptionResult) : ApiOperation&lt;T&gt;
+&nbsp;}
+&nbsp;
+&nbsp;inline fun &lt;T, R&gt; ApiOperation&lt;T&gt;.mapSuccess(transform: (T) -&gt; R): ApiOperation&lt;R&gt; {
+<b class="fc">&nbsp;    return when (this) {</b>
+<b class="fc">&nbsp;        is ApiOperation.Success -&gt; ApiOperation.Success(transform(data))</b>
+<b class="nc">&nbsp;        is ApiOperation.Failure -&gt; ApiOperation.Failure(exception)</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;inline fun &lt;T&gt; ApiOperation&lt;T&gt;.onFailure(block: (RequestExceptionResult) -&gt; Unit): ApiOperation&lt;T&gt; {
+<b class="fc">&nbsp;    if (this is ApiOperation.Failure) block(exception)</b>
+<b class="fc">&nbsp;    return this</b>
+&nbsp;}
+&nbsp;
+&nbsp;inline fun &lt;T&gt; ApiOperation&lt;T&gt;.onSuccess(block: (T) -&gt; Unit): ApiOperation&lt;T&gt; {
+<b class="fc">&nbsp;    if (this is ApiOperation.Success) block(data)</b>
+<b class="fc">&nbsp;    return this</b>
+&nbsp;}
+&nbsp;
+&nbsp;inline fun &lt;T&gt; safeApiCall(apiCall: () -&gt; T): ApiOperation&lt;T&gt; {
+<b class="fc">&nbsp;    return try {</b>
+<b class="fc">&nbsp;        ApiOperation.Success(data = apiCall())</b>
+<b class="fc">&nbsp;    } catch (e: RequestExceptionResult) {</b>
+<b class="fc">&nbsp;        ApiOperation.Failure(exception = e)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

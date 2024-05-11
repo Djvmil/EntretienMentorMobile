@@ -1,0 +1,332 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CustumTextFieldKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: CustumTextFieldKt (com.djvmil.entretienmentor.feature.ui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CustumTextFieldKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/50)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$2$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$4</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$5</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$leadingIcon$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustomTextField$trailingIcon$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CustumTextFieldKt$CustumTextFieldPreview$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/60)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui
+&nbsp;
+&nbsp;import androidx.annotation.DrawableRes
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.shape.RoundedCornerShape
+&nbsp;import androidx.compose.foundation.text.KeyboardActions
+&nbsp;import androidx.compose.foundation.text.KeyboardOptions
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.material3.MaterialTheme
+&nbsp;import androidx.compose.material3.OutlinedTextField
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.saveable.rememberSaveable
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.focus.onFocusChanged
+&nbsp;import androidx.compose.ui.res.painterResource
+&nbsp;import androidx.compose.ui.text.font.Font
+&nbsp;import androidx.compose.ui.text.font.FontFamily
+&nbsp;import androidx.compose.ui.text.input.ImeAction
+&nbsp;import androidx.compose.ui.text.input.KeyboardType
+&nbsp;import androidx.compose.ui.text.style.TextAlign
+&nbsp;import androidx.compose.ui.tooling.preview.Preview
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import com.djvmil.entretienmentor.feature.R
+&nbsp;import com.djvmil.entretienmentor.feature.ui.auth.login.model.TextFieldState
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun CustomTextField(
+<b class="nc">&nbsp;    modifier: Modifier = Modifier,</b>
+&nbsp;    textFieldState: TextFieldState,
+<b class="nc">&nbsp;    shape: RoundedCornerShape = RoundedCornerShape(10.dp),</b>
+<b class="nc">&nbsp;    readOnly: Boolean = false,</b>
+<b class="nc">&nbsp;    keyboardActions: KeyboardActions = KeyboardActions.Default,</b>
+<b class="nc">&nbsp;    keyboardOptions: KeyboardOptions = KeyboardOptions(</b>
+<b class="nc">&nbsp;        imeAction = ImeAction.Next,</b>
+<b class="nc">&nbsp;        keyboardType = KeyboardType.Text</b>
+&nbsp;    ),
+<b class="nc">&nbsp;    @DrawableRes leadingIconId: Int? = null,</b>
+<b class="nc">&nbsp;    @DrawableRes trailingIconId: Int? = null,</b>
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    val leadingIcon: (@Composable () -&gt; Unit)? = if (leadingIconId != null) {</b>
+<b class="nc">&nbsp;        { Icon(painter = painterResource(id = leadingIconId), &quot;Icon&quot;) }</b>
+<b class="nc">&nbsp;    } else null</b>
+&nbsp;
+<b class="nc">&nbsp;    val trailingIcon: (@Composable () -&gt; Unit)? = if (trailingIconId != null) {</b>
+<b class="nc">&nbsp;        { Icon(painter = painterResource(id = trailingIconId), &quot;Icon&quot;) }</b>
+<b class="nc">&nbsp;    } else null</b>
+&nbsp;
+<b class="nc">&nbsp;    OutlinedTextField(</b>
+<b class="nc">&nbsp;        modifier = modifier</b>
+<b class="nc">&nbsp;            .padding(vertical = 2.dp)</b>
+<b class="nc">&nbsp;            .fillMaxWidth()</b>
+<b class="nc">&nbsp;            .onFocusChanged { focusState -&gt;</b>
+<b class="nc">&nbsp;                textFieldState.onFocusChange(focusState.isFocused)</b>
+<b class="nc">&nbsp;                if (!focusState.isFocused) {</b>
+<b class="nc">&nbsp;                    textFieldState.enableShowErrors()</b>
+&nbsp;                }
+&nbsp;            },
+<b class="nc">&nbsp;        shape = shape,</b>
+<b class="nc">&nbsp;        label = { textFieldState.label?.let { Text(text = it) } },</b>
+<b class="nc">&nbsp;        value = textFieldState.text,</b>
+<b class="nc">&nbsp;        supportingText = { textFieldState.getError()?.let { Text(text = it) } },</b>
+<b class="nc">&nbsp;        onValueChange = {</b>
+<b class="nc">&nbsp;            textFieldState.text = it</b>
+&nbsp;        },
+<b class="nc">&nbsp;        readOnly = readOnly,</b>
+<b class="nc">&nbsp;        singleLine = true,</b>
+<b class="nc">&nbsp;        keyboardOptions = keyboardOptions,</b>
+<b class="nc">&nbsp;        keyboardActions = keyboardActions,</b>
+<b class="nc">&nbsp;        isError = textFieldState.showErrors(),</b>
+<b class="nc">&nbsp;        trailingIcon = trailingIcon,</b>
+<b class="nc">&nbsp;        leadingIcon = leadingIcon,</b>
+&nbsp;    )
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;
+&nbsp;@Preview
+&nbsp;@Composable
+<b class="nc">&nbsp;fun CustumTextFieldPreview(){</b>
+&nbsp;/*
+&nbsp;    Column {
+&nbsp;        CustumTextField(
+&nbsp;            modifier = Modifier,
+&nbsp;            value = &quot;&quot;
+&nbsp;        ){}
+&nbsp;        CustumTextField(
+&nbsp;            modifier = Modifier,
+&nbsp;            value = &quot;&quot;
+&nbsp;        ){}
+&nbsp;        CustumTextField(
+&nbsp;            modifier = Modifier,
+&nbsp;            value = &quot;&quot;
+&nbsp;        ){}
+&nbsp;    }*/
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

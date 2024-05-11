@@ -19,6 +19,7 @@ import org.junit.Test
 class LoginUseCaseTest {
     @get:Rule
     val mockkRule = MockKRule(this)
+
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 

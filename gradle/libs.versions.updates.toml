@@ -1,0 +1,78 @@
+# Version catalog updates generated at 2024-05-11T22:28:54.248376
+#
+# Contents of this file will be applied to libs.versions.toml when running versionCatalogApplyUpdates.
+#
+# Comments will not be applied to the version catalog when updating.
+# To prevent a version upgrade, comment out the entry or remove it.
+#
+[libraries]
+# From version 1.0.1 --> 1.1.0-alpha13
+androidx-compose-constraintlayout = "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13"
+# From version 1.13.1 --> 1.14.0-alpha01
+androidx-core-ktx = "androidx.core:core-ktx:1.14.0-alpha01"
+# From version 1.0.1 --> 1.2.0-alpha01
+androidx-core-splashscreen = "androidx.core:core-splashscreen:1.2.0-alpha01"
+# From version 2.7.0 --> 2.8.0-rc01
+androidx-lifecycle-runtimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:2.8.0-rc01"
+# From version 1.6.7 --> 1.7.0-alpha08
+androidx-material-icons-extended = "androidx.compose.material:material-icons-extended:1.7.0-alpha08"
+# From version 2.7.7 --> 2.8.0-alpha08
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.8.0-alpha08"
+# From version 2.7.7 --> 2.8.0-alpha08
+androidx-navigation-testing = "androidx.navigation:navigation-testing:2.8.0-alpha08"
+# From version 1.5.0 --> 1.6.0-alpha04
+androidx-test-rules = "androidx.test:rules:1.6.0-alpha04"
+# From version 3.5.6 --> 3.6.0-wasm-alpha2
+koin-android = "io.insert-koin:koin-android:3.6.0-wasm-alpha2"
+# From version 3.5.6 --> 3.6.0-wasm-alpha2
+koin-compose = "io.insert-koin:koin-androidx-compose:3.6.0-wasm-alpha2"
+# From version 3.5.6 --> 3.6.0-wasm-alpha2
+koin-compose-navigation = "io.insert-koin:koin-androidx-compose-navigation:3.6.0-wasm-alpha2"
+# From version 3.5.6 --> 3.6.0-wasm-alpha2
+koin-test-junit4 = "io.insert-koin:koin-test-junit4:3.6.0-wasm-alpha2"
+# From version 3.5.6 --> 3.6.0-wasm-alpha2
+koin-workmanager = "io.insert-koin:koin-androidx-workmanager:3.6.0-wasm-alpha2"
+# From version 1.8.0 --> 1.8.1
+kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1"
+# From version 0.5.0 --> 0.6.0-RC.2
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0-RC.2"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-android = "io.ktor:ktor-client-android:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-client-auth = "io.ktor:ktor-client-auth:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-client-mock = "io.ktor:ktor-client-mock:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-core = "io.ktor:ktor-client-core:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-logging = "io.ktor:ktor-client-logging:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-negotiation = "io.ktor:ktor-client-content-negotiation:3.0.0-beta-1"
+# From version 2.3.7 --> 3.0.0-beta-1
+ktor-serialization = "io.ktor:ktor-serialization-kotlinx-json:3.0.0-beta-1"
+# From version 1.4.7 --> 1.5.6
+logback-classic = "ch.qos.logback:logback-classic:1.5.6"
+# From version 1.11.0 --> 1.13.0-alpha02
+material = "com.google.android.material:material:1.13.0-alpha02"
+# From version 1.13.8 --> 1.13.10
+mockk = "io.mockk:mockk:1.13.10"
+# From version 6.19.0 --> 6.25.0
+spotless-plugin-gradle = "com.diffplug.spotless:spotless-plugin-gradle:6.25.0"
+# From version 1.8.0 --> 1.13.0
+tink-android = "com.google.crypto.tink:tink-android:1.13.0"
+
+[plugins]
+# From version 8.3.2 --> 8.5.0-beta01
+android-application = "com.android.application:8.5.0-beta01"
+# From version 8.3.2 --> 8.5.0-beta01
+android-library = "com.android.library:8.5.0-beta01"
+# From version 8.3.2 --> 8.5.0-beta01
+android-test = "com.android.test:8.5.0-beta01"
+# From version 0.4.3 --> 0.5.0
+dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
+# From version 1.9.23 --> 2.0.0-RC3
+kotlin-serialization = "org.jetbrains.kotlin.plugin.serialization:2.0.0-RC3"
+# From version 1.9.22-1.0.18 --> 2.0.0-RC2-1.0.20
+ksp = "com.google.devtools.ksp:2.0.0-RC2-1.0.20"
+# From version 6.19.0 --> 6.25.0
+spotless = "com.diffplug.spotless:6.25.0"

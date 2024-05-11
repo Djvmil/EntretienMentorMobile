@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ShapeCornerRadius</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape</a>
+</div>
+
+<h1>Coverage Summary for Class: ShapeCornerRadius (com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShapeCornerRadius</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape
+&nbsp;
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.State
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Shape
+&nbsp;import androidx.compose.ui.unit.Dp
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
+&nbsp;
+&nbsp;/**
+&nbsp; * defining indent animation, that is above selected item.
+&nbsp; */
+&nbsp;
+&nbsp;interface IndentAnimation {
+&nbsp;
+&nbsp;    /**
+&nbsp;     *@param [targetOffset] target offset
+&nbsp;     *@param [shapeCornerRadius] corner radius of the navBar layout
+&nbsp;     */
+&nbsp;    @Composable
+&nbsp;    fun animateIndentShapeAsState(
+&nbsp;        targetOffset: Offset,
+&nbsp;        shapeCornerRadius: ShapeCornerRadius
+&nbsp;    ): State&lt;Shape&gt;
+&nbsp;}
+&nbsp;
+<b class="nc">&nbsp;data class ShapeCornerRadius(</b>
+<b class="nc">&nbsp;    val topLeft: Float,</b>
+<b class="nc">&nbsp;    val topRight: Float,</b>
+<b class="nc">&nbsp;    val bottomRight: Float,</b>
+<b class="nc">&nbsp;    val bottomLeft: Float,</b>
+&nbsp;)
+&nbsp;
+&nbsp;fun shapeCornerRadius(cornerRadius: Float) =
+&nbsp;    ShapeCornerRadius(
+&nbsp;        topLeft = cornerRadius,
+&nbsp;        topRight = cornerRadius,
+&nbsp;        bottomRight = cornerRadius,
+&nbsp;        bottomLeft = cornerRadius
+&nbsp;    )
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun shapeCornerRadius(cornerRadius: Dp) =
+&nbsp;    ShapeCornerRadius(
+&nbsp;        topLeft = cornerRadius.toPxf(),
+&nbsp;        topRight = cornerRadius.toPxf(),
+&nbsp;        bottomRight = cornerRadius.toPxf(),
+&nbsp;        bottomLeft = cornerRadius.toPxf()
+&nbsp;    )
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun shapeCornerRadius(
+&nbsp;    topLeft: Dp,
+&nbsp;    topRight: Dp,
+&nbsp;    bottomRight: Dp,
+&nbsp;    bottomLeft: Dp
+&nbsp;) = ShapeCornerRadius(
+&nbsp;    topLeft = topLeft.toPxf(),
+&nbsp;    topRight = topRight.toPxf(),
+&nbsp;    bottomRight = bottomRight.toPxf(),
+&nbsp;    bottomLeft = bottomLeft.toPxf()
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

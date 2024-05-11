@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IndentAnimationKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape</a>
+</div>
+
+<h1>Coverage Summary for Class: IndentAnimationKt (com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IndentAnimationKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape
+&nbsp;
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.State
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Shape
+&nbsp;import androidx.compose.ui.unit.Dp
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
+&nbsp;
+&nbsp;/**
+&nbsp; * defining indent animation, that is above selected item.
+&nbsp; */
+&nbsp;
+&nbsp;interface IndentAnimation {
+&nbsp;
+&nbsp;    /**
+&nbsp;     *@param [targetOffset] target offset
+&nbsp;     *@param [shapeCornerRadius] corner radius of the navBar layout
+&nbsp;     */
+&nbsp;    @Composable
+&nbsp;    fun animateIndentShapeAsState(
+&nbsp;        targetOffset: Offset,
+&nbsp;        shapeCornerRadius: ShapeCornerRadius
+&nbsp;    ): State&lt;Shape&gt;
+&nbsp;}
+&nbsp;
+&nbsp;data class ShapeCornerRadius(
+&nbsp;    val topLeft: Float,
+&nbsp;    val topRight: Float,
+&nbsp;    val bottomRight: Float,
+&nbsp;    val bottomLeft: Float,
+&nbsp;)
+&nbsp;
+&nbsp;fun shapeCornerRadius(cornerRadius: Float) =
+<b class="nc">&nbsp;    ShapeCornerRadius(</b>
+<b class="nc">&nbsp;        topLeft = cornerRadius,</b>
+<b class="nc">&nbsp;        topRight = cornerRadius,</b>
+<b class="nc">&nbsp;        bottomRight = cornerRadius,</b>
+<b class="nc">&nbsp;        bottomLeft = cornerRadius</b>
+&nbsp;    )
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun shapeCornerRadius(cornerRadius: Dp) =
+<b class="nc">&nbsp;    ShapeCornerRadius(</b>
+<b class="nc">&nbsp;        topLeft = cornerRadius.toPxf(),</b>
+<b class="nc">&nbsp;        topRight = cornerRadius.toPxf(),</b>
+<b class="nc">&nbsp;        bottomRight = cornerRadius.toPxf(),</b>
+<b class="nc">&nbsp;        bottomLeft = cornerRadius.toPxf()</b>
+&nbsp;    )
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun shapeCornerRadius(
+&nbsp;    topLeft: Dp,
+&nbsp;    topRight: Dp,
+&nbsp;    bottomRight: Dp,
+&nbsp;    bottomLeft: Dp
+<b class="nc">&nbsp;) = ShapeCornerRadius(</b>
+<b class="nc">&nbsp;    topLeft = topLeft.toPxf(),</b>
+<b class="nc">&nbsp;    topRight = topRight.toPxf(),</b>
+<b class="nc">&nbsp;    bottomRight = bottomRight.toPxf(),</b>
+<b class="nc">&nbsp;    bottomLeft = bottomLeft.toPxf()</b>
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

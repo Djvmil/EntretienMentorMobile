@@ -1,0 +1,293 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MainActivityKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: MainActivityKt (com.djvmil.entretienmentor.ui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainActivityKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MainActivityKt$WhenMappings</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.ui
+&nbsp;
+&nbsp;import android.graphics.Color
+&nbsp;import android.os.Bundle
+&nbsp;import android.util.Log
+&nbsp;import androidx.activity.ComponentActivity
+&nbsp;import androidx.activity.SystemBarStyle
+&nbsp;import androidx.activity.compose.setContent
+&nbsp;import androidx.activity.enableEdgeToEdge
+&nbsp;import androidx.compose.foundation.isSystemInDarkTheme
+&nbsp;import androidx.compose.material3.SnackbarDuration
+&nbsp;import androidx.compose.material3.SnackbarHostState
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.DisposableEffect
+&nbsp;import androidx.compose.runtime.LaunchedEffect
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.res.stringResource
+&nbsp;import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+&nbsp;import androidx.core.view.WindowCompat
+&nbsp;import androidx.lifecycle.Lifecycle
+&nbsp;import androidx.lifecycle.compose.collectAsStateWithLifecycle
+&nbsp;import androidx.lifecycle.lifecycleScope
+&nbsp;import androidx.lifecycle.repeatOnLifecycle
+&nbsp;import com.djvmil.entretienmentor.R
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.AppSettings
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.AppTheme
+&nbsp;import com.djvmil.entretienmentor.feature.ui.ScreenUiState
+&nbsp;import com.djvmil.entretienmentor.feature.ui.dashboard.DashboardScreen
+&nbsp;import kotlinx.coroutines.flow.collect
+&nbsp;import kotlinx.coroutines.flow.onEach
+&nbsp;import kotlinx.coroutines.launch
+&nbsp;import org.koin.androidx.viewmodel.ext.android.viewModel
+&nbsp;
+&nbsp;class MainActivity : ComponentActivity() {
+&nbsp;
+&nbsp;    private val viewModel: MainActivityViewModel by viewModel()
+&nbsp;
+&nbsp;    override fun onCreate(savedInstanceState: Bundle?) {
+&nbsp;        val splashScreen = installSplashScreen()
+&nbsp;        super.onCreate(savedInstanceState)
+&nbsp;
+&nbsp;        var uiState: ScreenUiState&lt;AppSettings?&gt; by mutableStateOf(ScreenUiState.Loading)
+&nbsp;
+&nbsp;        // Update the uiState
+&nbsp;        lifecycleScope.launch {
+&nbsp;            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+&nbsp;                viewModel.uiState
+&nbsp;                    .onEach {
+&nbsp;                        Log.e(&quot;MainActivity&quot;, &quot;onCreate: appSettings $it&quot; )
+&nbsp;                        uiState = it
+&nbsp;                    }.collect()
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Keep the splash screen on-screen until the UI state is loaded. This condition is
+&nbsp;        // evaluated each time the app needs to be redrawn so it should be fast to avoid blocking
+&nbsp;        // the UI.
+&nbsp;        splashScreen.setKeepOnScreenCondition {
+&nbsp;            when (uiState) {
+&nbsp;                ScreenUiState.Loading -&gt; true
+&nbsp;                is ScreenUiState.Success -&gt; false
+&nbsp;                else -&gt; true
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Turn off the decor fitting system windows, which allows us to handle insets,
+&nbsp;        // including IME animations, and go edge-to-edge
+&nbsp;        // This also sets up the initial system bar style based on the platform theme
+&nbsp;       // enableEdgeToEdge()
+&nbsp;
+&nbsp;        // Turn off the decor fitting system windows, which allows us to handle insets,
+&nbsp;        // including IME animations
+&nbsp;       // WindowCompat.setDecorFitsSystemWindows(window, false)
+&nbsp;
+&nbsp;        setContent {
+&nbsp;            val darkTheme = shouldUseDarkTheme(uiState)
+&nbsp;            val androidTheme = shouldUseAndroidTheme(uiState)
+&nbsp;
+&nbsp;            val snackbarHostState = remember { SnackbarHostState() }
+&nbsp;
+&nbsp;            val isOnline by viewModel.networkMonitor.collectAsStateWithLifecycle(false)
+&nbsp;
+&nbsp;            // If user is not connected to the internet show a snack bar to inform them.
+&nbsp;            val notConnectedMessage = stringResource(R.string.not_connected)
+&nbsp;            LaunchedEffect(isOnline) {
+&nbsp;                Log.e(&quot;MainActivity&quot;, &quot;onCreate: isOnline = $isOnline &quot;, )
+&nbsp;                if (!isOnline) {
+&nbsp;                    snackbarHostState.showSnackbar(
+&nbsp;                        message = notConnectedMessage,
+&nbsp;                        duration = SnackbarDuration.Indefinite,
+&nbsp;                    )
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            // Update the edge to edge configuration to match the theme
+&nbsp;            // This is the same parameters as the default enableEdgeToEdge call, but we manually
+&nbsp;            // resolve whether or not to show dark theme using uiState, since it can be different
+&nbsp;            // than the configuration&#39;s dark theme value based on the user preference.
+&nbsp;           /* DisposableEffect(darkTheme) {
+&nbsp;                enableEdgeToEdge(
+&nbsp;                    statusBarStyle = SystemBarStyle.auto(
+&nbsp;                        Color.TRANSPARENT,
+&nbsp;                        Color.TRANSPARENT,
+&nbsp;                    ) { darkTheme },
+&nbsp;                    navigationBarStyle = SystemBarStyle.auto(
+&nbsp;                        lightScrim,
+&nbsp;                        darkScrim,
+&nbsp;                    ) { darkTheme },
+&nbsp;                )
+&nbsp;                onDispose {}
+&nbsp;            }*/
+&nbsp;
+&nbsp;            when(val result = uiState){
+&nbsp;                is ScreenUiState.Success -&gt; {
+&nbsp;                    result.data?.let {
+&nbsp;                        DashboardScreen(
+&nbsp;                            darkTheme = darkTheme,
+&nbsp;                            androidTheme = androidTheme,
+&nbsp;                            appSettings = it,
+&nbsp;                            snackbarHostState,
+&nbsp;                        )
+&nbsp;                    }
+&nbsp;                }
+&nbsp;                else -&gt; Log.i(&quot;MainActivity&quot;, &quot;onCreate appSettings: ${result.valueOrNull}&quot; )
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;/**
+&nbsp; * Returns `true` if the Android theme should be used, as a function of the [uiState].
+&nbsp; */
+&nbsp;@Composable
+&nbsp;private fun shouldUseAndroidTheme(
+&nbsp;    uiState: ScreenUiState&lt;AppSettings?&gt;,
+<b class="nc">&nbsp;): Boolean = when (uiState) {</b>
+<b class="nc">&nbsp;    ScreenUiState.Loading -&gt; false</b>
+<b class="nc">&nbsp;    is ScreenUiState.Success -&gt; when (uiState.data?.theme) {</b>
+<b class="nc">&nbsp;        AppTheme.default() -&gt; false</b>
+<b class="nc">&nbsp;        else -&gt; true</b>
+&nbsp;    }
+<b class="nc">&nbsp;    else -&gt; false</b>
+&nbsp;}
+&nbsp;
+&nbsp;/**
+&nbsp; * Returns `true` if dark theme should be used, as a function of the [uiState] and the
+&nbsp; * current system context.
+&nbsp; */
+&nbsp;@Composable
+&nbsp;private fun shouldUseDarkTheme(
+&nbsp;    uiState: ScreenUiState&lt;AppSettings?&gt;,
+<b class="nc">&nbsp;): Boolean = when (uiState) {</b>
+<b class="nc">&nbsp;    ScreenUiState.Loading -&gt; isSystemInDarkTheme()</b>
+<b class="nc">&nbsp;    is ScreenUiState.Success -&gt; when (uiState.data?.theme) {</b>
+<b class="nc">&nbsp;        AppTheme.FollowSystem -&gt; isSystemInDarkTheme()</b>
+<b class="nc">&nbsp;        AppTheme.Light -&gt; false</b>
+<b class="nc">&nbsp;        AppTheme.Dark -&gt; true</b>
+<b class="nc">&nbsp;        else -&gt; isSystemInDarkTheme()</b>
+&nbsp;    }
+<b class="nc">&nbsp;    else -&gt; isSystemInDarkTheme()</b>
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * The default light scrim, as defined by androidx and the platform:
+&nbsp; * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
+&nbsp; */
+<b class="nc">&nbsp;private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)</b>
+&nbsp;
+&nbsp;/**
+&nbsp; * The default dark scrim, as defined by androidx and the platform:
+&nbsp; * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
+&nbsp; */
+<b class="nc">&nbsp;private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

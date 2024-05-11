@@ -52,6 +52,29 @@ android {
             isIncludeAndroidResources = true
         }
     }
+/*
+    project.gradle.addBuildListener(object: BuildListener {
+        override fun beforeSettings(settings: Settings) {
+            super.beforeSettings(settings)
+            println("⚈ ⚈ ⚈ beforeSettings Tasks ⚈ ⚈ ⚈")
+        }
+
+        override fun settingsEvaluated(settings: Settings) {
+            println("⚈ ⚈ ⚈ settingsEvaluated Tasks ⚈ ⚈ ⚈")
+        }
+
+        override fun projectsLoaded(gradle: Gradle) {
+            println("⚈ ⚈ ⚈ projectEvaluated Tasks ⚈ ⚈ ⚈")
+        }
+
+        override fun projectsEvaluated(gradle: Gradle) {
+            println("⚈ ⚈ ⚈ projectsEvaluated Tasks ⚈ ⚈ ⚈")
+        }
+
+        override fun buildFinished(result: BuildResult) {
+            println("⚈ ⚈ ⚈ buildFinished Tasks ⚈ ⚈ ⚈")
+        }
+    })*/
 }
 
 dependencies {
@@ -70,6 +93,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.koin.workmanager)
+    testImplementation(projects.core.testing)
     androidTestImplementation(projects.core.testing)
     androidTestImplementation(libs.androidx.navigation.testing)
 }

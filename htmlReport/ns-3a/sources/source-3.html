@@ -1,0 +1,240 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CalendarAnimation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons</a>
+</div>
+
+<h1>Coverage Summary for Class: CalendarAnimation (com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CalendarAnimation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/83)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CalendarAnimation$AnimatingIcon$2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/83)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons
+&nbsp;
+&nbsp;import androidx.compose.animation.animateColorAsState
+&nbsp;import androidx.compose.animation.core.FiniteAnimationSpec
+&nbsp;import androidx.compose.animation.core.animateFloatAsState
+&nbsp;import androidx.compose.foundation.background
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.foundation.shape.CircleShape
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.material3.MaterialTheme
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.draw.clip
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.graphics.graphicsLayer
+&nbsp;import androidx.compose.ui.platform.LocalDensity
+&nbsp;import androidx.compose.ui.platform.LocalLayoutDirection
+&nbsp;import androidx.compose.ui.res.painterResource
+&nbsp;import androidx.compose.ui.unit.LayoutDirection
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
+&nbsp;
+&nbsp;
+&nbsp;data class CalendarAnimation(
+<b class="nc">&nbsp;    override val animationSpec: FiniteAnimationSpec&lt;Float&gt;,</b>
+<b class="nc">&nbsp;    override val background: ButtonBackground,</b>
+<b class="nc">&nbsp;) : ColorButtonAnimation(animationSpec, background) {</b>
+&nbsp;
+&nbsp;    @Composable
+&nbsp;    override fun AnimatingIcon(
+&nbsp;        modifier: Modifier,
+&nbsp;        isSelected: Boolean,
+&nbsp;        isFromLeft: Boolean,
+&nbsp;        icon: Int,
+<b class="nc">&nbsp;    ) {</b>
+&nbsp;
+<b class="nc">&nbsp;        Box(</b>
+&nbsp;            modifier = modifier
+&nbsp;        ) {
+<b class="nc">&nbsp;            val fraction = animateFloatAsState(</b>
+<b class="nc">&nbsp;                targetValue = if (isSelected) 1f else 0f,</b>
+<b class="nc">&nbsp;                animationSpec = animationSpec,</b>
+<b class="nc">&nbsp;                label = &quot;fractionAnimation&quot;</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            val layoutDirection = LocalLayoutDirection.current</b>
+<b class="nc">&nbsp;            val isLeftAnimation = remember(isFromLeft) {</b>
+<b class="nc">&nbsp;                if (layoutDirection == LayoutDirection.Ltr) {</b>
+<b class="nc">&nbsp;                    isFromLeft</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    !isFromLeft</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            val color = animateColorAsState(</b>
+<b class="nc">&nbsp;                targetValue = if (isSelected) Color.Black else MaterialTheme.colorScheme.primary,</b>
+<b class="nc">&nbsp;                label = &quot;colorAnimation&quot;</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            Icon(</b>
+<b class="nc">&nbsp;                modifier = Modifier</b>
+<b class="nc">&nbsp;                    .align(Alignment.Center)</b>
+<b class="nc">&nbsp;                    .graphicsLayer(</b>
+<b class="nc">&nbsp;                        translationX = if (isSelected) offset(</b>
+<b class="nc">&nbsp;                            10f,</b>
+<b class="nc">&nbsp;                            fraction.value,</b>
+<b class="nc">&nbsp;                            isLeftAnimation</b>
+<b class="nc">&nbsp;                        ) else 0f</b>
+&nbsp;                    ),
+<b class="nc">&nbsp;                painter = painterResource(id = icon),</b>
+<b class="nc">&nbsp;                contentDescription = null,</b>
+<b class="nc">&nbsp;                tint = color.value</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            CalendarPoint(</b>
+<b class="nc">&nbsp;                modifier = Modifier.align(Alignment.Center),</b>
+<b class="nc">&nbsp;                offsetX = if (isSelected) offset(</b>
+<b class="nc">&nbsp;                    15f,</b>
+<b class="nc">&nbsp;                    fraction.value,</b>
+<b class="nc">&nbsp;                    isLeftAnimation</b>
+<b class="nc">&nbsp;                ) else 0f,</b>
+<b class="nc">&nbsp;                iconColor = color.value</b>
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private fun offset(maxHorizontalOffset: Float, fraction: Float, isFromLeft: Boolean): Float {
+<b class="nc">&nbsp;        val maxOffset = if (isFromLeft) -maxHorizontalOffset else maxHorizontalOffset</b>
+<b class="nc">&nbsp;        return if (fraction &lt; 0.5) {</b>
+<b class="nc">&nbsp;            2 * fraction * maxOffset</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            2 * (1 - fraction) * maxOffset</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun CalendarPoint(
+&nbsp;    modifier: Modifier = Modifier,
+&nbsp;    offsetX: Float,
+&nbsp;    iconColor: Color,
+&nbsp;) {
+&nbsp;    val layoutDirection = LocalLayoutDirection.current
+&nbsp;    val density = LocalDensity.current
+&nbsp;    val internalOffset = remember {
+&nbsp;        if (layoutDirection == LayoutDirection.Ltr) {
+&nbsp;            Offset(3.5.dp.toPxf(density), 5.dp.toPxf(density))
+&nbsp;        } else {
+&nbsp;            Offset((-3.5).dp.toPxf(density), 5.dp.toPxf(density))
+&nbsp;        }
+&nbsp;    }
+&nbsp;    Box(
+&nbsp;        modifier = modifier
+&nbsp;            .graphicsLayer(
+&nbsp;                translationX = internalOffset.x + offsetX,
+&nbsp;                translationY = internalOffset.y
+&nbsp;            )
+&nbsp;            .size(3.dp)
+&nbsp;            .clip(CircleShape)
+&nbsp;            .background(iconColor)
+&nbsp;    )
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

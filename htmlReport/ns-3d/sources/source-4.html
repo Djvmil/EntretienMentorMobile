@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HomeViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.home</a>
+</div>
+
+<h1>Coverage Summary for Class: HomeViewModel (com.djvmil.entretienmentor.feature.ui.home)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HomeViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">HomeViewModel$getCommunities$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HomeViewModel$getCommunities$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HomeViewModel$getCommunities$1$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.home
+&nbsp;
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import androidx.lifecycle.viewModelScope
+&nbsp;import com.djvmil.entretienmentor.core.domain.usecase.GetAndStoreAllCommunityUseCase
+&nbsp;import com.djvmil.entretienmentor.core.common.model.ErrorEM
+&nbsp;import com.djvmil.entretienmentor.core.common.model.ResultEM
+&nbsp;import com.djvmil.entretienmentor.core.common.model.map
+&nbsp;import com.djvmil.entretienmentor.feature.ui.community.model.CommunityUiModel
+&nbsp;import com.djvmil.entretienmentor.feature.ui.community.model.toUi
+&nbsp;import kotlinx.collections.immutable.PersistentList
+&nbsp;import kotlinx.collections.immutable.toPersistentList
+&nbsp;import kotlinx.coroutines.Dispatchers
+&nbsp;import kotlinx.coroutines.flow.MutableStateFlow
+&nbsp;import kotlinx.coroutines.flow.asStateFlow
+&nbsp;import kotlinx.coroutines.flow.catch
+&nbsp;import kotlinx.coroutines.flow.flowOn
+&nbsp;import kotlinx.coroutines.flow.update
+&nbsp;import kotlinx.coroutines.launch
+&nbsp;
+&nbsp;class HomeViewModel(
+<b class="nc">&nbsp;    private val getAndStoreAllMovieUseCase: GetAndStoreAllCommunityUseCase,</b>
+<b class="nc">&nbsp;) : ViewModel() {</b>
+&nbsp;
+<b class="nc">&nbsp;    private val _uiMovies = MutableStateFlow&lt;ResultEM&lt;PersistentList&lt;CommunityUiModel&gt;, ErrorEM&gt;&gt;(</b>
+<b class="nc">&nbsp;        ResultEM.Loading)</b>
+<b class="nc">&nbsp;    val uiMovies = _uiMovies.asStateFlow()</b>
+&nbsp;
+&nbsp;    fun getCommunities() {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            getAndStoreAllMovieUseCase()</b>
+<b class="nc">&nbsp;                .flowOn(Dispatchers.IO)</b>
+<b class="nc">&nbsp;                .catch { throwable -&gt;</b>
+<b class="nc">&nbsp;                    updateError(throwable)</b>
+&nbsp;                }
+<b class="nc">&nbsp;                .collect { result -&gt;</b>
+<b class="nc">&nbsp;                    _uiMovies.value = result.map { list -&gt;</b>
+<b class="nc">&nbsp;                            list.map {</b>
+<b class="nc">&nbsp;                                it.toUi()</b>
+&nbsp;                            }
+<b class="nc">&nbsp;                        }.map {</b>
+<b class="nc">&nbsp;                            it.toPersistentList()</b>
+&nbsp;                        }
+&nbsp;                }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun updateLoading(isLoading: Boolean) {
+<b class="nc">&nbsp;        _uiMovies.update { ResultEM.Loading }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun updateError(throwable: Throwable) {
+<b class="nc">&nbsp;        _uiMovies.update { ResultEM.Failure(ErrorEM(throwable = throwable)) }</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

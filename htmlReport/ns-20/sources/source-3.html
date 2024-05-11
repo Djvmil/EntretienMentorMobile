@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IndentRectShapeKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.bottombar.shape</a>
+</div>
+
+<h1>Coverage Summary for Class: IndentRectShapeKt (com.djvmil.entretienmentor.core.ui.widget.bottombar.shape)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IndentRectShapeKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/58)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.bottombar.shape
+&nbsp;
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.geometry.Rect
+&nbsp;import androidx.compose.ui.geometry.Size
+&nbsp;import androidx.compose.ui.graphics.Outline
+&nbsp;import androidx.compose.ui.graphics.Path
+&nbsp;import androidx.compose.ui.graphics.Shape
+&nbsp;import androidx.compose.ui.unit.Density
+&nbsp;import androidx.compose.ui.unit.LayoutDirection
+&nbsp;import com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.indendshape.ShapeCornerRadius
+&nbsp;
+&nbsp;class IndentRectShape(
+&nbsp;    private val indentShapeData: IndentShapeData,
+&nbsp;) : Shape {
+&nbsp;    override fun createOutline(
+&nbsp;        size: Size,
+&nbsp;        layoutDirection: LayoutDirection,
+&nbsp;        density: Density
+&nbsp;    ): Outline =
+&nbsp;        Outline.Generic(
+&nbsp;            Path().addRoundRectWithIndent(size, indentShapeData, layoutDirection)
+&nbsp;        )
+&nbsp;
+&nbsp;    fun copy(
+&nbsp;        cornerRadius: ShapeCornerRadius = indentShapeData.cornerRadius,
+&nbsp;        xIndent: Float = indentShapeData.xIndent,
+&nbsp;        yIndent: Float = indentShapeData.height,
+&nbsp;        ballSize: Float = indentShapeData.ballOffset,
+&nbsp;    ) = IndentRectShape(
+&nbsp;        indentShapeData.copy(
+&nbsp;            cornerRadius = cornerRadius,
+&nbsp;            xIndent = xIndent,
+&nbsp;            height = yIndent,
+&nbsp;            ballOffset = ballSize
+&nbsp;        )
+&nbsp;    )
+&nbsp;}
+&nbsp;
+&nbsp;fun Path.addRoundRectWithIndent(
+&nbsp;    size: Size,
+&nbsp;    indentShapeData: IndentShapeData,
+&nbsp;    layoutDirection: LayoutDirection,
+&nbsp;): Path {
+<b class="nc">&nbsp;    val width = size.width</b>
+<b class="nc">&nbsp;    val height = size.height</b>
+<b class="nc">&nbsp;    val cornerRadius = indentShapeData.cornerRadius</b>
+<b class="nc">&nbsp;    val sweepAngleDegrees = 90f</b>
+&nbsp;
+<b class="nc">&nbsp;    return apply {</b>
+&nbsp;
+<b class="nc">&nbsp;        moveTo(chooseCornerSize(size.height, cornerRadius.topLeft), 0f)</b>
+&nbsp;
+<b class="nc">&nbsp;        val xOffset =</b>
+<b class="nc">&nbsp;            if (layoutDirection == LayoutDirection.Ltr) {</b>
+<b class="nc">&nbsp;                indentShapeData.xIndent - indentShapeData.width / 2</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                size.width - indentShapeData.xIndent - indentShapeData.width / 2</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        if (xOffset &gt; cornerRadius.topLeft / 4) {</b>
+<b class="nc">&nbsp;            addPath(</b>
+<b class="nc">&nbsp;                IndentPath(</b>
+<b class="nc">&nbsp;                    Rect(</b>
+<b class="nc">&nbsp;                        Offset(</b>
+<b class="nc">&nbsp;                            x = xOffset,</b>
+<b class="nc">&nbsp;                            y = 0f</b>
+&nbsp;                        ),
+<b class="nc">&nbsp;                        Size(indentShapeData.width, indentShapeData.height)</b>
+&nbsp;                    )
+<b class="nc">&nbsp;                ).createPath()</b>
+&nbsp;            )
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        lineTo(width - cornerRadius.topRight, 0f)</b>
+<b class="nc">&nbsp;        arcTo(</b>
+<b class="nc">&nbsp;            rect = Rect(</b>
+<b class="nc">&nbsp;                offset = Offset(width - cornerRadius.topRight, 0f),</b>
+<b class="nc">&nbsp;                size = Size(cornerRadius.topRight, cornerRadius.topRight)</b>
+&nbsp;            ),
+<b class="nc">&nbsp;            startAngleDegrees = 270f,</b>
+<b class="nc">&nbsp;            sweepAngleDegrees = sweepAngleDegrees,</b>
+<b class="nc">&nbsp;            forceMoveTo = false</b>
+&nbsp;        )
+<b class="nc">&nbsp;        lineTo(width, height - cornerRadius.bottomRight)</b>
+<b class="nc">&nbsp;        arcTo(</b>
+<b class="nc">&nbsp;            rect = Rect(</b>
+<b class="nc">&nbsp;                offset = Offset(</b>
+<b class="nc">&nbsp;                    width - cornerRadius.bottomRight,</b>
+<b class="nc">&nbsp;                    height - cornerRadius.bottomRight</b>
+&nbsp;                ),
+<b class="nc">&nbsp;                size = Size(cornerRadius.bottomRight, cornerRadius.bottomRight)</b>
+&nbsp;            ),
+<b class="nc">&nbsp;            startAngleDegrees = 0f,</b>
+<b class="nc">&nbsp;            sweepAngleDegrees = sweepAngleDegrees,</b>
+<b class="nc">&nbsp;            forceMoveTo = false</b>
+&nbsp;        )
+<b class="nc">&nbsp;        lineTo(width - cornerRadius.bottomLeft, height)</b>
+<b class="nc">&nbsp;        arcTo(</b>
+<b class="nc">&nbsp;            rect = Rect(</b>
+<b class="nc">&nbsp;                offset = Offset(0f, height - cornerRadius.bottomLeft),</b>
+<b class="nc">&nbsp;                size = Size(cornerRadius.bottomLeft, cornerRadius.bottomLeft)</b>
+&nbsp;            ),
+<b class="nc">&nbsp;            startAngleDegrees = 90f,</b>
+<b class="nc">&nbsp;            sweepAngleDegrees = sweepAngleDegrees,</b>
+<b class="nc">&nbsp;            forceMoveTo = false</b>
+&nbsp;        )
+<b class="nc">&nbsp;        lineTo(0f, cornerRadius.topLeft)</b>
+<b class="nc">&nbsp;        arcTo(</b>
+<b class="nc">&nbsp;            rect = Rect(</b>
+<b class="nc">&nbsp;                offset = Offset(0f, 0f),</b>
+<b class="nc">&nbsp;                size = Size(cornerRadius.topLeft, cornerRadius.topLeft)</b>
+&nbsp;            ),
+<b class="nc">&nbsp;            startAngleDegrees = 180f,</b>
+<b class="nc">&nbsp;            sweepAngleDegrees = sweepAngleDegrees,</b>
+<b class="nc">&nbsp;            forceMoveTo = false</b>
+&nbsp;        )
+<b class="nc">&nbsp;        close()</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+&nbsp;
+&nbsp;fun chooseCornerSize(sizeHeight: Float, cornerRadius: Float): Float {
+<b class="nc">&nbsp;    return if (sizeHeight &gt; cornerRadius) {</b>
+<b class="nc">&nbsp;        cornerRadius</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;        sizeHeight</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

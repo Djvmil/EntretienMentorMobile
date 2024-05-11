@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PlusColorButton</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons</a>
+</div>
+
+<h1>Coverage Summary for Class: PlusColorButton (com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlusColorButton</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/71)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PlusColorButton$AnimatingIcon$2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/71)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.dashboard.colorButtons
+&nbsp;
+&nbsp;import androidx.compose.animation.animateColorAsState
+&nbsp;import androidx.compose.animation.core.FiniteAnimationSpec
+&nbsp;import androidx.compose.animation.core.animateFloatAsState
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.draw.rotate
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.platform.LocalLayoutDirection
+&nbsp;import androidx.compose.ui.res.painterResource
+&nbsp;import androidx.compose.ui.unit.LayoutDirection
+&nbsp;import com.djvmil.entretienmentor.feature.R
+&nbsp;
+&nbsp;class PlusColorButton(
+<b class="nc">&nbsp;    override val animationSpec: FiniteAnimationSpec&lt;Float&gt;,</b>
+<b class="nc">&nbsp;    override val background: ButtonBackground,</b>
+<b class="nc">&nbsp;) : ColorButtonAnimation(animationSpec, background) {</b>
+&nbsp;
+&nbsp;    @Composable
+&nbsp;    override fun AnimatingIcon(
+&nbsp;        modifier: Modifier,
+&nbsp;        isSelected: Boolean,
+&nbsp;        isFromLeft: Boolean,
+&nbsp;        icon: Int,
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        Box(</b>
+&nbsp;            modifier = modifier
+&nbsp;        ) {
+<b class="nc">&nbsp;            val color = animateColorAsState(</b>
+<b class="nc">&nbsp;                targetValue = if (isSelected) Color.Black else Color.LightGray,</b>
+<b class="nc">&nbsp;                label = &quot;colorAnimation&quot;</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            Icon(</b>
+<b class="nc">&nbsp;                modifier = Modifier</b>
+<b class="nc">&nbsp;                    .align(Alignment.Center),</b>
+<b class="nc">&nbsp;                painter = painterResource(id = R.drawable.rounded_rect),</b>
+<b class="nc">&nbsp;                contentDescription = null,</b>
+<b class="nc">&nbsp;                tint = color.value</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            val layoutDirection = LocalLayoutDirection.current</b>
+<b class="nc">&nbsp;            val requiredDegrees = remember(isFromLeft) {</b>
+<b class="nc">&nbsp;                val rotateDegrees = if (isFromLeft) ROTATE_DEGREES else -ROTATE_DEGREES</b>
+<b class="nc">&nbsp;                if (layoutDirection == LayoutDirection.Rtl) -rotateDegrees else rotateDegrees</b>
+&nbsp;            }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            val degrees = animateFloatAsState(</b>
+<b class="nc">&nbsp;                targetValue = if (isSelected) requiredDegrees else 0f,</b>
+<b class="nc">&nbsp;                animationSpec = animationSpec,</b>
+<b class="nc">&nbsp;                label = &quot;degreesAnimation&quot;</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            Icon(</b>
+<b class="nc">&nbsp;                modifier = Modifier</b>
+<b class="nc">&nbsp;                    .align(Alignment.Center)</b>
+<b class="nc">&nbsp;                    .rotate(if (isSelected) degrees.value else 0f),</b>
+<b class="nc">&nbsp;                painter = painterResource(id = R.drawable.plus),</b>
+<b class="nc">&nbsp;                contentDescription = null,</b>
+<b class="nc">&nbsp;                tint = color.value</b>
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+&nbsp;
+&nbsp;const val ROTATE_DEGREES = 90f
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

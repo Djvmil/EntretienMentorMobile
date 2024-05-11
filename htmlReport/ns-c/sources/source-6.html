@@ -1,0 +1,90 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DataSourceRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.data.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: DataSourceRepository (com.djvmil.entretienmentor.core.data.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">DataSourceRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.data.repository
+&nbsp;
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.AppSettings
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.AppTheme
+&nbsp;import com.djvmil.entretienmentor.core.data.source.datastore.model.StepsStarting
+&nbsp;import kotlinx.coroutines.flow.Flow
+&nbsp;
+&nbsp;interface DataSourceRepository {
+&nbsp;    fun appSetting(): Flow&lt;AppSettings?&gt;
+&nbsp;    suspend fun update(transform: suspend (current: AppSettings?) -&gt; AppSettings?): AppSettings?
+&nbsp;
+&nbsp;    suspend fun setTheme(theme: AppTheme)
+&nbsp;    fun  getTheme(): Flow&lt;AppTheme?&gt;
+&nbsp;    suspend fun setIsLogin(status: Boolean)
+&nbsp;    fun isLogin(): Flow&lt;Boolean?&gt;
+&nbsp;    suspend fun setStepsStarting(steps: StepsStarting)
+&nbsp;    fun getStepsStarting(): Flow&lt;StepsStarting?&gt;
+&nbsp;    suspend fun setAccessToken(accessToken: String)
+&nbsp;    fun getAccessToken(): Flow&lt;String?&gt;
+&nbsp;    suspend fun getAccessTokenForAuth(): String?
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

@@ -48,7 +48,6 @@ class AuthRepositoryImpl(
 
             }.onFailure { error ->
                 emit(ResultEM.Failure(ErrorEM(throwable = error)))
-
             }
 
     }

@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ShimmerLoadingKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.shimmer</a>
+</div>
+
+<h1>Coverage Summary for Class: ShimmerLoadingKt (com.djvmil.entretienmentor.core.ui.widget.shimmer)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShimmerLoadingKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ShimmerLoadingKt$shimmerLoadingAnimation$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.shimmer
+&nbsp;
+&nbsp;import androidx.compose.animation.core.LinearEasing
+&nbsp;import androidx.compose.animation.core.RepeatMode
+&nbsp;import androidx.compose.animation.core.animateFloat
+&nbsp;import androidx.compose.animation.core.infiniteRepeatable
+&nbsp;import androidx.compose.animation.core.rememberInfiniteTransition
+&nbsp;import androidx.compose.animation.core.tween
+&nbsp;import androidx.compose.foundation.background
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.composed
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Brush
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;
+&nbsp;const val WIDTH_OF_SHADOW_BRUSH = 500
+&nbsp;const val ANGLE_OF_AXIS_Y = 270f
+&nbsp;const val DURATION = 1000
+&nbsp;
+&nbsp;fun Modifier.shimmerLoadingAnimation(
+<b class="nc">&nbsp;    isEnableShimmer: Boolean = true,</b>
+<b class="nc">&nbsp;    isLightModeActive: Boolean = true,</b>
+<b class="nc">&nbsp;    widthOfShadowBrush: Int = WIDTH_OF_SHADOW_BRUSH,</b>
+<b class="nc">&nbsp;    angleOfAxisY: Float = ANGLE_OF_AXIS_Y,</b>
+<b class="nc">&nbsp;    durationMillis: Int = DURATION,</b>
+&nbsp;): Modifier {
+<b class="nc">&nbsp;    if (isEnableShimmer) {</b>
+<b class="nc">&nbsp;        return composed {</b>
+<b class="nc">&nbsp;            val shimmerColors = ShimmerAnimationData(isLightMode = isLightModeActive).getColours()</b>
+&nbsp;
+<b class="nc">&nbsp;            val transition = rememberInfiniteTransition(label = &quot;&quot;)</b>
+&nbsp;
+<b class="nc">&nbsp;            val translateAnimation = transition.animateFloat(</b>
+<b class="nc">&nbsp;                initialValue = 0f,</b>
+<b class="nc">&nbsp;                targetValue = (durationMillis + widthOfShadowBrush).toFloat(),</b>
+<b class="nc">&nbsp;                animationSpec = infiniteRepeatable(</b>
+<b class="nc">&nbsp;                    animation = tween(</b>
+<b class="nc">&nbsp;                        durationMillis = durationMillis,</b>
+<b class="nc">&nbsp;                        easing = LinearEasing,</b>
+&nbsp;                    ),
+<b class="nc">&nbsp;                    repeatMode = RepeatMode.Restart,</b>
+&nbsp;                ),
+<b class="nc">&nbsp;                label = &quot;Shimmer loading animation&quot;,</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            this.background(</b>
+<b class="nc">&nbsp;                brush = Brush.linearGradient(</b>
+<b class="nc">&nbsp;                    colors = shimmerColors,</b>
+<b class="nc">&nbsp;                    start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),</b>
+<b class="nc">&nbsp;                    end = Offset(x = translateAnimation.value, y = angleOfAxisY),</b>
+&nbsp;                ),
+&nbsp;            )
+&nbsp;        }
+&nbsp;    } else {
+<b class="nc">&nbsp;        return this</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;data class ShimmerAnimationData(
+&nbsp;    private val isLightMode: Boolean = true
+&nbsp;) {
+&nbsp;    fun getColours(): List&lt;Color&gt; {
+&nbsp;        return if (isLightMode) {
+&nbsp;            val color = Color.White
+&nbsp;
+&nbsp;            listOf(
+&nbsp;                color.copy(alpha = 0.3f),
+&nbsp;                color.copy(alpha = 0.5f),
+&nbsp;                color.copy(alpha = 1.0f),
+&nbsp;                color.copy(alpha = 0.5f),
+&nbsp;                color.copy(alpha = 0.3f),
+&nbsp;            )
+&nbsp;        } else {
+&nbsp;            val color = Color.Black
+&nbsp;
+&nbsp;            listOf(
+&nbsp;                color.copy(alpha = 0.0f),
+&nbsp;                color.copy(alpha = 0.3f),
+&nbsp;                color.copy(alpha = 0.5f),
+&nbsp;                color.copy(alpha = 0.3f),
+&nbsp;                color.copy(alpha = 0.0f),
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

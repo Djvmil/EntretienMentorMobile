@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ComminityGraphKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.feature.ui.community.navigation</a>
+</div>
+
+<h1>Coverage Summary for Class: ComminityGraphKt (com.djvmil.entretienmentor.feature.ui.community.navigation)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ComminityGraphKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ComminityGraphKt$community$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ComminityGraphKt$community$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ComminityGraphKt$community$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ComminityGraphKt$community$4</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ComminityGraphKt$community$4$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.feature.ui.community.navigation
+&nbsp;
+&nbsp;import androidx.compose.animation.AnimatedContentTransitionScope
+&nbsp;import androidx.compose.animation.core.tween
+&nbsp;import androidx.compose.animation.fadeIn
+&nbsp;import androidx.navigation.NavGraphBuilder
+&nbsp;import androidx.navigation.compose.composable
+&nbsp;import com.djvmil.entretienmentor.feature.ui.chat.ChatScreen
+&nbsp;import com.djvmil.entretienmentor.feature.navigation.Destinations
+&nbsp;import com.djvmil.entretienmentor.feature.navigation.NavigationHelpers
+&nbsp;
+&nbsp;fun NavGraphBuilder.community(
+&nbsp;    navActions: NavigationHelpers
+&nbsp;) {
+<b class="nc">&nbsp;    composable(Destinations.COMMUNITY_ROUTE, enterTransition = {</b>
+<b class="nc">&nbsp;        return@composable fadeIn(tween(1000))</b>
+&nbsp;    }, exitTransition = {
+<b class="nc">&nbsp;        return@composable slideOutOfContainer(</b>
+<b class="nc">&nbsp;            AnimatedContentTransitionScope.SlideDirection.Start, tween(700)</b>
+&nbsp;        )
+&nbsp;    }, popEnterTransition = {
+<b class="nc">&nbsp;        return@composable slideIntoContainer(</b>
+<b class="nc">&nbsp;            AnimatedContentTransitionScope.SlideDirection.End, tween(700)</b>
+&nbsp;        )
+<b class="nc">&nbsp;    }) {</b>
+<b class="nc">&nbsp;        ChatScreen(</b>
+<b class="nc">&nbsp;            openDashboard = {</b>
+<b class="nc">&nbsp;                navActions.navigateUp()</b>
+&nbsp;            }
+&nbsp;        )
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;fun NavigationHelpers.navigateToCommunity() {
+<b class="nc">&nbsp;    navController.navigate(Destinations.COMMUNITY_ROUTE)</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>

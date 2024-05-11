@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ShimmerAnimationData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.djvmil.entretienmentor.core.ui.widget.shimmer</a>
+</div>
+
+<h1>Coverage Summary for Class: ShimmerAnimationData (com.djvmil.entretienmentor.core.ui.widget.shimmer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShimmerAnimationData</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.djvmil.entretienmentor.core.ui.widget.shimmer
+&nbsp;
+&nbsp;import androidx.compose.animation.core.LinearEasing
+&nbsp;import androidx.compose.animation.core.RepeatMode
+&nbsp;import androidx.compose.animation.core.animateFloat
+&nbsp;import androidx.compose.animation.core.infiniteRepeatable
+&nbsp;import androidx.compose.animation.core.rememberInfiniteTransition
+&nbsp;import androidx.compose.animation.core.tween
+&nbsp;import androidx.compose.foundation.background
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.composed
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Brush
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;
+&nbsp;const val WIDTH_OF_SHADOW_BRUSH = 500
+&nbsp;const val ANGLE_OF_AXIS_Y = 270f
+&nbsp;const val DURATION = 1000
+&nbsp;
+&nbsp;fun Modifier.shimmerLoadingAnimation(
+&nbsp;    isEnableShimmer: Boolean = true,
+&nbsp;    isLightModeActive: Boolean = true,
+&nbsp;    widthOfShadowBrush: Int = WIDTH_OF_SHADOW_BRUSH,
+&nbsp;    angleOfAxisY: Float = ANGLE_OF_AXIS_Y,
+&nbsp;    durationMillis: Int = DURATION,
+&nbsp;): Modifier {
+&nbsp;    if (isEnableShimmer) {
+&nbsp;        return composed {
+&nbsp;            val shimmerColors = ShimmerAnimationData(isLightMode = isLightModeActive).getColours()
+&nbsp;
+&nbsp;            val transition = rememberInfiniteTransition(label = &quot;&quot;)
+&nbsp;
+&nbsp;            val translateAnimation = transition.animateFloat(
+&nbsp;                initialValue = 0f,
+&nbsp;                targetValue = (durationMillis + widthOfShadowBrush).toFloat(),
+&nbsp;                animationSpec = infiniteRepeatable(
+&nbsp;                    animation = tween(
+&nbsp;                        durationMillis = durationMillis,
+&nbsp;                        easing = LinearEasing,
+&nbsp;                    ),
+&nbsp;                    repeatMode = RepeatMode.Restart,
+&nbsp;                ),
+&nbsp;                label = &quot;Shimmer loading animation&quot;,
+&nbsp;            )
+&nbsp;
+&nbsp;            this.background(
+&nbsp;                brush = Brush.linearGradient(
+&nbsp;                    colors = shimmerColors,
+&nbsp;                    start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
+&nbsp;                    end = Offset(x = translateAnimation.value, y = angleOfAxisY),
+&nbsp;                ),
+&nbsp;            )
+&nbsp;        }
+&nbsp;    } else {
+&nbsp;        return this
+&nbsp;    }
+&nbsp;}
+&nbsp;
+<b class="nc">&nbsp;data class ShimmerAnimationData(</b>
+<b class="nc">&nbsp;    private val isLightMode: Boolean = true</b>
+&nbsp;) {
+&nbsp;    fun getColours(): List&lt;Color&gt; {
+<b class="nc">&nbsp;        return if (isLightMode) {</b>
+<b class="nc">&nbsp;            val color = Color.White</b>
+&nbsp;
+<b class="nc">&nbsp;            listOf(</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.3f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.5f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 1.0f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.5f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.3f),</b>
+&nbsp;            )
+&nbsp;        } else {
+<b class="nc">&nbsp;            val color = Color.Black</b>
+&nbsp;
+<b class="nc">&nbsp;            listOf(</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.0f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.3f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.5f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.3f),</b>
+<b class="nc">&nbsp;                color.copy(alpha = 0.0f),</b>
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-10 22:44</div>
+</div>
+</body>
+</html>
