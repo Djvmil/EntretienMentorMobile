@@ -12,45 +12,37 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.isUnspecified
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.ballSize
+import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 
 /**
- *Describing straight ball animation
- *@param [animationSpec] animation spec of straight ball trajectory
+ * Describing straight ball animation
+ *
+ * @param [animationSpec] animation spec of straight ball trajectory
  */
-
 @Stable
-class Straight(
-    private val animationSpec: AnimationSpec<Offset>
-) : BallAnimation {
-    @Composable
-    override fun animateAsState(targetOffset: Offset): State<BallAnimInfo> {
-        if (targetOffset.isUnspecified) {
-            return remember { mutableStateOf(BallAnimInfo()) }
-        }
-
-        val density = LocalDensity.current
-        val verticalOffset = remember { 2.dp.toPxf(density) }
-        val ballSizePx = remember { ballSize.toPxf(density) }
-
-        val offset = animateOffsetAsState(
-            targetValue = calculateOffset(targetOffset, ballSizePx, verticalOffset),
-            animationSpec = animationSpec,
-            label = ""
-        )
-
-        return produceState(
-            initialValue = BallAnimInfo(),
-            key1 = offset.value
-        ) {
-            this.value = this.value.copy(offset = offset.value)
-        }
+class Straight(private val animationSpec: AnimationSpec<Offset>) : BallAnimation {
+  @Composable
+  override fun animateAsState(targetOffset: Offset): State<BallAnimInfo> {
+    if (targetOffset.isUnspecified) {
+      return remember { mutableStateOf(BallAnimInfo()) }
     }
 
-    private fun calculateOffset(
-        offset: Offset, ballSizePx: Float, verticalOffset: Float
-    ) = Offset(
-        x = offset.x - ballSizePx / 2f, y = offset.y - verticalOffset
-    )
+    val density = LocalDensity.current
+    val verticalOffset = remember { 2.dp.toPxf(density) }
+    val ballSizePx = remember { ballSize.toPxf(density) }
+
+    val offset =
+        animateOffsetAsState(
+            targetValue = calculateOffset(targetOffset, ballSizePx, verticalOffset),
+            animationSpec = animationSpec,
+            label = "")
+
+    return produceState(initialValue = BallAnimInfo(), key1 = offset.value) {
+      this.value = this.value.copy(offset = offset.value)
+    }
+  }
+
+  private fun calculateOffset(offset: Offset, ballSizePx: Float, verticalOffset: Float) =
+      Offset(x = offset.x - ballSizePx / 2f, y = offset.y - verticalOffset)
 }

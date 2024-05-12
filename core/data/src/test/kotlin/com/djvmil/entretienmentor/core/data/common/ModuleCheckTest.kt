@@ -7,14 +7,13 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 
 class ModuleCheckTest {
-    @Before
-    fun setUp() {
-        loadKoinModules(dataModule)
-    }
+  @Before
+  fun setUp() {
+    loadKoinModules(dataModule)
+  }
 
-    @After
-    fun tearDown() {
-        unloadKoinModules(dataModule)
-    }
-
+  @After
+  fun tearDown() {
+    unloadKoinModules(dataModule)
+  }
 }

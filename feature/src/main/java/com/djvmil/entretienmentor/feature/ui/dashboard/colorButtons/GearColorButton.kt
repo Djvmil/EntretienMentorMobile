@@ -20,38 +20,36 @@ class GearColorButton(
     private val maxGearAnimationDegree: Float = 50f,
 ) : ColorButtonAnimation(animationSpec, background) {
 
-    @Composable
-    override fun AnimatingIcon(
-        modifier: Modifier,
-        isSelected: Boolean,
-        isFromLeft: Boolean,
-        icon: Int,
-    ) {
-        val layoutDirection = LocalLayoutDirection.current
-        val gearAnimationDegree = remember {
-            if (layoutDirection == LayoutDirection.Ltr) {
-                maxGearAnimationDegree
-            } else {
-                -maxGearAnimationDegree
-            }
-        }
-        val degree = animateFloatAsState(
+  @Composable
+  override fun AnimatingIcon(
+      modifier: Modifier,
+      isSelected: Boolean,
+      isFromLeft: Boolean,
+      icon: Int,
+  ) {
+    val layoutDirection = LocalLayoutDirection.current
+    val gearAnimationDegree = remember {
+      if (layoutDirection == LayoutDirection.Ltr) {
+        maxGearAnimationDegree
+      } else {
+        -maxGearAnimationDegree
+      }
+    }
+    val degree =
+        animateFloatAsState(
             targetValue = if (isSelected) gearAnimationDegree else 0f,
             animationSpec = animationSpec,
-            label = "degreeAnimation"
-        )
+            label = "degreeAnimation")
 
-        val color = animateColorAsState(
+    val color =
+        animateColorAsState(
             targetValue = if (isSelected) Color.Black else MaterialTheme.colorScheme.primary,
-            label = "colorAnimation"
-        )
+            label = "colorAnimation")
 
-        Icon(
-            modifier = modifier
-                .rotate(if (isSelected) degree.value else 0f),
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            tint = color.value
-        )
-    }
+    Icon(
+        modifier = modifier.rotate(if (isSelected) degree.value else 0f),
+        painter = painterResource(id = icon),
+        contentDescription = null,
+        tint = color.value)
+  }
 }

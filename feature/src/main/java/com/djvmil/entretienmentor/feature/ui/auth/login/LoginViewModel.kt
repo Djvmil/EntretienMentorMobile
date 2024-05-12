@@ -14,32 +14,28 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
     private val dispatchers: AppDispatchers,
-) : ViewModel()  {
-    private var _uiState = MutableStateFlow<ScreenUiState<String>>(ScreenUiState.Init)
-    val uiState = _uiState.asStateFlow()
+) : ViewModel() {
+  private var _uiState = MutableStateFlow<ScreenUiState<String>>(ScreenUiState.Init)
+  val uiState = _uiState.asStateFlow()
 
-    fun onLoginClick(username: String, password: String) = viewModelScope.launch(dispatchers.io) {
+  fun onLoginClick(username: String, password: String) =
+      viewModelScope.launch(dispatchers.io) {
         _uiState.emit(ScreenUiState.Loading)
-        loginUseCase.invoke(
-            AuthRequest(username = username, password = password)
-        ).collect { result->
-            //Simulate delay
-            //delay(2000)
-            when(result){
-                is ResultEM.Loading -> {
-                    _uiState.emit(ScreenUiState.Loading)
-                }
-                is ResultEM.Success -> {
-                    _uiState.emit(ScreenUiState.Success("Success Login"))
-                }
-                is ResultEM.Failure -> {
-                    result.error.throwable
-                        ?.let { ScreenUiState.Failure(it) }
-                        ?.let { _uiState.emit(it) }
-                }
+        loginUseCase.invoke(AuthRequest(username = username, password = password)).collect { result
+          ->
+          // Simulate delay
+          // delay(2000)
+          when (result) {
+            is ResultEM.Loading -> {
+              _uiState.emit(ScreenUiState.Loading)
             }
+            is ResultEM.Success -> {
+              _uiState.emit(ScreenUiState.Success("Success Login"))
+            }
+            is ResultEM.Failure -> {
+              result.error.throwable?.let { ScreenUiState.Failure(it) }?.let { _uiState.emit(it) }
+            }
+          }
         }
-    }
-
+      }
 }
-

@@ -23,19 +23,15 @@ fun ShimmerCircle(
     size: Dp,
     padding: Dp
 ) {
-    Box(
-        modifier = Modifier
-            .padding(all = padding)
-            .background(
-                color = Color.LightGray,
-                shape = CircleShape
-            )
-            .size(size)
-            .shimmerLoadingAnimation(
-                isEnableShimmer = isEnableShimmer,
-                isLightModeActive = isLightModeActive,
-            )
-    )
+  Box(
+      modifier =
+          Modifier.padding(all = padding)
+              .background(color = Color.LightGray, shape = CircleShape)
+              .size(size)
+              .shimmerLoadingAnimation(
+                  isEnableShimmer = isEnableShimmer,
+                  isLightModeActive = isLightModeActive,
+              ))
 }
 
 @Composable
@@ -46,17 +42,16 @@ fun ShimmerSquare(
     round: Dp,
     padding: Dp
 ) {
-    Box(
-        modifier = Modifier
-            .padding(all = padding)
-            .clip(shape = RoundedCornerShape(round))
-            .background(color = Color.LightGray)
-            .size(size)
-            .shimmerLoadingAnimation(
-                isEnableShimmer = isEnableShimmer,
-                isLightModeActive = isLightModeActive,
-            )
-    )
+  Box(
+      modifier =
+          Modifier.padding(all = padding)
+              .clip(shape = RoundedCornerShape(round))
+              .background(color = Color.LightGray)
+              .size(size)
+              .shimmerLoadingAnimation(
+                  isEnableShimmer = isEnableShimmer,
+                  isLightModeActive = isLightModeActive,
+              ))
 }
 
 @Composable
@@ -68,43 +63,31 @@ fun ShimmerRectangle(
     round: Dp,
     padding: Dp
 ) {
-    Box(
-        modifier = Modifier
-            .padding(all = padding)
-            .clip(shape = RoundedCornerShape(round))
-            .background(color = Color.LightGray)
-            .width(width)
-            .height(height)
-            .shimmerLoadingAnimation(
-                isEnableShimmer = isEnableShimmer,
-                isLightModeActive = isLightModeActive,
-            )
-    )
+  Box(
+      modifier =
+          Modifier.padding(all = padding)
+              .clip(shape = RoundedCornerShape(round))
+              .background(color = Color.LightGray)
+              .width(width)
+              .height(height)
+              .shimmerLoadingAnimation(
+                  isEnableShimmer = isEnableShimmer,
+                  isLightModeActive = isLightModeActive,
+              ))
 }
 
 @Preview
 @Composable
-private fun ShimmerCirclePreview() = ShimmerCircle(
-    isEnableShimmer = true,
-    size = 100.dp,
-    padding = 10.dp
-)
+private fun ShimmerCirclePreview() =
+    ShimmerCircle(isEnableShimmer = true, size = 100.dp, padding = 10.dp)
 
 @Preview
 @Composable
-private fun ShimmerSquarePreview() = ShimmerSquare(
-    isEnableShimmer = true,
-    size = 100.dp,
-    round = 25.dp,
-    padding = 10.dp
-)
+private fun ShimmerSquarePreview() =
+    ShimmerSquare(isEnableShimmer = true, size = 100.dp, round = 25.dp, padding = 10.dp)
 
 @Preview
 @Composable
-private fun ShimmerRectanglePreview() = ShimmerRectangle(
-    isEnableShimmer = true,
-    width = 200.dp,
-    height = 100.dp,
-    round = 25.dp,
-    padding = 10.dp
-)
+private fun ShimmerRectanglePreview() =
+    ShimmerRectangle(
+        isEnableShimmer = true, width = 200.dp, height = 100.dp, round = 25.dp, padding = 10.dp)

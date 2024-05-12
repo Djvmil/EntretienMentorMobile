@@ -14,10 +14,10 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.ballSize
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.shape.IndentRectShape
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.shape.IndentShapeData
+import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 
 @Stable
 class StraightIndent(
@@ -26,39 +26,32 @@ class StraightIndent(
     private val indentHeight: Dp = 20.dp,
 ) : IndentAnimation {
 
-    @Composable
-    override fun animateIndentShapeAsState(
-        targetOffset: Offset,
-        shapeCornerRadius: ShapeCornerRadius
-    ): State<Shape> {
-        if (targetOffset.isUnspecified) {
-            return remember { mutableStateOf(IndentRectShape(IndentShapeData())) }
-        }
-
-        val density = LocalDensity.current
-
-        val position = animateFloatAsState(
-            targetValue = targetOffset.x,
-            animationSpec = animationSpec
-        )
-
-        return produceState(
-            initialValue = IndentRectShape(
-                indentShapeData = IndentShapeData(
-                    xIndent = targetOffset.x,
-                    height = indentHeight.toPxf(density),
-                    ballOffset = ballSize.toPxf(density) / 2f,
-                    width = indentWidth.toPxf(density),
-                    cornerRadius = shapeCornerRadius
-                )
-            ),
-            key1 = position.value,
-            key2 = shapeCornerRadius
-        ) {
-            this.value = this.value.copy(
-                xIndent = position.value,
-                cornerRadius = shapeCornerRadius
-            )
-        }
+  @Composable
+  override fun animateIndentShapeAsState(
+      targetOffset: Offset,
+      shapeCornerRadius: ShapeCornerRadius
+  ): State<Shape> {
+    if (targetOffset.isUnspecified) {
+      return remember { mutableStateOf(IndentRectShape(IndentShapeData())) }
     }
+
+    val density = LocalDensity.current
+
+    val position = animateFloatAsState(targetValue = targetOffset.x, animationSpec = animationSpec)
+
+    return produceState(
+        initialValue =
+            IndentRectShape(
+                indentShapeData =
+                    IndentShapeData(
+                        xIndent = targetOffset.x,
+                        height = indentHeight.toPxf(density),
+                        ballOffset = ballSize.toPxf(density) / 2f,
+                        width = indentWidth.toPxf(density),
+                        cornerRadius = shapeCornerRadius)),
+        key1 = position.value,
+        key2 = shapeCornerRadius) {
+          this.value = this.value.copy(xIndent = position.value, cornerRadius = shapeCornerRadius)
+        }
+  }
 }

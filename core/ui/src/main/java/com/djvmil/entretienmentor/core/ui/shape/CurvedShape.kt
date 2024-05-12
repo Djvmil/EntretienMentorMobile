@@ -6,17 +6,13 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 
-//https://github.com/aqua30/CustomLoginDesign/
+// https://github.com/aqua30/CustomLoginDesign/
 class CurvedShape(private val type: CurveType) : Shape {
-    override fun createOutline(
-        size: Size,
-        layoutDirection: LayoutDirection,
-        density: Density
-    ): Outline {
-        return Outline.Generic(
-            path =
-            if (type == CurveType.LTR) ltrCurve(size)
-            else rtlCurve(size)
-        )
-    }
+  override fun createOutline(
+      size: Size,
+      layoutDirection: LayoutDirection,
+      density: Density
+  ): Outline {
+    return Outline.Generic(path = if (type == CurveType.LTR) ltrCurve(size) else rtlCurve(size))
+  }
 }

@@ -24,62 +24,64 @@ fun Modifier.shimmerLoadingAnimation(
     angleOfAxisY: Float = ANGLE_OF_AXIS_Y,
     durationMillis: Int = DURATION,
 ): Modifier {
-    if (isEnableShimmer) {
-        return composed {
-            val shimmerColors = ShimmerAnimationData(isLightMode = isLightModeActive).getColours()
+  if (isEnableShimmer) {
+    return composed {
+      val shimmerColors = ShimmerAnimationData(isLightMode = isLightModeActive).getColours()
 
-            val transition = rememberInfiniteTransition(label = "")
+      val transition = rememberInfiniteTransition(label = "")
 
-            val translateAnimation = transition.animateFloat(
-                initialValue = 0f,
-                targetValue = (durationMillis + widthOfShadowBrush).toFloat(),
-                animationSpec = infiniteRepeatable(
-                    animation = tween(
-                        durationMillis = durationMillis,
-                        easing = LinearEasing,
-                    ),
-                    repeatMode = RepeatMode.Restart,
-                ),
-                label = "Shimmer loading animation",
-            )
+      val translateAnimation =
+          transition.animateFloat(
+              initialValue = 0f,
+              targetValue = (durationMillis + widthOfShadowBrush).toFloat(),
+              animationSpec =
+                  infiniteRepeatable(
+                      animation =
+                          tween(
+                              durationMillis = durationMillis,
+                              easing = LinearEasing,
+                          ),
+                      repeatMode = RepeatMode.Restart,
+                  ),
+              label = "Shimmer loading animation",
+          )
 
-            this.background(
-                brush = Brush.linearGradient(
-                    colors = shimmerColors,
-                    start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
-                    end = Offset(x = translateAnimation.value, y = angleOfAxisY),
-                ),
-            )
-        }
-    } else {
-        return this
+      this.background(
+          brush =
+              Brush.linearGradient(
+                  colors = shimmerColors,
+                  start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
+                  end = Offset(x = translateAnimation.value, y = angleOfAxisY),
+              ),
+      )
     }
+  } else {
+    return this
+  }
 }
 
-data class ShimmerAnimationData(
-    private val isLightMode: Boolean = true
-) {
-    fun getColours(): List<Color> {
-        return if (isLightMode) {
-            val color = Color.White
+data class ShimmerAnimationData(private val isLightMode: Boolean = true) {
+  fun getColours(): List<Color> {
+    return if (isLightMode) {
+      val color = Color.White
 
-            listOf(
-                color.copy(alpha = 0.3f),
-                color.copy(alpha = 0.5f),
-                color.copy(alpha = 1.0f),
-                color.copy(alpha = 0.5f),
-                color.copy(alpha = 0.3f),
-            )
-        } else {
-            val color = Color.Black
+      listOf(
+          color.copy(alpha = 0.3f),
+          color.copy(alpha = 0.5f),
+          color.copy(alpha = 1.0f),
+          color.copy(alpha = 0.5f),
+          color.copy(alpha = 0.3f),
+      )
+    } else {
+      val color = Color.Black
 
-            listOf(
-                color.copy(alpha = 0.0f),
-                color.copy(alpha = 0.3f),
-                color.copy(alpha = 0.5f),
-                color.copy(alpha = 0.3f),
-                color.copy(alpha = 0.0f),
-            )
-        }
+      listOf(
+          color.copy(alpha = 0.0f),
+          color.copy(alpha = 0.3f),
+          color.copy(alpha = 0.5f),
+          color.copy(alpha = 0.3f),
+          color.copy(alpha = 0.0f),
+      )
     }
+  }
 }

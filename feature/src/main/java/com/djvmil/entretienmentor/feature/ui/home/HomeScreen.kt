@@ -36,15 +36,8 @@ import kotlinx.collections.immutable.PersistentList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = koinViewModel(),
-    onShowDetail: (movieId: Int) -> Unit
-) {
-    HomeContent(
-        viewModel = viewModel,
-        modifier = Modifier,
-        onShowDetail = onShowDetail
-    )
+fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), onShowDetail: (movieId: Int) -> Unit) {
+  HomeContent(viewModel = viewModel, modifier = Modifier, onShowDetail = onShowDetail)
 }
 
 @Composable
@@ -53,91 +46,81 @@ fun HomeContent(
     modifier: Modifier,
     onShowDetail: (movieId: Int) -> Unit
 ) {
-    val uiState by viewModel.uiMovies.collectAsState()
-    var isEnableShimmer by remember { mutableStateOf(false) }
+  val uiState by viewModel.uiMovies.collectAsState()
+  var isEnableShimmer by remember { mutableStateOf(false) }
 
-    LaunchedEffect(
-        key1 = true,
-    ) {
-        viewModel.getCommunities()
-    }
+  LaunchedEffect(
+      key1 = true,
+  ) {
+    viewModel.getCommunities()
+  }
 
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        TopBanner()
+  Column(modifier = modifier.fillMaxWidth()) {
+    TopBanner()
 
+    /*  when (uiState) {
+        ResultEM.Loading -> {
+            isEnableShimmer = true
 
-      /*  when (uiState) {
-            ResultEM.Loading -> {
-                isEnableShimmer = true
+            ShowShimmerMovies(
+                isEnableShimmer = true,
+                count = ShimmerMovieItemCount
+            )
+        }
 
-                ShowShimmerMovies(
-                    isEnableShimmer = true,
-                    count = ShimmerMovieItemCount
+        is ResultEM.Failure -> {
+            //Todo: Implement Error Handling
+        }
+
+        is ResultEM.Success -> {
+            isEnableShimmer = false
+
+            val movies = (uiState as ResultEM.Success<PersistentList<MovieUiModel>>).value
+
+            if (movies.isEmpty()) {
+                EmptyMovies()
+            } else {
+                ShowMovies(
+                    movies = movies,
+                    onShowDetail = onShowDetail
                 )
             }
-
-            is ResultEM.Failure -> {
-                //Todo: Implement Error Handling
-            }
-
-            is ResultEM.Success -> {
-                isEnableShimmer = false
-
-                val movies = (uiState as ResultEM.Success<PersistentList<MovieUiModel>>).value
-
-                if (movies.isEmpty()) {
-                    EmptyMovies()
-                } else {
-                    ShowMovies(
-                        movies = movies,
-                        onShowDetail = onShowDetail
-                    )
-                }
-            }
-        }*/
-    }
+        }
+    }*/
+  }
 }
 
 @Composable
 fun TopBanner() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .height(100.dp)
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-            //.clip(Shapes.)
-    ) {
+  Row(
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier.height(100.dp).padding(horizontal = 8.dp, vertical = 8.dp)
+      // .clip(Shapes.)
+      ) {
         Column(modifier = Modifier.weight(0.4f)) {
-            Text(
-                text = "Entretien",
-                fontSize = 28.sp,
-                fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
-                fontWeight = FontWeight.ExtraBold,
-                lineHeight = 0.sp,
-                )
+          Text(
+              text = "Entretien",
+              fontSize = 28.sp,
+              fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
+              fontWeight = FontWeight.ExtraBold,
+              lineHeight = 0.sp,
+          )
 
-            Text(
-                modifier = Modifier.weight(0.4f),
-                text = "Mentor",
-                fontSize = 28.sp,
-                textAlign = TextAlign.End,
-                lineHeight = 0.sp,
-                fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
-                fontWeight = FontWeight.Medium)
+          Text(
+              modifier = Modifier.weight(0.4f),
+              text = "Mentor",
+              fontSize = 28.sp,
+              textAlign = TextAlign.End,
+              lineHeight = 0.sp,
+              fontFamily = FontFamily(Font(R.font.josefin_sans_semibold)),
+              fontWeight = FontWeight.Medium)
         }
 
         Icon(
-            modifier = Modifier
-                .weight(0.1f)
-                .size(25.dp),
+            modifier = Modifier.weight(0.1f).size(25.dp),
             painter = painterResource(id = R.drawable.outline_bell),
-            contentDescription = "notification"
-        )
-    }
-
+            contentDescription = "notification")
+      }
 }
 
 @Composable
@@ -145,52 +128,34 @@ fun ShowCommunities(
     communities: PersistentList<CommunityUiModel>,
     onShowDetail: (communityId: Int) -> Unit
 ) {
-    val scrollState = rememberScrollState()
+  val scrollState = rememberScrollState()
 
-    LazyRow(
-        Modifier
-            .verticalScroll(scrollState)
-    ) {
-        items(
-            items = communities,
-            key = { community -> community.id!! }
-        ) { community ->
-            CommunityItem(
-                community = community,
-                onShowDetail = onShowDetail
-            )
-        }
+  LazyRow(Modifier.verticalScroll(scrollState)) {
+    items(items = communities, key = { community -> community.id!! }) { community ->
+      CommunityItem(community = community, onShowDetail = onShowDetail)
     }
+  }
 }
 
 @Composable
-fun ShowShimmerMovies(
-    isEnableShimmer: Boolean,
-    count: Int
-) {
-    LazyRow() {
-        items(count = count) {
-            ShimmerMovieItem(isEnableShimmer = isEnableShimmer)
-        }
-    }
+fun ShowShimmerMovies(isEnableShimmer: Boolean, count: Int) {
+  LazyRow() { items(count = count) { ShimmerMovieItem(isEnableShimmer = isEnableShimmer) } }
 }
 
 @Preview
 @Composable
 private fun TopBannerPreview() {
-    TopBanner()
+  TopBanner()
 }
 
 @Preview
 @Composable
 private fun EmptyMoviesPreview() {
-   // EmptyMovies()
+  // EmptyMovies()
 }
 
 @Preview
 @Composable
 private fun ShowShimmerMoviesPreview() {
-    ShowShimmerMovies(
-        isEnableShimmer = true,
-        count = ShimmerMovieItemCount
-    ) }
+  ShowShimmerMovies(isEnableShimmer = true, count = ShimmerMovieItemCount)
+}

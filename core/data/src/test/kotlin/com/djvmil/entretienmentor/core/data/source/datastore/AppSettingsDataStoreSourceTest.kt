@@ -17,66 +17,58 @@ import org.junit.rules.TemporaryFolder
 
 class AppSettingsDataStoreSourceTest {
 
-    private lateinit var appSettingsSerializer: AppSettingsSerializer
+  private lateinit var appSettingsSerializer: AppSettingsSerializer
 
-    private lateinit var appSettingsDataStore: AppSettingsDataStoreSource
+  private lateinit var appSettingsDataStore: AppSettingsDataStoreSource
 
-    @get:Rule
-    val tmpFolder: TemporaryFolder = TemporaryFolder.builder().assureDeletion().build()
+  @get:Rule val tmpFolder: TemporaryFolder = TemporaryFolder.builder().assureDeletion().build()
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    private fun TemporaryFolder.testAppSettingsDataStore(
-        coroutineScope: CoroutineScope,
-        appSettingsSerializer: AppSettingsSerializer,
-    ) = DataStoreFactory.create(
-        serializer = appSettingsSerializer,
-        scope = coroutineScope,
-    ) {
+  private fun TemporaryFolder.testAppSettingsDataStore(
+      coroutineScope: CoroutineScope,
+      appSettingsSerializer: AppSettingsSerializer,
+  ) =
+      DataStoreFactory.create(
+          serializer = appSettingsSerializer,
+          scope = coroutineScope,
+      ) {
         newFile("app_settings_preferences_test.pb")
-    }
+      }
 
-    @Before
-    fun setup(){
-        val testScope = TestScope(mainDispatcherRule.testDispatcher)
-        appSettingsSerializer = AppSettingsSerializer(FakeCrypto())
+  @Before
+  fun setup() {
+    val testScope = TestScope(mainDispatcherRule.testDispatcher)
+    appSettingsSerializer = AppSettingsSerializer(FakeCrypto())
 
-        appSettingsDataStore = AppSettingsDataStoreSourceImpl(
+    appSettingsDataStore =
+        AppSettingsDataStoreSourceImpl(
             tmpFolder.testAppSettingsDataStore(
-                appSettingsSerializer = appSettingsSerializer,
-                coroutineScope = testScope
-            )
-        )
-    }
+                appSettingsSerializer = appSettingsSerializer, coroutineScope = testScope))
+  }
 
-    @Test
-    fun checkDefaultValuesAppSettings() = runTest {
-        //GIVEN
-        val expectedAppSetting = AppSettings()
+  @Test
+  fun checkDefaultValuesAppSettings() = runTest {
+    // GIVEN
+    val expectedAppSetting = AppSettings()
 
-        //WHEN
-        val  res = appSettingsDataStore.appSetting()
+    // WHEN
+    val res = appSettingsDataStore.appSetting()
 
-        //THEN
-        res.test {
-            Truth.assertThat(awaitItem()).isEqualTo(expectedAppSetting)
-        }
-    }
+    // THEN
+    res.test { Truth.assertThat(awaitItem()).isEqualTo(expectedAppSetting) }
+  }
 
-    @Test
-    fun check_update_appSetting() = runTest {
-        //GIVEN
-        val expectedAppSetting = fakeAppSettingData
+  @Test
+  fun check_update_appSetting() = runTest {
+    // GIVEN
+    val expectedAppSetting = fakeAppSettingData
 
-        //WHEN
-        appSettingsDataStore.update { expectedAppSetting }
-        val  actualAppSettings = appSettingsDataStore.appSetting()
+    // WHEN
+    appSettingsDataStore.update { expectedAppSetting }
+    val actualAppSettings = appSettingsDataStore.appSetting()
 
-        //THEN
-        actualAppSettings.test {
-            Truth.assertThat(awaitItem()).isEqualTo(expectedAppSetting)
-        }
-    }
-
+    // THEN
+    actualAppSettings.test { Truth.assertThat(awaitItem()).isEqualTo(expectedAppSetting) }
+  }
 }

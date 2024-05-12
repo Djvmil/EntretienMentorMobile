@@ -27,30 +27,26 @@ internal fun animateDropletButtonAsState(
     animationSpec: AnimationSpec<Float> = remember { tween(300) },
     size: Float,
 ): State<DropletButtonParams> {
-    val fraction = animateFloatAsState(
-        targetValue = if (isSelected) 1f else 0f,
-        animationSpec = animationSpec,
-        label = ""
-    )
-    val isAnimationRequired by rememberUpdatedState(newValue = isSelected)
+  val fraction =
+      animateFloatAsState(
+          targetValue = if (isSelected) 1f else 0f, animationSpec = animationSpec, label = "")
+  val isAnimationRequired by rememberUpdatedState(newValue = isSelected)
 
-    return produceState(
-        initialValue = DropletButtonParams(),
-        key1 = fraction.value
-    ) {
-        this.value = this.value.copy(
+  return produceState(initialValue = DropletButtonParams(), key1 = fraction.value) {
+    this.value =
+        this.value.copy(
             scale = if (isAnimationRequired) scaleInterpolation(fraction.value) else 1f,
             radius = if (isAnimationRequired) lerp(0f, size, fraction.value) else 0f,
-            verticalOffset = lerp(0f, size, fraction.value)
-        )
-    }
+            verticalOffset = lerp(0f, size, fraction.value))
+  }
 }
 
 fun scaleInterpolation(fraction: Float): Float {
-    val f = if (fraction < 0.3f) {
+  val f =
+      if (fraction < 0.3f) {
         fraction * 3.33f
-    } else {
+      } else {
         max((0.6f - fraction) * 3.33f, 0f)
-    }
-    return 1f - 0.2f * f
+      }
+  return 1f - 0.2f * f
 }

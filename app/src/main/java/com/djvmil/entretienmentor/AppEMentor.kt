@@ -7,13 +7,13 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class AppEMentor : Application() {
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        startKoin {
-            androidLogger()
-            androidContext(this@AppEMentor)
-            modules(ProvideAppModules.getAppModules())
-        }
+    startKoin {
+      androidLogger()
+      androidContext(this@AppEMentor)
+      modules(ProvideAppModules.getAppModules())
     }
+  }
 }

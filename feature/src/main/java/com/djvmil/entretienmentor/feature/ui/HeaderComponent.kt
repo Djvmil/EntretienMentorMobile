@@ -16,15 +16,14 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HeaderComponent(modifier: Modifier, onBack: () -> Unit) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+  Row(
+      modifier = modifier.fillMaxWidth(),
+      horizontalArrangement = Arrangement.Start,
+      verticalAlignment = Alignment.CenterVertically) {
         Icon(
             modifier = Modifier.padding(vertical = 10.dp).clickable { onBack.invoke() },
             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
             tint = MaterialTheme.colorScheme.primary,
             contentDescription = "Login Button")
-    }
+      }
 }

@@ -20,38 +20,33 @@ class BellColorButton(
     private val maxDegrees: Float = 30f,
 ) : ColorButtonAnimation(animationSpec, background) {
 
-    @Composable
-    override fun AnimatingIcon(
-        modifier: Modifier,
-        isSelected: Boolean,
-        isFromLeft: Boolean,
-        icon: Int,
-    ) {
-        val rotationFraction = animateFloatAsState(
+  @Composable
+  override fun AnimatingIcon(
+      modifier: Modifier,
+      isSelected: Boolean,
+      isFromLeft: Boolean,
+      icon: Int,
+  ) {
+    val rotationFraction =
+        animateFloatAsState(
             targetValue = if (isSelected) 1f else 0f,
             animationSpec = animationSpec,
-            label = "rotationFractionAnimation"
-        )
+            label = "rotationFractionAnimation")
 
-        val color = animateColorAsState(
-            targetValue = if (isSelected) Color.Black else LightGray,
-            label = "colorAnimation"
-        )
+    val color =
+        animateColorAsState(
+            targetValue = if (isSelected) Color.Black else LightGray, label = "colorAnimation")
 
-        Icon(
-            modifier = modifier
-                .rotationWithTopCenterAnchor(
-                    if (isSelected) degreesRotationInterpolation(
-                        maxDegrees,
-                        rotationFraction.value
-                    ) else 0f
-                ),
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            tint = color.value
-        )
-    }
+    Icon(
+        modifier =
+            modifier.rotationWithTopCenterAnchor(
+                if (isSelected) degreesRotationInterpolation(maxDegrees, rotationFraction.value)
+                else 0f),
+        painter = painterResource(id = icon),
+        contentDescription = null,
+        tint = color.value)
+  }
 
-    private fun degreesRotationInterpolation(maxDegrees: Float, fraction: Float) =
-        sin(fraction * 2 * PI).toFloat() * maxDegrees
+  private fun degreesRotationInterpolation(maxDegrees: Float, fraction: Float) =
+      sin(fraction * 2 * PI).toFloat() * maxDegrees
 }

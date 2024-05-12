@@ -6,27 +6,23 @@ versionCatalogUpdate {
     pin {
         /* // pins all libraries and plugins using the given versions
         versions.add("my-version-name")
-        versions.add("other-version")
+
         // pins specific libraries that are in the version catalog
         libraries.add(libs.my.library.reference)
-        libraries.add(libs.my.other.library.reference)
+
         // pins specific plugins that are in the version catalog
         plugins.add(libs.plugins.my.plugin)
-        plugins.add(libs.plugins.my.other.plugin)
+
         // pins all libraries (not plugins) for the given groups
         groups.add("com.somegroup")
-        groups.add("com.someothergroup")*/
+                */
     }
     keep {
        /* // keep has the same options as pin to keep specific entries
         versions.add("my-version-name")
-        versions.add("other-version")
         libraries.add(libs.my.library.reference)
-        libraries.add(libs.my.other.library.reference)
         plugins.add(libs.plugins.my.plugin)
-        plugins.add(libs.plugins.my.other.plugin)
-        groups.add("com.somegroup")
-        groups.add("com.someothergroup")*/
+        groups.add("com.somegroup")*/
 
         // keep versions without any library or plugin reference
         keepUnusedVersions.set(true)
@@ -34,5 +30,22 @@ versionCatalogUpdate {
         keepUnusedLibraries.set(true)
         // keep all plugins that aren't used in the project
         keepUnusedPlugins.set(true)
+    }
+}
+
+def isNonStable = { String version ->
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !(version ==~ regex)
+}
+
+tasks.named("dependencyUpdates").configure {
+    resolutionStrategy {
+        componentSelection {
+            configureEach {
+                if (isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)) {
+                    reject('Release candidate')
+                }
+            }
+        }
     }
 }

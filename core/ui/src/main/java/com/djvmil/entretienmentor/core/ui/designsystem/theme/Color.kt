@@ -19,7 +19,6 @@ Secondary: #1A1A1A (slightly lighter grey for card backgrounds or secondary elem
 Highlight: #3333FF (a slightly lighter blue than primary for hover states or secondary buttons)
  */
 
-
 val md_theme_light_primary = Color(0xFF6F19FF)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFE9DDFF)
@@ -81,6 +80,5 @@ val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFFCFBCFF)
 val md_theme_dark_outlineVariant = Color(0xFF49454E)
 val md_theme_dark_scrim = Color(0xFF000000)
-
 
 val seed = Color(0xFF6F1AFF)

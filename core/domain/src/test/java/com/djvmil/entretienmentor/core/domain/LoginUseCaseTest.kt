@@ -17,60 +17,49 @@ import org.junit.Rule
 import org.junit.Test
 
 class LoginUseCaseTest {
-    @get:Rule
-    val mockkRule = MockKRule(this)
+  @get:Rule val mockkRule = MockKRule(this)
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    @MockK
-    lateinit var authRepository: AuthRepository
-    private lateinit var loginUseCase: LoginUseCase
+  @MockK lateinit var authRepository: AuthRepository
+  private lateinit var loginUseCase: LoginUseCase
 
-    @Before
-    fun setup(){
-        loginUseCase = LoginUseCase(authRepository)
+  @Before
+  fun setup() {
+    loginUseCase = LoginUseCase(authRepository)
+  }
+
+  @Test
+  fun test_invoke_success_login_use_case() = runTest {
+    // GIVEN
+    val expectedDataRequest = FAKE_DATA.fakeAuthRequest
+    coEvery { authRepository.login(expectedDataRequest) } returns
+        flowOf(ResultEM.Success(FAKE_DATA.fakeRequestResult))
+
+    // WHEN
+    val actualResponse = loginUseCase.invoke(expectedDataRequest)
+
+    // THEN
+    actualResponse.test {
+      Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Success(FAKE_DATA.fakeRequestResult))
+      awaitComplete()
     }
+  }
 
-    @Test
-    fun test_invoke_success_login_use_case() = runTest{
-        //GIVEN
-        val expectedDataRequest = FAKE_DATA.fakeAuthRequest
-        coEvery { authRepository.login(expectedDataRequest) } returns flowOf (
-            ResultEM.Success(
-                FAKE_DATA.fakeRequestResult
-            )
-        )
+  @Test
+  fun test_invoke_error_login_use_case() = runTest {
+    // GIVEN
+    val expectedDataRequest = FAKE_DATA.fakeAuthRequest
+    coEvery { authRepository.login(FAKE_DATA.fakeAuthRequest) } returns
+        flowOf(ResultEM.Failure(ErrorEM("error")))
 
-        //WHEN
-        val actualResponse = loginUseCase.invoke(expectedDataRequest)
+    // WHEN
+    val actualResponse = loginUseCase.invoke(expectedDataRequest)
 
-        //THEN
-        actualResponse.test {
-            Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Success(FAKE_DATA.fakeRequestResult))
-            awaitComplete()
-        }
+    // THEN
+    actualResponse.test {
+      Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Failure(ErrorEM("error")))
+      awaitComplete()
     }
-
-    @Test
-    fun test_invoke_error_login_use_case() = runTest{
-        //GIVEN
-        val expectedDataRequest = FAKE_DATA.fakeAuthRequest
-        coEvery {
-            authRepository.login(FAKE_DATA.fakeAuthRequest)
-        } returns flowOf (
-            ResultEM.Failure(
-                ErrorEM("error")
-            )
-        )
-
-        //WHEN
-        val actualResponse = loginUseCase.invoke(expectedDataRequest)
-
-        //THEN
-        actualResponse.test {
-            Truth.assertThat(awaitItem()).isEqualTo(ResultEM.Failure(ErrorEM("error")))
-            awaitComplete()
-        }
-    }
+  }
 }

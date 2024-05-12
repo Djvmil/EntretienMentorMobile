@@ -1,6 +1,5 @@
 package com.djvmil.entretienmentor.core.ui.shape
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
@@ -13,8 +12,6 @@ fun Modifier.placeAt(
     x: Int,
     y: Int,
 ) = layout { measurables, constraints ->
-    val placeable = measurables.measure(constraints)
-    layout(placeable.width, placeable.height) {
-        placeable.placeRelative(x,y)
-    }
+  val placeable = measurables.measure(constraints)
+  layout(placeable.width, placeable.height) { placeable.placeRelative(x, y) }
 }

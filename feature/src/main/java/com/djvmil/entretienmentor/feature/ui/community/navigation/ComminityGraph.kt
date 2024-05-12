@@ -5,33 +5,28 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.djvmil.entretienmentor.feature.ui.chat.ChatScreen
 import com.djvmil.entretienmentor.feature.navigation.Destinations
 import com.djvmil.entretienmentor.feature.navigation.NavigationHelpers
+import com.djvmil.entretienmentor.feature.ui.chat.ChatScreen
 
-fun NavGraphBuilder.community(
-    navActions: NavigationHelpers
-) {
-    composable(Destinations.COMMUNITY_ROUTE, enterTransition = {
+fun NavGraphBuilder.community(navActions: NavigationHelpers) {
+  composable(
+      Destinations.COMMUNITY_ROUTE,
+      enterTransition = {
         return@composable fadeIn(tween(1000))
-    }, exitTransition = {
+      },
+      exitTransition = {
         return@composable slideOutOfContainer(
-            AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
-        )
-    }, popEnterTransition = {
+            AnimatedContentTransitionScope.SlideDirection.Start, tween(700))
+      },
+      popEnterTransition = {
         return@composable slideIntoContainer(
-            AnimatedContentTransitionScope.SlideDirection.End, tween(700)
-        )
-    }) {
-        ChatScreen(
-            openDashboard = {
-                navActions.navigateUp()
-            }
-        )
-    }
+            AnimatedContentTransitionScope.SlideDirection.End, tween(700))
+      }) {
+        ChatScreen(openDashboard = { navActions.navigateUp() })
+      }
 }
 
-
 fun NavigationHelpers.navigateToCommunity() {
-    navController.navigate(Destinations.COMMUNITY_ROUTE)
+  navController.navigate(Destinations.COMMUNITY_ROUTE)
 }

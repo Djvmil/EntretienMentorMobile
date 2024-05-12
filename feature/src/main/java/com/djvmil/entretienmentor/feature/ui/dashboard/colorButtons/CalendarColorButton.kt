@@ -24,78 +24,66 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 
-
 data class CalendarAnimation(
     override val animationSpec: FiniteAnimationSpec<Float>,
     override val background: ButtonBackground,
 ) : ColorButtonAnimation(animationSpec, background) {
 
-    @Composable
-    override fun AnimatingIcon(
-        modifier: Modifier,
-        isSelected: Boolean,
-        isFromLeft: Boolean,
-        icon: Int,
-    ) {
+  @Composable
+  override fun AnimatingIcon(
+      modifier: Modifier,
+      isSelected: Boolean,
+      isFromLeft: Boolean,
+      icon: Int,
+  ) {
 
-        Box(
-            modifier = modifier
-        ) {
-            val fraction = animateFloatAsState(
-                targetValue = if (isSelected) 1f else 0f,
-                animationSpec = animationSpec,
-                label = "fractionAnimation"
-            )
+    Box(modifier = modifier) {
+      val fraction =
+          animateFloatAsState(
+              targetValue = if (isSelected) 1f else 0f,
+              animationSpec = animationSpec,
+              label = "fractionAnimation")
 
-            val layoutDirection = LocalLayoutDirection.current
-            val isLeftAnimation = remember(isFromLeft) {
-                if (layoutDirection == LayoutDirection.Ltr) {
-                    isFromLeft
-                } else {
-                    !isFromLeft
-                }
+      val layoutDirection = LocalLayoutDirection.current
+      val isLeftAnimation =
+          remember(isFromLeft) {
+            if (layoutDirection == LayoutDirection.Ltr) {
+              isFromLeft
+            } else {
+              !isFromLeft
             }
+          }
 
-            val color = animateColorAsState(
-                targetValue = if (isSelected) Color.Black else MaterialTheme.colorScheme.primary,
-                label = "colorAnimation"
-            )
+      val color =
+          animateColorAsState(
+              targetValue = if (isSelected) Color.Black else MaterialTheme.colorScheme.primary,
+              label = "colorAnimation")
 
-            Icon(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .graphicsLayer(
-                        translationX = if (isSelected) offset(
-                            10f,
-                            fraction.value,
-                            isLeftAnimation
-                        ) else 0f
-                    ),
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                tint = color.value
-            )
+      Icon(
+          modifier =
+              Modifier.align(Alignment.Center)
+                  .graphicsLayer(
+                      translationX =
+                          if (isSelected) offset(10f, fraction.value, isLeftAnimation) else 0f),
+          painter = painterResource(id = icon),
+          contentDescription = null,
+          tint = color.value)
 
-            CalendarPoint(
-                modifier = Modifier.align(Alignment.Center),
-                offsetX = if (isSelected) offset(
-                    15f,
-                    fraction.value,
-                    isLeftAnimation
-                ) else 0f,
-                iconColor = color.value
-            )
-        }
+      CalendarPoint(
+          modifier = Modifier.align(Alignment.Center),
+          offsetX = if (isSelected) offset(15f, fraction.value, isLeftAnimation) else 0f,
+          iconColor = color.value)
     }
+  }
 
-    private fun offset(maxHorizontalOffset: Float, fraction: Float, isFromLeft: Boolean): Float {
-        val maxOffset = if (isFromLeft) -maxHorizontalOffset else maxHorizontalOffset
-        return if (fraction < 0.5) {
-            2 * fraction * maxOffset
-        } else {
-            2 * (1 - fraction) * maxOffset
-        }
+  private fun offset(maxHorizontalOffset: Float, fraction: Float, isFromLeft: Boolean): Float {
+    val maxOffset = if (isFromLeft) -maxHorizontalOffset else maxHorizontalOffset
+    return if (fraction < 0.5) {
+      2 * fraction * maxOffset
+    } else {
+      2 * (1 - fraction) * maxOffset
     }
+  }
 }
 
 @Composable
@@ -104,23 +92,21 @@ fun CalendarPoint(
     offsetX: Float,
     iconColor: Color,
 ) {
-    val layoutDirection = LocalLayoutDirection.current
-    val density = LocalDensity.current
-    val internalOffset = remember {
-        if (layoutDirection == LayoutDirection.Ltr) {
-            Offset(3.5.dp.toPxf(density), 5.dp.toPxf(density))
-        } else {
-            Offset((-3.5).dp.toPxf(density), 5.dp.toPxf(density))
-        }
+  val layoutDirection = LocalLayoutDirection.current
+  val density = LocalDensity.current
+  val internalOffset = remember {
+    if (layoutDirection == LayoutDirection.Ltr) {
+      Offset(3.5.dp.toPxf(density), 5.dp.toPxf(density))
+    } else {
+      Offset((-3.5).dp.toPxf(density), 5.dp.toPxf(density))
     }
-    Box(
-        modifier = modifier
-            .graphicsLayer(
-                translationX = internalOffset.x + offsetX,
-                translationY = internalOffset.y
-            )
-            .size(3.dp)
-            .clip(CircleShape)
-            .background(iconColor)
-    )
+  }
+  Box(
+      modifier =
+          modifier
+              .graphicsLayer(
+                  translationX = internalOffset.x + offsetX, translationY = internalOffset.y)
+              .size(3.dp)
+              .clip(CircleShape)
+              .background(iconColor))
 }

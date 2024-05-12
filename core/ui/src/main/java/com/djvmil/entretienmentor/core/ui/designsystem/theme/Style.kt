@@ -12,16 +12,14 @@ val HomeTextTitleStyle =
         fontSize = 30.sp,
         color = Color.Black,
         fontFamily = FontFamily.Serif,
-        fontWeight = FontWeight.Bold
-    )
+        fontWeight = FontWeight.Bold)
 
 val MovieItemTitleStyle =
     TextStyle(
         fontSize = 20.sp,
         color = Color.White,
         fontFamily = FontFamily.Serif,
-        fontWeight = FontWeight.Bold
-    )
+        fontWeight = FontWeight.Bold)
 
 val MovieDetailTextStyle =
     TextStyle(
@@ -30,8 +28,7 @@ val MovieDetailTextStyle =
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Justify,
-        lineHeight = 20.sp
-    )
+        lineHeight = 20.sp)
 
 val MovieDetailItemTextStyle =
     TextStyle(
@@ -39,8 +36,7 @@ val MovieDetailItemTextStyle =
         color = Color.Black,
         fontFamily = FontFamily.Serif,
         textAlign = TextAlign.Start,
-        fontWeight = FontWeight.Bold
-    )
+        fontWeight = FontWeight.Bold)
 
 val EmptyTextStyle =
     TextStyle(
@@ -49,5 +45,4 @@ val EmptyTextStyle =
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Justify,
-        lineHeight = 20.sp
-    )
+        lineHeight = 20.sp)

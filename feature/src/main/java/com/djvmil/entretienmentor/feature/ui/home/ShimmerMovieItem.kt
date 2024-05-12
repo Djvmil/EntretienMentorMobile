@@ -6,14 +6,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ShimmerMovieItem(
-    isEnableShimmer: Boolean
-) {
-    Column(
-        modifier = Modifier
-           // .width(MovieItemWidth)
-            //.clip(RoundedCornerShape(size = MovieItemRound))
-    ) {
+fun ShimmerMovieItem(isEnableShimmer: Boolean) {
+  Column(
+      modifier = Modifier
+      // .width(MovieItemWidth)
+      // .clip(RoundedCornerShape(size = MovieItemRound))
+      ) {
         /*ShimmerRectangle(
             isEnableShimmer = isEnableShimmer,
             width = MovieItemWidth,
@@ -29,9 +27,7 @@ fun ShimmerMovieItem(
             round = MovieItemRound,
             padding = SmallPadding
         )*/
-    }
+      }
 }
 
-@Preview
-@Composable
-private fun ShimmerMovieItemPreview() = ShimmerMovieItem(true)
+@Preview @Composable private fun ShimmerMovieItemPreview() = ShimmerMovieItem(true)

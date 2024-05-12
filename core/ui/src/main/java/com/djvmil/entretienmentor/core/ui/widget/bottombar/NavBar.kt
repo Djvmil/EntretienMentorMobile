@@ -31,19 +31,19 @@ import com.djvmil.entretienmentor.core.ui.widget.bottombar.layout.animatedNavBar
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.ballTransform
 
 /**
- *A composable function that creates an animated navigation bar with a moving ball and indent
- * to indicate the selected item.
+ * A composable function that creates an animated navigation bar with a moving ball and indent to
+ * indicate the selected item.
  *
- *@param [modifier] Modifier to be applied to the navigation bar
- *@param [selectedIndex] The index of the currently selected item
- *@param [barColor] The color of the navigation bar
- *@param [ballColor] The color of the moving ball
- *@param [cornerRadius] The corner radius of the navigation bar
- *@param [ballAnimation] The animation to be applied to the moving ball
- *@param [indentAnimation] The animation to be applied to the navigation bar to indent selected item
- *@param [content] The composable content of the navigation bar
+ * @param [modifier] Modifier to be applied to the navigation bar
+ * @param [selectedIndex] The index of the currently selected item
+ * @param [barColor] The color of the navigation bar
+ * @param [ballColor] The color of the moving ball
+ * @param [cornerRadius] The corner radius of the navigation bar
+ * @param [ballAnimation] The animation to be applied to the moving ball
+ * @param [indentAnimation] The animation to be applied to the navigation bar to indent selected
+ *   item
+ * @param [content] The composable content of the navigation bar
  */
-
 @Composable
 fun AnimatedNavigationBar(
     modifier: Modifier = Modifier,
@@ -56,50 +56,42 @@ fun AnimatedNavigationBar(
     content: @Composable () -> Unit,
 ) {
 
-    var itemPositions by remember { mutableStateOf(listOf<Offset>()) }
-    val measurePolicy = animatedNavBarMeasurePolicy {
-        itemPositions = it.map { xCord ->
-            Offset(xCord, 0f)
-        }
-    }
+  var itemPositions by remember { mutableStateOf(listOf<Offset>()) }
+  val measurePolicy = animatedNavBarMeasurePolicy {
+    itemPositions = it.map { xCord -> Offset(xCord, 0f) }
+  }
 
-    val selectedItemOffset by remember(selectedIndex, itemPositions) {
+  val selectedItemOffset by
+      remember(selectedIndex, itemPositions) {
         derivedStateOf {
-            if (itemPositions.isNotEmpty()) itemPositions[selectedIndex] else Offset.Unspecified
+          if (itemPositions.isNotEmpty()) itemPositions[selectedIndex] else Offset.Unspecified
         }
-    }
+      }
 
-    val indentShape = indentAnimation.animateIndentShapeAsState(
-        shapeCornerRadius = cornerRadius,
-        targetOffset = selectedItemOffset
-    )
+  val indentShape =
+      indentAnimation.animateIndentShapeAsState(
+          shapeCornerRadius = cornerRadius, targetOffset = selectedItemOffset)
 
-    val ballAnimInfoState = ballAnimation.animateAsState(
-        targetOffset = selectedItemOffset,
-    )
+  val ballAnimInfoState =
+      ballAnimation.animateAsState(
+          targetOffset = selectedItemOffset,
+      )
 
-    Box(
-        modifier = modifier
-    ) {
-        Layout(
-            modifier = Modifier
-                .graphicsLayer {
-                    clip = true
-                    shape = indentShape.value
+  Box(modifier = modifier) {
+    Layout(
+        modifier =
+            Modifier.graphicsLayer {
+                  clip = true
+                  shape = indentShape.value
                 }
                 .background(barColor),
-            content = content,
-            measurePolicy = measurePolicy
-        )
+        content = content,
+        measurePolicy = measurePolicy)
 
-        if (ballAnimInfoState.value.offset.isSpecified) {
-            ColorBall(
-                ballAnimInfo = ballAnimInfoState.value,
-                ballColor = ballColor,
-                sizeDp = ballSize
-            )
-        }
+    if (ballAnimInfoState.value.offset.isSpecified) {
+      ColorBall(ballAnimInfo = ballAnimInfoState.value, ballColor = ballColor, sizeDp = ballSize)
     }
+  }
 }
 
 val ballSize = 10.dp
@@ -111,11 +103,11 @@ private fun ColorBall(
     ballAnimInfo: BallAnimInfo,
     sizeDp: Dp,
 ) {
-    Box(
-        modifier = modifier
-            .ballTransform(ballAnimInfo)
-            .size(sizeDp)
-            .clip(shape = CircleShape)
-            .background(ballColor)
-    )
+  Box(
+      modifier =
+          modifier
+              .ballTransform(ballAnimInfo)
+              .size(sizeDp)
+              .clip(shape = CircleShape)
+              .background(ballColor))
 }

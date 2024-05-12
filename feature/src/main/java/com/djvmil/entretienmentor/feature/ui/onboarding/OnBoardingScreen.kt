@@ -1,6 +1,5 @@
 package com.djvmil.entretienmentor.feature.ui.onboarding
 
-import android.util.Log
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -54,142 +53,118 @@ fun OnBoardingScreen(
     viewModel: OnBoardingViewModel = koinViewModel(),
     navigateToAuth: () -> Unit,
 ) {
-    val items = OnBoardingItems.getData()
-    val scope = rememberCoroutineScope()
-    val pageState = rememberPagerState(
-        0,
-        0f
-    ) { OnBoardingItems.getData().size }
+  val items = OnBoardingItems.getData()
+  val scope = rememberCoroutineScope()
+  val pageState = rememberPagerState(0, 0f) { OnBoardingItems.getData().size }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopSection(
-            modifier = Modifier,
-            onBackClick = {
-                if (pageState.currentPage + 1 > 1) scope.launch {
-                    pageState.scrollToPage(pageState.currentPage - 1)
-                }
-            },
-            onSkipClick = {
-                if (pageState.currentPage + 1 < items.size) scope.launch {
-                    pageState.scrollToPage(items.size - 1)
-                }
-            }
-        )
+  Column(modifier = Modifier.fillMaxSize()) {
+    TopSection(
+        modifier = Modifier,
+        onBackClick = {
+          if (pageState.currentPage + 1 > 1)
+              scope.launch { pageState.scrollToPage(pageState.currentPage - 1) }
+        },
+        onSkipClick = {
+          if (pageState.currentPage + 1 < items.size)
+              scope.launch { pageState.scrollToPage(items.size - 1) }
+        })
 
-        HorizontalPager(
-            //count = items.size,
-            state = pageState,
-            modifier = Modifier
-                .fillMaxHeight(0.9f)
-                .fillMaxWidth()
-        ) { page ->
-            OnBoardingItem(items = items[page])
+    HorizontalPager(
+        // count = items.size,
+        state = pageState,
+        modifier = Modifier.fillMaxHeight(0.9f).fillMaxWidth()) { page ->
+          OnBoardingItem(items = items[page])
         }
-        BottomSection(size = items.size, index = pageState.currentPage) {
-            if (pageState.currentPage + 1 < items.size) scope.launch {
-                pageState.scrollToPage(pageState.currentPage + 1)
-            }
+    BottomSection(size = items.size, index = pageState.currentPage) {
+      if (pageState.currentPage + 1 < items.size)
+          scope.launch { pageState.scrollToPage(pageState.currentPage + 1) }
 
-            viewModel.setStepsApp()
-            navigateToAuth.invoke()
-        }
+      viewModel.setStepsApp()
+      navigateToAuth.invoke()
     }
+  }
 }
 
 @Composable
-fun TopSection(modifier: Modifier = Modifier, onBackClick: () -> Unit = {}, onSkipClick: () -> Unit = {}) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        // Back button
-        IconButton(onClick = onBackClick, modifier = Modifier.align(Alignment.CenterStart)) {
-            Icon(imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowLeft, contentDescription = null)
-        }
-
-        // Skip Button
-        TextButton(
-            onClick = onSkipClick,
-            modifier = Modifier.align(Alignment.CenterEnd),
-            contentPadding = PaddingValues(0.dp)
-        ) {
-            Text(text = "Skip", color = MaterialTheme.colorScheme.onBackground)
-        }
+fun TopSection(
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
+    onSkipClick: () -> Unit = {}
+) {
+  Box(modifier = modifier.fillMaxWidth().padding(8.dp)) {
+    // Back button
+    IconButton(onClick = onBackClick, modifier = Modifier.align(Alignment.CenterStart)) {
+      Icon(imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowLeft, contentDescription = null)
     }
+
+    // Skip Button
+    TextButton(
+        onClick = onSkipClick,
+        modifier = Modifier.align(Alignment.CenterEnd),
+        contentPadding = PaddingValues(0.dp)) {
+          Text(text = "Skip", color = MaterialTheme.colorScheme.onBackground)
+        }
+  }
 }
 
 @Composable
 fun BottomSection(size: Int, index: Int, onButtonClick: () -> Unit = {}) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp)
-    ) {
-        // Indicators
-        Indicators(size, index)
+  Box(modifier = Modifier.fillMaxWidth().padding(12.dp)) {
+    // Indicators
+    Indicators(size, index)
 
-        FloatingActionButton(
-            onClick = onButtonClick,
-            containerColor = Color.Black,
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
-        ) {
-            Icon(
-                Icons.AutoMirrored.Outlined.KeyboardArrowRight,
-                tint = Color.White,
-                contentDescription = "Localized description")
+    FloatingActionButton(
+        onClick = onButtonClick,
+        containerColor = Color.Black,
+        modifier =
+            Modifier.align(Alignment.CenterEnd)
+                .clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))) {
+          Icon(
+              Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+              tint = Color.White,
+              contentDescription = "Localized description")
         }
-    }
+  }
 }
 
 @Composable
 fun BoxScope.Indicators(size: Int, index: Int) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.align(Alignment.CenterStart)
-    ) {
-        repeat(size) {
-            Indicator(isSelected = it == index)
-        }
-    }
+  Row(
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(12.dp),
+      modifier = Modifier.align(Alignment.CenterStart)) {
+        repeat(size) { Indicator(isSelected = it == index) }
+      }
 }
 
 @Composable
 fun Indicator(isSelected: Boolean) {
-    val width = animateDpAsState(
-        targetValue = if (isSelected) 25.dp else 10.dp,
-        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
-        label = ""
-    )
+  val width =
+      animateDpAsState(
+          targetValue = if (isSelected) 25.dp else 10.dp,
+          animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
+          label = "")
 
-    Box(
-        modifier = Modifier
-            .height(10.dp)
-            .width(width.value)
-            .clip(CircleShape)
-            .background(
-                color = if (isSelected) MaterialTheme.colorScheme.primary else Color(0XFFF8E2E7)
-            )
-    ) {
-
-    }
+  Box(
+      modifier =
+          Modifier.height(10.dp)
+              .width(width.value)
+              .clip(CircleShape)
+              .background(
+                  color =
+                      if (isSelected) MaterialTheme.colorScheme.primary else Color(0XFFF8E2E7))) {}
 }
 
 @Composable
 fun OnBoardingItem(items: OnBoardingItems) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
+  Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center,
+      modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = items.image),
             contentDescription = "Image1",
-            modifier = Modifier.padding(start = 50.dp, end = 50.dp)
-        )
+            modifier = Modifier.padding(start = 50.dp, end = 50.dp))
 
         Spacer(modifier = Modifier.height(25.dp))
 
@@ -213,5 +188,5 @@ fun OnBoardingItem(items: OnBoardingItems) {
             modifier = Modifier.padding(10.dp),
             letterSpacing = 1.sp,
         )
-    }
+      }
 }

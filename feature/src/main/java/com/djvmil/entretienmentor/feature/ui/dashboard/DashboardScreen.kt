@@ -54,134 +54,114 @@ fun DashboardScreen(
     appSettings: AppSettings,
     snackbarHostState: SnackbarHostState,
 ) {
-    val navController: NavHostController = rememberNavController()
-    val navActions: NavigationHelpers = remember(navController) {
-        NavigationHelpers(navController)
-    }
+  val navController: NavHostController = rememberNavController()
+  val navActions: NavigationHelpers = remember(navController) { NavigationHelpers(navController) }
 
-    EntretienMentorTheme(
-        useDarkTheme = darkTheme,
-        useAndroidTheme = androidTheme
-    ) {
-        Surface(modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)) {
-            Scaffold(
-                containerColor = Color.Transparent,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                topBar = {
-                    /*TopAppBar(
-                        title = {
-                            Box(Modifier.fillMaxWidth(),
-                                contentAlignment = Alignment.Center) {
-                                Text(text = "Entretien Mentor", fontWeight = FontWeight.Bold)
-                            }
-
-                        },
-                        Modifier
-                            .padding(10.dp)
-                            .clip(RoundedCornerShape(20.dp)),
-                        navigationIcon = {
-                            IconButton(onClick = {  }) {
-                                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back icon" )
-                            }
-
-                        },
-                        actions = {
-
-                            IconButton(onClick = {  }) {
-                                Icon(painter = painterResource(id = R.drawable.outline_bell), contentDescription = "Notification icon" )
-                            }
-                        },
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Color.White
-                        )
-                    )*/
-                },
-                bottomBar = {
-                    if(appSettings.isLogin) ColorButtonNavBar(navActions)
-                },
-                modifier = Modifier,
-                snackbarHost = { SnackbarHost(snackbarHostState) },
-                contentWindowInsets = WindowInsets(0, 0, 0, 0),
-                floatingActionButton = {},
-                content = { padding ->
-                    Row(
-                        Modifier
-                            .fillMaxSize()
-                            .padding(padding)
-                            .consumeWindowInsets(padding)
-                            .windowInsetsPadding(
-                                WindowInsets.safeDrawing.only(
-                                    WindowInsetsSides.Horizontal,
-                                ),
-                            ),
-                    ) {
-                        NavGraph(
-                            navController = navController,
-                            navActions = navActions,
-                            appSettings = appSettings,
-                            /*modifier = if (appSettings.isLogin) {
-                                Modifier.consumeWindowInsets(
-                                    WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
-                                )
-                            } else {
-                                Modifier
-                            },*/
-                        )
+  EntretienMentorTheme(useDarkTheme = darkTheme, useAndroidTheme = androidTheme) {
+    Surface(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+      Scaffold(
+          containerColor = Color.Transparent,
+          contentColor = MaterialTheme.colorScheme.onBackground,
+          topBar = {
+            /*TopAppBar(
+                title = {
+                    Box(Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center) {
+                        Text(text = "Entretien Mentor", fontWeight = FontWeight.Bold)
                     }
-                }
-            )
-        }
-    }
 
+                },
+                Modifier
+                    .padding(10.dp)
+                    .clip(RoundedCornerShape(20.dp)),
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back icon" )
+                    }
+
+                },
+                actions = {
+
+                    IconButton(onClick = {  }) {
+                        Icon(painter = painterResource(id = R.drawable.outline_bell), contentDescription = "Notification icon" )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.White
+                )
+            )*/
+          },
+          bottomBar = { if (appSettings.isLogin) ColorButtonNavBar(navActions) },
+          modifier = Modifier,
+          snackbarHost = { SnackbarHost(snackbarHostState) },
+          contentWindowInsets = WindowInsets(0, 0, 0, 0),
+          floatingActionButton = {},
+          content = { padding ->
+            Row(
+                Modifier.fillMaxSize()
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal,
+                        ),
+                    ),
+            ) {
+              NavGraph(
+                  navController = navController,
+                  navActions = navActions,
+                  appSettings = appSettings,
+                  /*modifier = if (appSettings.isLogin) {
+                      Modifier.consumeWindowInsets(
+                          WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
+                      )
+                  } else {
+                      Modifier
+                  },*/
+              )
+            }
+          })
+    }
+  }
 }
 
 @Composable
 fun ColorButtonNavBar(navActions: NavigationHelpers) {
-    var selectedItem by remember { mutableIntStateOf(0) }
-    var prevSelectedIndex by remember { mutableIntStateOf(0) }
+  var selectedItem by remember { mutableIntStateOf(0) }
+  var prevSelectedIndex by remember { mutableIntStateOf(0) }
 
-    AnimatedNavigationBar(
-        modifier = Modifier
-            //.padding(horizontal = 8.dp, vertical = 8.dp)
-            .height(70.dp),
-        selectedIndex = selectedItem,
-
-        ballColor = Color.White,
-        cornerRadius = shapeCornerRadius(25.dp),
-        ballAnimation = Straight(
-            spring(dampingRatio = 0.6f, stiffness = Spring.StiffnessVeryLow)
-        ),
-        indentAnimation = StraightIndent(
-            indentWidth = 56.dp,
-            indentHeight = 15.dp,
-            animationSpec = tween(1000)
-        )
-    ) {
+  AnimatedNavigationBar(
+      modifier =
+          Modifier
+              // .padding(horizontal = 8.dp, vertical = 8.dp)
+              .height(70.dp),
+      selectedIndex = selectedItem,
+      ballColor = Color.White,
+      cornerRadius = shapeCornerRadius(25.dp),
+      ballAnimation = Straight(spring(dampingRatio = 0.6f, stiffness = Spring.StiffnessVeryLow)),
+      indentAnimation =
+          StraightIndent(indentWidth = 56.dp, indentHeight = 15.dp, animationSpec = tween(1000))) {
         colorButtons.forEachIndexed { index, it ->
-            ColorButton(
-                modifier = Modifier.fillMaxSize(),
-                prevSelectedIndex = prevSelectedIndex,
-                selectedIndex = selectedItem,
-                index = index,
-                onClick = {
-                    prevSelectedIndex = selectedItem
-                    selectedItem = index
-                    when(selectedItem){
-                        0 -> navActions.navigateToHome()
-                        1 -> navActions.navigateToChat()
-                        2 -> navActions.navigateToBlog()
-                        3 -> navActions.navigateToCommunity()
-                        4 -> navActions.navigateToProfile()
-                    }
-
-                },
-                icon = it.icon,
-                contentDescription = stringResource(id = it.description),
-                animationType = it.animationType,
-                background = it.animationType.background
-            )
+          ColorButton(
+              modifier = Modifier.fillMaxSize(),
+              prevSelectedIndex = prevSelectedIndex,
+              selectedIndex = selectedItem,
+              index = index,
+              onClick = {
+                prevSelectedIndex = selectedItem
+                selectedItem = index
+                when (selectedItem) {
+                  0 -> navActions.navigateToHome()
+                  1 -> navActions.navigateToChat()
+                  2 -> navActions.navigateToBlog()
+                  3 -> navActions.navigateToCommunity()
+                  4 -> navActions.navigateToProfile()
+                }
+              },
+              icon = it.icon,
+              contentDescription = stringResource(id = it.description),
+              animationType = it.animationType,
+              background = it.animationType.background)
         }
-    }
+      }
 }

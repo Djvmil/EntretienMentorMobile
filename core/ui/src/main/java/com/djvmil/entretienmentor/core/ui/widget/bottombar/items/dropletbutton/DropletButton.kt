@@ -29,18 +29,18 @@ import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.noRippleClickab
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 
 /**
+ * A composable button that displays an icon with a droplet-shaped background. The button supports
+ * animation and selection states.
  *
- *A composable button that displays an icon with a droplet-shaped background. The button supports animation
- *and selection states.
- *@param modifier Modifier to be applied to the composable
- *@param isSelected Boolean representing whether the button is currently selected or not
- *@param onClick Callback to be executed when the button is clicked
- *@param icon Drawable resource of the icon to be displayed on the button
- *@param contentDescription A description for the button to be used by accessibility
- *@param iconColor Color to tint the icon
- *@param dropletColor Color of the droplet-shaped background
- *@param size Icon size
- *@param animationSpec Animation specification to be used when animating the button
+ * @param modifier Modifier to be applied to the composable
+ * @param isSelected Boolean representing whether the button is currently selected or not
+ * @param onClick Callback to be executed when the button is clicked
+ * @param icon Drawable resource of the icon to be displayed on the button
+ * @param contentDescription A description for the button to be used by accessibility
+ * @param iconColor Color to tint the icon
+ * @param dropletColor Color of the droplet-shaped background
+ * @param size Icon size
+ * @param animationSpec Animation specification to be used when animating the button
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -55,50 +55,36 @@ fun DropletButton(
     size: Dp = 20.dp,
     animationSpec: AnimationSpec<Float> = remember { tween(300) }
 ) {
-    Box(
-        modifier = modifier.noRippleClickable { onClick() }
-    ) {
-        val density = LocalDensity.current
-        val dropletButtonParams = animateDropletButtonAsState(
-            isSelected = isSelected, animationSpec = animationSpec, size = size.toPxf(density)
-        )
+  Box(modifier = modifier.noRippleClickable { onClick() }) {
+    val density = LocalDensity.current
+    val dropletButtonParams =
+        animateDropletButtonAsState(
+            isSelected = isSelected, animationSpec = animationSpec, size = size.toPxf(density))
 
-        val sizePx = remember(size) { size.toPxf(density) }
-        val circleCenter by remember {
-            derivedStateOf {
-                mutableStateOf(sizePx / 2)
-            }
-        }
+    val sizePx = remember(size) { size.toPxf(density) }
+    val circleCenter by remember { derivedStateOf { mutableStateOf(sizePx / 2) } }
 
-        val vector = ImageVector.vectorResource(id = icon)
-        val painter = rememberVectorPainter(image = vector)
-        Canvas(
-            modifier = Modifier
-                .size(size)
+    val vector = ImageVector.vectorResource(id = icon)
+    val painter = rememberVectorPainter(image = vector)
+    Canvas(
+        modifier =
+            Modifier.size(size)
                 .align(Alignment.Center)
                 .graphicsLayer(
                     alpha = 0.99f,
                     scaleX = dropletButtonParams.value.scale,
                     scaleY = dropletButtonParams.value.scale,
                 ),
-            contentDescription = contentDescription ?: ""
-        ) {
-            with(painter) {
-                draw(
-                    size = Size(sizePx, sizePx),
-                    colorFilter = ColorFilter.tint(color = iconColor)
-                )
-            }
+        contentDescription = contentDescription ?: "") {
+          with(painter) {
+            draw(size = Size(sizePx, sizePx), colorFilter = ColorFilter.tint(color = iconColor))
+          }
 
-            drawCircle(
-                color = dropletColor,
-                radius = dropletButtonParams.value.radius,
-                center = Offset(
-                    circleCenter.value,
-                    dropletButtonParams.value.verticalOffset - 20f
-                ),
-                blendMode = BlendMode.SrcIn
-            )
+          drawCircle(
+              color = dropletColor,
+              radius = dropletButtonParams.value.radius,
+              center = Offset(circleCenter.value, dropletButtonParams.value.verticalOffset - 20f),
+              blendMode = BlendMode.SrcIn)
         }
-    }
+  }
 }

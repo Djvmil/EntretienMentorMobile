@@ -7,21 +7,18 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.utils.toPxf
 
-/**
- * defining indent animation, that is above selected item.
- */
-
+/** defining indent animation, that is above selected item. */
 interface IndentAnimation {
 
-    /**
-     *@param [targetOffset] target offset
-     *@param [shapeCornerRadius] corner radius of the navBar layout
-     */
-    @Composable
-    fun animateIndentShapeAsState(
-        targetOffset: Offset,
-        shapeCornerRadius: ShapeCornerRadius
-    ): State<Shape>
+  /**
+   * @param [targetOffset] target offset
+   * @param [shapeCornerRadius] corner radius of the navBar layout
+   */
+  @Composable
+  fun animateIndentShapeAsState(
+      targetOffset: Offset,
+      shapeCornerRadius: ShapeCornerRadius
+  ): State<Shape>
 }
 
 data class ShapeCornerRadius(
@@ -36,8 +33,7 @@ fun shapeCornerRadius(cornerRadius: Float) =
         topLeft = cornerRadius,
         topRight = cornerRadius,
         bottomRight = cornerRadius,
-        bottomLeft = cornerRadius
-    )
+        bottomLeft = cornerRadius)
 
 @Composable
 fun shapeCornerRadius(cornerRadius: Dp) =
@@ -45,18 +41,12 @@ fun shapeCornerRadius(cornerRadius: Dp) =
         topLeft = cornerRadius.toPxf(),
         topRight = cornerRadius.toPxf(),
         bottomRight = cornerRadius.toPxf(),
-        bottomLeft = cornerRadius.toPxf()
-    )
+        bottomLeft = cornerRadius.toPxf())
 
 @Composable
-fun shapeCornerRadius(
-    topLeft: Dp,
-    topRight: Dp,
-    bottomRight: Dp,
-    bottomLeft: Dp
-) = ShapeCornerRadius(
-    topLeft = topLeft.toPxf(),
-    topRight = topRight.toPxf(),
-    bottomRight = bottomRight.toPxf(),
-    bottomLeft = bottomLeft.toPxf()
-)
+fun shapeCornerRadius(topLeft: Dp, topRight: Dp, bottomRight: Dp, bottomLeft: Dp) =
+    ShapeCornerRadius(
+        topLeft = topLeft.toPxf(),
+        topRight = topRight.toPxf(),
+        bottomRight = bottomRight.toPxf(),
+        bottomLeft = bottomLeft.toPxf())

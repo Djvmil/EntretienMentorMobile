@@ -7,37 +7,32 @@ import com.djvmil.entretienmentor.core.data.source.datastore.model.AppSettings
 import com.djvmil.entretienmentor.core.data.source.datastore.model.AppTheme
 import com.djvmil.entretienmentor.core.data.source.datastore.model.StepsStarting
 import com.djvmil.entretienmentor.core.data.source.remote.model.UserApiModel
-import com.djvmil.sqldelight.CommunityTable
 
 object FAKE_DATA {
 
-    val fakeAuthRequest = AuthRequest(username = "admin@em.com", password = "1234")
-    private const val ACCESS_TOKEN = "ashfbhsfhshfksh.kjshfkjhjkshjkfhkshjkf.ioeu82h3dfbm"
-    val fakeRequestResult = RequestResult(
-        code = 200,
-        message = "success login",
-        data = ResponseAuthData(
-            accessToken = ACCESS_TOKEN,
-            user = UserApiModel(
-            firstname = "admin",
-            lastname = "admin",
-            username = "admn@em.com",
-            )
-        ),
-        timestamp = "123454872"
-    )
-    val fakeRequestRegisterResult = RequestResult(
-        code = 200,
-        message = "success login",
-        data = "",
-        timestamp = "123454872"
-    )
+  val fakeAuthRequest = AuthRequest(username = "admin@em.com", password = "1234")
+  private const val ACCESS_TOKEN = "ashfbhsfhshfksh.kjshfkjhjkshjkfhkshjkf.ioeu82h3dfbm"
+  val fakeRequestResult =
+      RequestResult(
+          code = 200,
+          message = "success login",
+          data =
+              ResponseAuthData(
+                  accessToken = ACCESS_TOKEN,
+                  user =
+                      UserApiModel(
+                          firstname = "admin",
+                          lastname = "admin",
+                          username = "admn@em.com",
+                      )),
+          timestamp = "123454872")
+  val fakeRequestRegisterResult =
+      RequestResult(code = 200, message = "success login", data = "", timestamp = "123454872")
 
-    val fakeAppSettingData =  AppSettings(
-        theme =  AppTheme.Dark,
-        isLogin = true,
-        stepsStarting = StepsStarting.ON_AUTH_PAGE,
-        accessToken = ACCESS_TOKEN
-    )
-
+  val fakeAppSettingData =
+      AppSettings(
+          theme = AppTheme.Dark,
+          isLogin = true,
+          stepsStarting = StepsStarting.ON_AUTH_PAGE,
+          accessToken = ACCESS_TOKEN)
 }

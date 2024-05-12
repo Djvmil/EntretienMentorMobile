@@ -11,12 +11,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val featureModule = module {
-    viewModel { HomeViewModel(get()) }
-    viewModel { DetailViewModel(get(), get()) }
-    viewModel { RegisterViewModel(get(), get()) }
-    viewModel { LoginViewModel(get(), get()) }
-    viewModel { ForgetPasswordViewModel(get(), get(), get(), get()) }
-    viewModel { OnBoardingViewModel(get(), get()) }
-    viewModel { AuthViewModel() }
-
+  viewModel { HomeViewModel(get()) }
+  viewModel { DetailViewModel(get(), get()) }
+  viewModel { RegisterViewModel(get(), get()) }
+  viewModel { LoginViewModel(get(), get()) }
+  viewModel { ForgetPasswordViewModel(get(), get(), get(), get()) }
+  viewModel { OnBoardingViewModel(get(), get()) }
+  viewModel { AuthViewModel() }
 }

@@ -1,25 +1,15 @@
 package com.djvmil.entretienmentor.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,136 +25,109 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+  private val viewModel: MainActivityViewModel by viewModel()
 
-    private val viewModel: MainActivityViewModel by viewModel()
+  override fun onCreate(savedInstanceState: Bundle?) {
+    val splashScreen = installSplashScreen()
+    super.onCreate(savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
-        super.onCreate(savedInstanceState)
+    var uiState: ScreenUiState<AppSettings?> by mutableStateOf(ScreenUiState.Loading)
 
-        var uiState: ScreenUiState<AppSettings?> by mutableStateOf(ScreenUiState.Loading)
-
-        // Update the uiState
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach {
-                        Log.e("MainActivity", "onCreate: appSettings $it" )
-                        uiState = it
-                    }.collect()
+    // Update the uiState
+    lifecycleScope.launch {
+      lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.uiState
+            .onEach {
+              Log.e("MainActivity", "onCreate: appSettings $it")
+              uiState = it
             }
-        }
-
-        // Keep the splash screen on-screen until the UI state is loaded. This condition is
-        // evaluated each time the app needs to be redrawn so it should be fast to avoid blocking
-        // the UI.
-        splashScreen.setKeepOnScreenCondition {
-            when (uiState) {
-                ScreenUiState.Loading -> true
-                is ScreenUiState.Success -> false
-                else -> true
-            }
-        }
-
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
-       // enableEdgeToEdge()
-
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations
-       // WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        setContent {
-            val darkTheme = shouldUseDarkTheme(uiState)
-            val androidTheme = shouldUseAndroidTheme(uiState)
-
-            val snackbarHostState = remember { SnackbarHostState() }
-
-            val isOnline by viewModel.networkMonitor.collectAsStateWithLifecycle(false)
-
-            // If user is not connected to the internet show a snack bar to inform them.
-            val notConnectedMessage = stringResource(R.string.not_connected)
-            LaunchedEffect(isOnline) {
-                Log.e("MainActivity", "onCreate: isOnline = $isOnline ", )
-                if (!isOnline) {
-                    snackbarHostState.showSnackbar(
-                        message = notConnectedMessage,
-                        duration = SnackbarDuration.Indefinite,
-                    )
-                }
-            }
-
-            // Update the edge to edge configuration to match the theme
-            // This is the same parameters as the default enableEdgeToEdge call, but we manually
-            // resolve whether or not to show dark theme using uiState, since it can be different
-            // than the configuration's dark theme value based on the user preference.
-           /* DisposableEffect(darkTheme) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        Color.TRANSPARENT,
-                        Color.TRANSPARENT,
-                    ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
-                )
-                onDispose {}
-            }*/
-
-            when(val result = uiState){
-                is ScreenUiState.Success -> {
-                    result.data?.let {
-                        DashboardScreen(
-                            darkTheme = darkTheme,
-                            androidTheme = androidTheme,
-                            appSettings = it,
-                            snackbarHostState,
-                        )
-                    }
-                }
-                else -> Log.i("MainActivity", "onCreate appSettings: ${result.valueOrNull}" )
-            }
-
-        }
+            .collect()
+      }
     }
-}
 
-/**
- * Returns `true` if the Android theme should be used, as a function of the [uiState].
- */
-@Composable
-private fun shouldUseAndroidTheme(
-    uiState: ScreenUiState<AppSettings?>,
-): Boolean = when (uiState) {
-    ScreenUiState.Loading -> false
-    is ScreenUiState.Success -> when (uiState.data?.theme) {
-        AppTheme.default() -> false
+    // Keep the splash screen on-screen until the UI state is loaded. This condition is
+    // evaluated each time the app needs to be redrawn so it should be fast to avoid blocking
+    // the UI.
+    splashScreen.setKeepOnScreenCondition {
+      when (uiState) {
+        ScreenUiState.Loading -> true
+        is ScreenUiState.Success -> false
         else -> true
+      }
     }
-    else -> false
+
+    // Turn off the decor fitting system windows, which allows us to handle insets,
+    // including IME animations, and go edge-to-edge
+    // This also sets up the initial system bar style based on the platform theme
+    // enableEdgeToEdge()
+
+    setContent {
+      val darkTheme = shouldUseDarkTheme(uiState)
+      val androidTheme = shouldUseAndroidTheme(uiState)
+
+      val snackbarHostState = remember { SnackbarHostState() }
+
+      val isOnline by viewModel.networkMonitor.collectAsStateWithLifecycle(false)
+
+      // If user is not connected to the internet show a snack bar to inform them.
+      val notConnectedMessage = stringResource(R.string.not_connected)
+      LaunchedEffect(isOnline) {
+        Log.e("MainActivity", "onCreate: isOnline = $isOnline ")
+        if (!isOnline) {
+          snackbarHostState.showSnackbar(
+              message = notConnectedMessage,
+              duration = SnackbarDuration.Indefinite,
+          )
+        }
+      }
+
+      when (val result = uiState) {
+        is ScreenUiState.Success -> {
+          result.data?.let {
+            DashboardScreen(
+                darkTheme = darkTheme,
+                androidTheme = androidTheme,
+                appSettings = it,
+                snackbarHostState,
+            )
+          }
+        }
+        else -> Log.i("MainActivity", "onCreate appSettings: ${result.valueOrNull}")
+      }
+    }
+  }
 }
+
+/** Returns `true` if the Android theme should be used, as a function of the [uiState]. */
+@Composable
+private fun shouldUseAndroidTheme(uiState: ScreenUiState<AppSettings?>): Boolean =
+    when (uiState) {
+      ScreenUiState.Loading -> false
+      is ScreenUiState.Success ->
+          when (uiState.data?.theme) {
+            AppTheme.default() -> false
+            else -> true
+          }
+      else -> false
+    }
 
 /**
- * Returns `true` if dark theme should be used, as a function of the [uiState] and the
- * current system context.
+ * Returns `true` if dark theme should be used, as a function of the [uiState] and the current
+ * system context.
  */
 @Composable
-private fun shouldUseDarkTheme(
-    uiState: ScreenUiState<AppSettings?>,
-): Boolean = when (uiState) {
-    ScreenUiState.Loading -> isSystemInDarkTheme()
-    is ScreenUiState.Success -> when (uiState.data?.theme) {
-        AppTheme.FollowSystem -> isSystemInDarkTheme()
-        AppTheme.Light -> false
-        AppTheme.Dark -> true
-        else -> isSystemInDarkTheme()
+private fun shouldUseDarkTheme(uiState: ScreenUiState<AppSettings?>): Boolean =
+    when (uiState) {
+      ScreenUiState.Loading -> isSystemInDarkTheme()
+      is ScreenUiState.Success ->
+          when (uiState.data?.theme) {
+            AppTheme.FollowSystem -> isSystemInDarkTheme()
+            AppTheme.Light -> false
+            AppTheme.Dark -> true
+            else -> isSystemInDarkTheme()
+          }
+      else -> isSystemInDarkTheme()
     }
-    else -> isSystemInDarkTheme()
-}
-
-
 
 /**
  * The default light scrim, as defined by androidx and the platform:

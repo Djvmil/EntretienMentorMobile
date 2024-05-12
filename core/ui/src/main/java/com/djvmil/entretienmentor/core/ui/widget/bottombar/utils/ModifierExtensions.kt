@@ -11,35 +11,25 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.IntOffset
 import com.djvmil.entretienmentor.core.ui.widget.bottombar.animation.balltrajectory.BallAnimInfo
 
-fun Modifier.noRippleClickable(
-    onClick: () -> Unit
-) = composed {
-    this.clickable(
-        indication = null,
-        interactionSource = remember { MutableInteractionSource() }
-    ) {
-        onClick()
-    }
+fun Modifier.noRippleClickable(onClick: () -> Unit) = composed {
+  this.clickable(indication = null, interactionSource = remember { MutableInteractionSource() }) {
+    onClick()
+  }
 }
 
-fun Modifier.ballTransform(ballAnimInfo: BallAnimInfo) = this
-    .offset {
-        IntOffset(
-            x = ballAnimInfo.offset.x.toInt(),
-            y = ballAnimInfo.offset.y.toInt()
-        )
-    }
-    .graphicsLayer {
-        scaleY = ballAnimInfo.scale
-        scaleX = ballAnimInfo.scale
-        transformOrigin = TransformOrigin(pivotFractionX = 0.5f, 0f)
-    }
+fun Modifier.ballTransform(ballAnimInfo: BallAnimInfo) =
+    this.offset { IntOffset(x = ballAnimInfo.offset.x.toInt(), y = ballAnimInfo.offset.y.toInt()) }
+        .graphicsLayer {
+          scaleY = ballAnimInfo.scale
+          scaleX = ballAnimInfo.scale
+          transformOrigin = TransformOrigin(pivotFractionX = 0.5f, 0f)
+        }
 
-fun Modifier.rotationWithTopCenterAnchor(degrees: Float) = this
-    .graphicsLayer(
-        transformOrigin = TransformOrigin(
-            pivotFractionX = 0.5f,
-            pivotFractionY = 0.1f,
-        ),
-        rotationZ = degrees
-    )
+fun Modifier.rotationWithTopCenterAnchor(degrees: Float) =
+    this.graphicsLayer(
+        transformOrigin =
+            TransformOrigin(
+                pivotFractionX = 0.5f,
+                pivotFractionY = 0.1f,
+            ),
+        rotationZ = degrees)

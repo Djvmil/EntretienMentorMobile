@@ -13,17 +13,17 @@ import kotlinx.coroutines.flow.stateIn
 
 class MainActivityViewModel(
     userDataRepository: AppSettingsDataStoreSource,
-    networkMonitor: NetworkMonitor
+    networkMonitor: NetworkMonitor,
 ) : ViewModel() {
+  val networkMonitor = networkMonitor.isOnline
 
-    val networkMonitor = networkMonitor.isOnline
-
-
-    val uiState: StateFlow<ScreenUiState<AppSettings?>> = userDataRepository.appSetting().map {
-        ScreenUiState.Success(it)
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = ScreenUiState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000)
-    )
+  val uiState: StateFlow<ScreenUiState<AppSettings?>> =
+      userDataRepository
+          .appSetting()
+          .map { ScreenUiState.Success(it) }
+          .stateIn(
+              scope = viewModelScope,
+              initialValue = ScreenUiState.Loading,
+              started = SharingStarted.WhileSubscribed(5_000),
+          )
 }

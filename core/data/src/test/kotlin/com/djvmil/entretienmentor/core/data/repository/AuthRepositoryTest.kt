@@ -20,81 +20,74 @@ import org.junit.Rule
 import org.junit.Test
 
 class AuthRepositoryTest {
-    @get:Rule
-    val mockkRule = MockKRule(this)
+  @get:Rule val mockkRule = MockKRule(this)
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    @MockK private lateinit var apiService: ApiService
-    private lateinit var dataStoreSource: AppSettingsDataStoreSource
-    private lateinit var authRepository: AuthRepository
-    private val bodyRequest = AuthRequest(username = "admin@em.com", password = "1234")
+  @MockK private lateinit var apiService: ApiService
+  private lateinit var dataStoreSource: AppSettingsDataStoreSource
+  private lateinit var authRepository: AuthRepository
+  private val bodyRequest = AuthRequest(username = "admin@em.com", password = "1234")
 
-    @Before
-    fun setup() {
-        coEvery {
-            apiService.login(bodyRequest)
-        } returns ApiOperation.Success(FAKE_DATA.fakeRequestResult)
+  @Before
+  fun setup() {
+    coEvery { apiService.login(bodyRequest) } returns
+        ApiOperation.Success(FAKE_DATA.fakeRequestResult)
 
-        dataStoreSource = FakeAppSettingsDataStoreSource()
-        authRepository = AuthRepositoryImpl(apiService = apiService, dataStoreSource = dataStoreSource)
-    }
+    dataStoreSource = FakeAppSettingsDataStoreSource()
+    authRepository = AuthRepositoryImpl(apiService = apiService, dataStoreSource = dataStoreSource)
+  }
 
+  @Test
+  fun login_Assert_Response_Success() = runTest {
+    // GIVEN
+    val expectedUserResponse = FAKE_DATA.fakeRequestResult.data?.user
+    val expectedAccessToken = FAKE_DATA.fakeRequestResult.data?.accessToken
 
-    @Test
-    fun login_Assert_Response_Success() = runTest {
-        //GIVEN
-        val expectedUserResponse = FAKE_DATA.fakeRequestResult.data?.user
-        val expectedAccessToken = FAKE_DATA.fakeRequestResult.data?.accessToken
+    // WHEN
+    val actualData = authRepository.login(bodyRequest)
 
-        //WHEN
-        val actualData = authRepository.login(bodyRequest)
+    // mainDispatcherRule.testDispatcher.scheduler.advanceUntilIdle()
+    // THEN
+    actualData.test {
+      Truth.assertThat(ResultEM.Loading).isEqualTo(awaitItem())
 
-        //mainDispatcherRule.testDispatcher.scheduler.advanceUntilIdle()
-        //THEN
-        actualData.test {
-            Truth.assertThat(ResultEM.Loading).isEqualTo(awaitItem())
-
-            when (val item = awaitItem()) {
-                is ResultEM.Failure,
-                is ResultEM.Loading,
-                is ResultEM.Success -> {
-                    item.map { itemData ->
-                        Truth.assertThat(itemData.data).isNotNull()
-                        Truth.assertThat(itemData.data?.accessToken).isNotNull()
-                        Truth.assertThat(itemData.data?.accessToken).isEqualTo(expectedAccessToken)
-                        Truth.assertThat(itemData.data?.user).isEqualTo(expectedUserResponse)
-
-                    }
-                }
-            }
-            awaitComplete()
+      when (val item = awaitItem()) {
+        is ResultEM.Failure,
+        is ResultEM.Loading,
+        is ResultEM.Success -> {
+          item.map { itemData ->
+            Truth.assertThat(itemData.data).isNotNull()
+            Truth.assertThat(itemData.data?.accessToken).isNotNull()
+            Truth.assertThat(itemData.data?.accessToken).isEqualTo(expectedAccessToken)
+            Truth.assertThat(itemData.data?.user).isEqualTo(expectedUserResponse)
+          }
         }
+      }
+      awaitComplete()
     }
+  }
 
-    @Test
-    fun login_Assert_Saved_OnDataStore() = runTest {
-        //GIVEN
-        val expectedAppSettingDataTest = FAKE_DATA.fakeAppSettingData
+  @Test
+  fun login_Assert_Saved_OnDataStore() = runTest {
+    // GIVEN
+    val expectedAppSettingDataTest = FAKE_DATA.fakeAppSettingData
 
-        //WHEN
-        dataStoreSource.setLogin(
-            status = expectedAppSettingDataTest.isLogin,
-            accessToken = expectedAppSettingDataTest.accessToken!!,
-            steps = expectedAppSettingDataTest.stepsStarting
-        )
-        val actualDataStore = dataStoreSource.appSetting()
+    // WHEN
+    dataStoreSource.setLogin(
+        status = expectedAppSettingDataTest.isLogin,
+        accessToken = expectedAppSettingDataTest.accessToken!!,
+        steps = expectedAppSettingDataTest.stepsStarting)
+    val actualDataStore = dataStoreSource.appSetting()
 
-        //THEN
-        actualDataStore.test {
-            val item = awaitItem()
-            Truth.assertThat(item?.isLogin).isEqualTo(expectedAppSettingDataTest.isLogin)
-            Truth.assertThat(item?.accessToken).isEqualTo(expectedAppSettingDataTest.accessToken!!)
-            Truth.assertThat(item?.stepsStarting).isEqualTo(expectedAppSettingDataTest.stepsStarting)
+    // THEN
+    actualDataStore.test {
+      val item = awaitItem()
+      Truth.assertThat(item?.isLogin).isEqualTo(expectedAppSettingDataTest.isLogin)
+      Truth.assertThat(item?.accessToken).isEqualTo(expectedAppSettingDataTest.accessToken!!)
+      Truth.assertThat(item?.stepsStarting).isEqualTo(expectedAppSettingDataTest.stepsStarting)
 
-            awaitComplete()
-        }
+      awaitComplete()
     }
-
+  }
 }

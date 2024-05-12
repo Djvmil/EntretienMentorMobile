@@ -8,12 +8,12 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 object ProvideAppModules {
-    fun getAppModules() = module {
-        includes(
-            dataModule,
-            domainModule,
-            featureModule
-        )
-        viewModelOf(::MainActivityViewModel)
-    }
+  fun getAppModules() = module {
+    includes(
+        dataModule,
+        domainModule,
+        featureModule,
+    )
+    viewModelOf(::MainActivityViewModel)
+  }
 }

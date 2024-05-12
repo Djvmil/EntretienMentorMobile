@@ -18,33 +18,32 @@ fun animateWiggleButtonAsState(
     wiggleAnimationSpec: AnimationSpec<Float>,
     maxRadius: Float,
 ): State<WiggleButtonParams> {
-    val enterExitFraction = animateFloatAsState(
-        targetValue = if (isSelected) 1f else 0f,
-        animationSpec = enterExitAnimationSpec
-    )
+  val enterExitFraction =
+      animateFloatAsState(
+          targetValue = if (isSelected) 1f else 0f, animationSpec = enterExitAnimationSpec)
 
-    val wiggleFraction = animateFloatAsState(
-        targetValue = if (isSelected) 1f else 0f,
-        animationSpec = wiggleAnimationSpec
-    )
+  val wiggleFraction =
+      animateFloatAsState(
+          targetValue = if (isSelected) 1f else 0f, animationSpec = wiggleAnimationSpec)
 
-    val isAnimationRequired by rememberUpdatedState(newValue = isSelected)
+  val isAnimationRequired by rememberUpdatedState(newValue = isSelected)
 
-    return produceState(
-        initialValue = WiggleButtonParams(),
-        key1 = enterExitFraction.value,
-        key2 = wiggleFraction.value
-    ) {
-        this.value = this.value.copy(
-            scale = scaleInterpolator(enterExitFraction.value),
-            alpha = alphaInterpolator(enterExitFraction.value),
-            radius = if (isAnimationRequired) calculateRadius(
-                maxRadius = maxRadius * 0.8f,
-                fraction = radiusInterpolator(wiggleFraction.value),
-                minRadius = mildRadius * maxRadius
-            ) else mildRadius * maxRadius
-        )
-    }
+  return produceState(
+      initialValue = WiggleButtonParams(),
+      key1 = enterExitFraction.value,
+      key2 = wiggleFraction.value) {
+        this.value =
+            this.value.copy(
+                scale = scaleInterpolator(enterExitFraction.value),
+                alpha = alphaInterpolator(enterExitFraction.value),
+                radius =
+                    if (isAnimationRequired)
+                        calculateRadius(
+                            maxRadius = maxRadius * 0.8f,
+                            fraction = radiusInterpolator(wiggleFraction.value),
+                            minRadius = mildRadius * maxRadius)
+                    else mildRadius * maxRadius)
+      }
 }
 
 const val mildRadius = 0.55f
@@ -59,10 +58,9 @@ fun calculateRadius(
     minRadius: Float,
 ) = (fraction * (maxRadius - minRadius)) + minRadius
 
-fun radiusInterpolator(
-    fraction: Float
-): Float = if (fraction < 0.5f) {
-    fraction * 2
-} else {
-    (1 - fraction) * 2
-}
+fun radiusInterpolator(fraction: Float): Float =
+    if (fraction < 0.5f) {
+      fraction * 2
+    } else {
+      (1 - fraction) * 2
+    }

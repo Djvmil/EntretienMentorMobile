@@ -12,101 +12,96 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 
-class AppSettingsDataStoreSourceImpl (
+class AppSettingsDataStoreSourceImpl(
     private val appSettings: DataStore<AppSettings>,
-): AppSettingsDataStoreSource {
-    override fun appSetting() = appSettings.data
+) : AppSettingsDataStoreSource {
+  override fun appSetting() = appSettings.data
 
-    override suspend fun update(transform: suspend (current: AppSettings?) -> AppSettings?) = appSettings.updateData { current ->
+  override suspend fun update(transform: suspend (current: AppSettings?) -> AppSettings?) =
+      appSettings.updateData { current ->
         transform(current.takeIf { it != APP_SETTING_DEFAULT }) ?: APP_SETTING_DEFAULT
-    }
+      }
 
-    override suspend fun setTheme(theme: AppTheme){
-        appSettings.updateData {
-            it.copy(theme = theme)
-        }
-    }
+  override suspend fun setTheme(theme: AppTheme) {
+    appSettings.updateData { it.copy(theme = theme) }
+  }
 
-    override fun getTheme() = appSettings.data
-        .onEach { Log.d("getTheme", "getTheme=${it.theme}") }
-        .map { v -> v.theme}
-        .catch { cause: Throwable ->
+  override fun getTheme() =
+      appSettings.data
+          .onEach { Log.d("getTheme", "getTheme=${it.theme}") }
+          .map { v -> v.theme }
+          .catch { cause: Throwable ->
             if (cause is IOException) {
-                emit(AppTheme.default())
+              emit(AppTheme.default())
             } else {
-                throw cause
+              throw cause
             }
-        }
+          }
 
-    override suspend fun setIsLogin(status: Boolean){
-        appSettings.updateData {
-            it.copy(isLogin = status)
-        }
+  override suspend fun setIsLogin(status: Boolean) {
+    appSettings.updateData { it.copy(isLogin = status) }
+  }
+
+  override suspend fun setLogin(status: Boolean, accessToken: String, steps: StepsStarting) {
+    appSettings.updateData {
+      it.copy(isLogin = status, accessToken = accessToken, stepsStarting = steps)
     }
+  }
 
-    override suspend fun setLogin(status: Boolean, accessToken: String, steps: StepsStarting) {
-        appSettings.updateData {
-            it.copy(
-                isLogin = status,
-                accessToken = accessToken,
-                stepsStarting = steps
-            )
-        }
-    }
-
-    override fun isLogin() = appSettings.data
-        .map { v -> v.isLogin }
-        .catch { cause: Throwable ->
+  override fun isLogin() =
+      appSettings.data
+          .map { v -> v.isLogin }
+          .catch { cause: Throwable ->
             if (cause is IOException) {
-                emit(false)
+              emit(false)
             } else {
-                throw cause
+              throw cause
             }
-        }
+          }
 
-    override suspend fun setStepsStarting(steps: StepsStarting){
-        appSettings.updateData {
-            it.copy(stepsStarting = steps)
-        }
-    }
+  override suspend fun setStepsStarting(steps: StepsStarting) {
+    appSettings.updateData { it.copy(stepsStarting = steps) }
+  }
 
-    override fun getStepsStarting() = appSettings.data
-        .map { v -> v.stepsStarting }
-        .catch { cause: Throwable ->
+  override fun getStepsStarting() =
+      appSettings.data
+          .map { v -> v.stepsStarting }
+          .catch { cause: Throwable ->
             if (cause is IOException) {
-                emit(StepsStarting.ON_BOARDING)
+              emit(StepsStarting.ON_BOARDING)
             } else {
-                throw cause
+              throw cause
             }
-        }
+          }
 
-    override suspend fun setAccessToken(accessToken: String) {
-        appSettings.updateData {
-            it.copy(accessToken = accessToken)
-        }
-    }
+  override suspend fun setAccessToken(accessToken: String) {
+    appSettings.updateData { it.copy(accessToken = accessToken) }
+  }
 
-    override fun getAccessToken() = appSettings.data
-        .map { v -> v.accessToken }
-        .catch { cause: Throwable ->
+  override fun getAccessToken() =
+      appSettings.data
+          .map { v -> v.accessToken }
+          .catch { cause: Throwable ->
             if (cause is IOException) {
-                emit(null)
+              emit(null)
             } else {
-                throw cause
+              throw cause
             }
-        }
+          }
 
-    override suspend fun getAccessTokenForAuth(): String? = appSettings.data
-        .map { v -> v.accessToken }
-        .catch { cause: Throwable ->
+  override suspend fun getAccessTokenForAuth(): String? =
+      appSettings.data
+          .map { v -> v.accessToken }
+          .catch { cause: Throwable ->
             if (cause is IOException) {
-                emit(null)
+              emit(null)
             } else {
-                throw cause
+              throw cause
             }
-        }.first()
+          }
+          .first()
 
-    companion object {
-        const val DATASTORE_FILE = "app_settings.pb"
-    }
+  companion object {
+    const val DATASTORE_FILE = "app_settings.pb"
+  }
 }

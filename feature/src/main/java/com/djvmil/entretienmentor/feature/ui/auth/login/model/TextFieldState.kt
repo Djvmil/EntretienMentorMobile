@@ -10,44 +10,44 @@ open class TextFieldState(
     private val errorFor: (String) -> String = { "" },
     open val label: String? = null,
 ) {
-    var text: String by mutableStateOf("")
-    // was the TextField ever focused
-    var isFocusedDirty: Boolean by mutableStateOf(false)
-    var isFocused: Boolean by mutableStateOf(false)
-    private var displayErrors: Boolean by mutableStateOf(false)
+  var text: String by mutableStateOf("")
+  // was the TextField ever focused
+  var isFocusedDirty: Boolean by mutableStateOf(false)
+  var isFocused: Boolean by mutableStateOf(false)
+  private var displayErrors: Boolean by mutableStateOf(false)
 
-    open val isValid: Boolean
-        get() = validator(text)
+  open val isValid: Boolean
+    get() = validator(text)
 
-    fun onFocusChange(focused: Boolean) {
-        isFocused = focused
-        if (focused) isFocusedDirty = true
+  fun onFocusChange(focused: Boolean) {
+    isFocused = focused
+    if (focused) isFocusedDirty = true
+  }
+
+  fun enableShowErrors() {
+    // only show errors if the text was at least once focused
+    if (isFocusedDirty) {
+      displayErrors = true
     }
+  }
 
-    fun enableShowErrors() {
-        // only show errors if the text was at least once focused
-        if (isFocusedDirty) {
-            displayErrors = true
-        }
+  fun showErrors() = !isValid && displayErrors
+
+  open fun getError(): String? {
+    return if (showErrors()) {
+      errorFor(text)
+    } else {
+      null
     }
-
-    fun showErrors() = !isValid && displayErrors
-
-    open fun getError(): String? {
-        return if (showErrors()) {
-            errorFor(text)
-        } else {
-            null
-        }
-    }
+  }
 }
 
-fun textFieldStateSaver(state: TextFieldState) = listSaver<TextFieldState, Any>(
-    save = { listOf(it.text, it.isFocusedDirty) },
-    restore = {
-        state.apply {
+fun textFieldStateSaver(state: TextFieldState) =
+    listSaver<TextFieldState, Any>(
+        save = { listOf(it.text, it.isFocusedDirty) },
+        restore = {
+          state.apply {
             text = it[0] as String
             isFocusedDirty = it[1] as Boolean
-        }
-    }
-)
+          }
+        })

@@ -6,37 +6,36 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import java.util.Locale
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import java.util.Locale
 
-class LanguageLocalDataSource (
-   private val context: Context
-) {
-    fun setLocale(locale: Locale) {
-        AppCompatDelegate.setApplicationLocales(
-            LocaleListCompat.forLanguageTags(locale.toLanguageTag())
-        )
-    }
+class LanguageLocalDataSource(private val context: Context) {
+  fun setLocale(locale: Locale) {
+    AppCompatDelegate.setApplicationLocales(
+        LocaleListCompat.forLanguageTags(locale.toLanguageTag()))
+  }
 
-    fun getLocale(): Flow<Locale> = callbackFlow {
-        val localeChangedReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent) {
-                if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
-                    val newLocale =
-                        AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
-                    trySend(newLocale)
+  fun getLocale(): Flow<Locale> =
+      callbackFlow {
+            val localeChangedReceiver =
+                object : BroadcastReceiver() {
+                  override fun onReceive(context: Context?, intent: Intent) {
+                    if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
+                      val newLocale =
+                          AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
+                      trySend(newLocale)
+                    }
+                  }
                 }
-            }
-        }
-        context.registerReceiver(localeChangedReceiver, IntentFilter(Intent.ACTION_LOCALE_CHANGED))
+            context.registerReceiver(
+                localeChangedReceiver, IntentFilter(Intent.ACTION_LOCALE_CHANGED))
 
-        trySend(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
+            trySend(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
 
-        awaitClose {
-            context.unregisterReceiver(localeChangedReceiver)
-        }
-    }.distinctUntilChanged()
+            awaitClose { context.unregisterReceiver(localeChangedReceiver) }
+          }
+          .distinctUntilChanged()
 }

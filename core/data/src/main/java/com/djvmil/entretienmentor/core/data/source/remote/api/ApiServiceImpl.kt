@@ -23,39 +23,37 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class ApiServiceImpl(val httpClient: HttpClient) : ApiService {
-    override suspend fun login(body: AuthRequest): ApiOperation<RequestResult<ResponseAuthData>> {
-        return safeApiCall {
-            httpClient.post {
-                url(LOGIN_URL)
-                setBody (body)
-                contentType(ContentType.Application.Json)
-            }.body()
-        }
+  override suspend fun login(body: AuthRequest): ApiOperation<RequestResult<ResponseAuthData>> {
+    return safeApiCall {
+      httpClient
+          .post {
+            url(LOGIN_URL)
+            setBody(body)
+            contentType(ContentType.Application.Json)
+          }
+          .body()
     }
+  }
 
-    override suspend fun register(body: AuthRequest): ApiOperation<RequestResult<String>> {
-        return safeApiCall {
-            httpClient.post {
-                url(REGISTER_URL)
-                setBody (body)
-                contentType(ContentType.Application.Json)
-            }.body()
-        }
+  override suspend fun register(body: AuthRequest): ApiOperation<RequestResult<String>> {
+    return safeApiCall {
+      httpClient
+          .post {
+            url(REGISTER_URL)
+            setBody(body)
+            contentType(ContentType.Application.Json)
+          }
+          .body()
     }
+  }
 
-    override fun getCommunities(): Flow<ResultEM<List<CommunityApiModel>, ErrorEM>> = flow {
-        emit(ResultEM.Loading)
-        try {
-            emit(
-                ResultEM.Success(
-                    httpClient.get(COMMUNITY_URL).body()
-                )
-            )
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            emit(
-                ResultEM.Failure(ErrorEM(message = ex.message ?: "", throwable = ex))
-            )
-        }
+  override fun getCommunities(): Flow<ResultEM<List<CommunityApiModel>, ErrorEM>> = flow {
+    emit(ResultEM.Loading)
+    try {
+      emit(ResultEM.Success(httpClient.get(COMMUNITY_URL).body()))
+    } catch (ex: Exception) {
+      ex.printStackTrace()
+      emit(ResultEM.Failure(ErrorEM(message = ex.message ?: "", throwable = ex)))
     }
+  }
 }

@@ -10,25 +10,24 @@ import com.djvmil.entretienmentor.feature.navigation.NavigationHelpers
 import com.djvmil.entretienmentor.feature.ui.auth.auth.navigation.navigateToAuth
 import com.djvmil.entretienmentor.feature.ui.onboarding.OnBoardingScreen
 
-fun NavGraphBuilder.onBoarding(
-    navActions: NavigationHelpers
-) {
-    composable(Destinations.ON_BOARDING_ROUTE, enterTransition = {
+fun NavGraphBuilder.onBoarding(navActions: NavigationHelpers) {
+  composable(
+      Destinations.ON_BOARDING_ROUTE,
+      enterTransition = {
         return@composable fadeIn(tween(1000))
-    }, exitTransition = {
+      },
+      exitTransition = {
         return@composable slideOutOfContainer(
-            AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
-        )
-    }, popEnterTransition = {
+            AnimatedContentTransitionScope.SlideDirection.Start, tween(700))
+      },
+      popEnterTransition = {
         return@composable slideIntoContainer(
-            AnimatedContentTransitionScope.SlideDirection.End, tween(700)
-        )
-    }) {
+            AnimatedContentTransitionScope.SlideDirection.End, tween(700))
+      }) {
         OnBoardingScreen { navActions.navigateToAuth() }
-    }
+      }
 }
 
-
 fun NavigationHelpers.navigateToOnBoarding() {
-    navController.navigate(Destinations.ON_BOARDING_ROUTE)
+  navController.navigate(Destinations.ON_BOARDING_ROUTE)
 }

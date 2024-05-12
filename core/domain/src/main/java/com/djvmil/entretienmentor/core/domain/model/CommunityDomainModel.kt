@@ -10,18 +10,18 @@ data class CommunityDomainModel(
     val dateUpdated: String?,
 )
 
-internal fun CommunityDataModel.toDomain() = CommunityDomainModel(
-    id = id,
-    name = name,
-    description = description,
-    dateCreated = dateCreated,
-    dateUpdated = dateUpdated
-)
+internal fun CommunityDataModel.toDomain() =
+    CommunityDomainModel(
+        id = id,
+        name = name,
+        description = description,
+        dateCreated = dateCreated,
+        dateUpdated = dateUpdated)
 
-internal fun CommunityDomainModel.toData() = CommunityDataModel(
-    id = id,
-    name = name,
-    description = description,
-    dateCreated = dateCreated,
-    dateUpdated = dateUpdated
-)
+internal fun CommunityDomainModel.toData() =
+    CommunityDataModel(
+        id = id,
+        name = name,
+        description = description,
+        dateCreated = dateCreated,
+        dateUpdated = dateUpdated)

@@ -30,68 +30,57 @@ fun LoadingAnimation(
     travelDistance: Dp = 20.dp,
     isLoading: Boolean
 ) {
-    val circles = listOf(
-        remember { Animatable(initialValue = 0f) },
-        remember { Animatable(initialValue = 0f) },
-        remember { Animatable(initialValue = 0f) }
-    )
+  val circles =
+      listOf(
+          remember { Animatable(initialValue = 0f) },
+          remember { Animatable(initialValue = 0f) },
+          remember { Animatable(initialValue = 0f) })
 
-    circles.forEachIndexed { index, animatable ->
-        LaunchedEffect(key1 = animatable) {
-            delay(index * 100L)
-            animatable.animateTo(
-                targetValue = 1f,
-                animationSpec = infiniteRepeatable(
-                    animation = keyframes {
+  circles.forEachIndexed { index, animatable ->
+    LaunchedEffect(key1 = animatable) {
+      delay(index * 100L)
+      animatable.animateTo(
+          targetValue = 1f,
+          animationSpec =
+              infiniteRepeatable(
+                  animation =
+                      keyframes {
                         durationMillis = 1200
                         0.0f at 0 using LinearOutSlowInEasing
                         1.0f at 300 using LinearOutSlowInEasing
                         0.0f at 600 using LinearOutSlowInEasing
                         0.0f at 1200 using LinearOutSlowInEasing
-                    },
-                    repeatMode = RepeatMode.Restart
-                )
-            )
-        }
+                      },
+                  repeatMode = RepeatMode.Restart))
     }
+  }
 
-    val circleValues = circles.map { it.value }
-    val distance = with(LocalDensity.current) { travelDistance.toPx() }
+  val circleValues = circles.map { it.value }
+  val distance = with(LocalDensity.current) { travelDistance.toPx() }
 
-    if (isLoading){
+  if (isLoading) {
 
-        Scaffold(modifier = modifier) {
+    Scaffold(modifier = modifier) {
+      Box(
+          modifier = Modifier.fillMaxSize(),
+          contentAlignment = Alignment.Center,
+      ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(spaceBetween)) {
+          circleValues.forEach { value ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(spaceBetween)
-                ) {
-                    circleValues.forEach { value ->
-                        Box(
-                            modifier = Modifier
-                                .size(circleSize)
-                                .graphicsLayer {
-                                    translationY = -value * distance
-                                }
-                                .background(
-                                    color = circleColor,
-                                    shape = CircleShape
-                                )
-                        )
-                    }
-                }
-            }
+                modifier =
+                    Modifier.size(circleSize)
+                        .graphicsLayer { translationY = -value * distance }
+                        .background(color = circleColor, shape = CircleShape))
+          }
         }
-
-
+      }
     }
+  }
 }
 
 @Preview
 @Composable
-fun LoadingAnimationPreview(){
-    LoadingAnimation(isLoading = true)
+fun LoadingAnimationPreview() {
+  LoadingAnimation(isLoading = true)
 }

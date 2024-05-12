@@ -20,7 +20,7 @@ ktor = "2.3.7"
 
 koinVersion = "3.5.6"
 
-spotlessPluginGradle = "6.19.0"
+spotlessPluginGradle = "6.25.0"
 sqldelight = "2.0.2"
 androidxDataStore = "1.1.1"
 graphicsShapes = "1.0.0-beta01"
@@ -39,7 +39,6 @@ kotlinxDatetime = "0.5.0"
 kotlinxSerializationJson = "1.6.3"
 ksp = "1.9.22-1.0.18"
 moduleGraph = "2.5.0"
-gradlePlugins-spotless = "6.19.0"
 protobuf = "3.25.2"
 protobufPlugin = "0.9.4"
 roborazzi = "1.7.0"
@@ -162,7 +161,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 module-graph = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraph" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
-spotless = { id = "com.diffplug.spotless", version.ref = "gradlePlugins-spotless" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotlessPluginGradle" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
