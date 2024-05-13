@@ -17,6 +17,7 @@ coil = "2.6.0"
 material = "1.11.0"
 kotlinx-immutable-collection = "0.3.7"
 ktor = "2.3.7"
+jacoco = "0.8.7"
 
 koinVersion = "3.5.6"
 
@@ -177,5 +178,7 @@ djvmil-ementor-library-compose = { id = "djvmil.e-mentor.library.compose", versi
 djvmil-ementor-core = { id = "djvmil.e-mentor.core", version = "unspecified" }
 djvmil-ementor-test = { id = "djvmil.e-mentor.test", version = "unspecified" }
 djvmil-ementor-app-flavors = { id = "djvmil.e-mentor.app.flavors", version = "unspecified" }
+djvmil-ementor-app-jacoco = { id = "djvmil.e-mentor.app.jacoco", version = "unspecified" }
+djvmil-ementor-library-jacoco = { id = "djvmil.e-mentor.library.jacoco", version = "unspecified" }
 
 [bundles]

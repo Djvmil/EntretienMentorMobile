@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.djvmil.ementor.core)
     alias(libs.plugins.djvmil.ementor.library.compose)
+    alias(libs.plugins.djvmil.ementor.library.jacoco)
 }
+//apply("$project.rootDir/tools/script-jacoco.gradle")
 
 android {
     namespace = "com.djvmil.entretienmentor.feature"

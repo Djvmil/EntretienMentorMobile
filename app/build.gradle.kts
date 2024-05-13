@@ -5,7 +5,10 @@ plugins {
     alias(libs.plugins.djvmil.ementor.app.compose)
     alias(libs.plugins.djvmil.ementor.app.flavors)
     alias(libs.plugins.module.graph) apply true // Plugin applied to allow module graph generation
+    alias(libs.plugins.djvmil.ementor.app.jacoco)
 }
+
+//apply("$project.rootDir/tools/script-jacoco.gradle")
 
 android {
     namespace = "com.djvmil.entretienmentor"

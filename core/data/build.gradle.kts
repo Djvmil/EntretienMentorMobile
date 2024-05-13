@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.djvmil.ementor.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.djvmil.ementor.library.jacoco)
 }
+//apply("$project.rootDir/tools/script-jacoco.gradle")
 
 android {
     namespace = "com.djvmil.entretienmentor.core.data"
