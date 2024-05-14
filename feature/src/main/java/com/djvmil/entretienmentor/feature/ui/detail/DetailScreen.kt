@@ -58,9 +58,7 @@ fun DetailScreen(
     viewModel.getCommunity(communityId)
   }
 
-    Button(onClick = {onBackClicked.invoke()}) {
-        Text(text = "Back")
-    }
+  Button(onClick = { onBackClicked.invoke() }) { Text(text = "Back") }
   when (uiState) {
     ResultEM.Loading -> {
       // Todo: Implement Shimmer
@@ -121,11 +119,13 @@ fun Header(movie: CommunityUiModel, viewModel: DetailViewModel) {
         painter = rememberAsyncImagePainter(model = movie.name),
         contentDescription = null,
         modifier =
-            Modifier
-                .clickable { viewModel.getMovieUseCase }.aspectRatio(DetailImageAspectRatio).constrainAs(image) {
-              width = Dimension.fillToConstraints
-              linkTo(start = parent.start, end = parent.end, top = parent.top, bottom = info.top)
-            },
+            Modifier.clickable { viewModel.getMovieUseCase }
+                .aspectRatio(DetailImageAspectRatio)
+                .constrainAs(image) {
+                  width = Dimension.fillToConstraints
+                  linkTo(
+                      start = parent.start, end = parent.end, top = parent.top, bottom = info.top)
+                },
         contentScale = ContentScale.Crop)
     Card(
         modifier =
@@ -144,7 +144,6 @@ fun Header(movie: CommunityUiModel, viewModel: DetailViewModel) {
             Modifier.padding(start = NormalPadding, top = SmallPadding)
                 .size(DetailIcon)
                 .constrainAs(iconComment) {
-
                   start.linkTo(info.start)
                   top.linkTo(info.top)
                 },

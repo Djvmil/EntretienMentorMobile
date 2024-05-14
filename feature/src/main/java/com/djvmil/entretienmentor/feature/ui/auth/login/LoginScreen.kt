@@ -65,7 +65,7 @@ fun LoginScreen(openDashboard: () -> Unit, viewModel: LoginViewModel = koinViewM
   val passwordState = remember { PasswordState(label = "Password") }
 
   val onSubmit = {
-    if(usernameState.isValid && passwordState.isValid) {
+    if (usernameState.isValid && passwordState.isValid) {
       viewModel.onLoginClick(usernameState.text, passwordState.text)
     }
   }
@@ -113,27 +113,20 @@ fun LoginScreen(openDashboard: () -> Unit, viewModel: LoginViewModel = koinViewM
             )
 
             Row(modifier = Modifier.fillMaxWidth().height(60.dp)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth().height(60.dp)
-                ) {
-
-                    when(val result = uiState){
-                        is Loading -> {
-                            LoadingAnimation(
-                                modifier =
-                                Modifier.background(MaterialTheme.colorScheme.primary.copy(0.5f)),
-                                isLoading = true
-                            )
-                        }
-                        is Failure -> {
-                            result.error.message?.let { TextFieldError(textError = it) }
-
-                        }
-                        else -> {
-
-                        }
-                    }
+              Row(modifier = Modifier.fillMaxWidth().height(60.dp)) {
+                when (val result = uiState) {
+                  is Loading -> {
+                    LoadingAnimation(
+                        modifier =
+                            Modifier.background(MaterialTheme.colorScheme.primary.copy(0.5f)),
+                        isLoading = true)
+                  }
+                  is Failure -> {
+                    result.error.message?.let { TextFieldError(textError = it) }
+                  }
+                  else -> {}
                 }
+              }
             }
 
             Box(
@@ -166,7 +159,6 @@ fun LoginScreen(openDashboard: () -> Unit, viewModel: LoginViewModel = koinViewM
             BottomLogin()
           }
     }
-
   }
 }
 
