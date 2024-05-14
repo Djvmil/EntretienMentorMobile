@@ -149,7 +149,7 @@ jobs:
     timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [26, 30]
+        api-level: [24, 33]
 
     steps:
       - name: Delete unnecessary tools 🔧
@@ -195,14 +195,14 @@ jobs:
           heap-size: 600M
           script: ./gradlew connectedDemoDebugAndroidTest --daemon
 
-      - name: Run local tests (including Roborazzi) for the combined coverage report (only API 30)
-        if: matrix.api-level == 30
+      - name: Run local tests (including Roborazzi) for the combined coverage report (only API 33)
+        if: matrix.api-level == 33
         # There is no need to verify Roborazzi tests to generate coverage.
         run: ./gradlew testDemoDebugUnitTest -Proborazzi.test.verify=false # Add Prod if we ever add JVM tests for prod
 
       # Add `createProdDebugUnitTestCoverageReport` if we ever add JVM tests for prod
-      - name: Generate coverage reports for Debug variants (only API 30)
-        if: matrix.api-level == 30
+      - name: Generate coverage reports for Debug variants (only API 33)
+        if: matrix.api-level == 33
         run: ./gradlew createDemoDebugCombinedCoverageReport
 
       - name: Upload test reports
@@ -212,8 +212,8 @@ jobs:
           name: test-reports-${{ matrix.api-level }}
           path: '**/build/reports/androidTests'
 
-      - name: Display local test coverage (only API 30)
-        if: matrix.api-level == 30
+      - name: Display local test coverage (only API 33)
+        if: matrix.api-level == 33
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         with:
@@ -224,8 +224,8 @@ jobs:
             ${{ github.workspace }}/**/build/reports/jacoco/**/*Report.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload local coverage reports (XML + HTML) (only API 30)
-        if: matrix.api-level == 30
+      - name: Upload local coverage reports (XML + HTML) (only API 33)
+        if: matrix.api-level == 33
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
