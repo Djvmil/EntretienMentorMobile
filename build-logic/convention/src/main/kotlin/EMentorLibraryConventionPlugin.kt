@@ -1,7 +1,9 @@
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import com.djvmil.entretienmentor.configureFlavors
 import com.djvmil.entretienmentor.configureKotlinAndroid
+import com.djvmil.entretienmentor.configurePrintApksTask
 import com.djvmil.entretienmentor.disableUnnecessaryAndroidTests
 import com.djvmil.entretienmentor.libs
 import org.gradle.api.Plugin
@@ -24,17 +26,13 @@ class EMentorLibraryConventionPlugin : Plugin<Project> {
                 defaultConfig.targetSdk = 34
                 testOptions.animationsDisabled = true
                 configureFlavors(this)
+                // The resource prefix is derived from the module name,
+                // so resources inside ":core:module1" must be prefixed with "core_module1_"
                 resourcePrefix = path.split("""\W""".toRegex()).drop(1).distinct().joinToString(separator = "_").lowercase() + "_"
-            }
 
-            configurations.configureEach {
-                resolutionStrategy {
-                    force(libs.findLibrary("junit4").get())
-                    // Temporary workaround for https://issuetracker.google.com/174733673
-                    force("org.objenesis:objenesis:2.6")
-                }
             }
             extensions.configure<LibraryAndroidComponentsExtension> {
+                configurePrintApksTask(this)
                 disableUnnecessaryAndroidTests(target)
             }
             dependencies {

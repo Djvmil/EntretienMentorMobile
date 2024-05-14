@@ -111,9 +111,36 @@ configurations.configureEach {
 }
 
 dependencyGuard {
-    configuration("releaseRuntimeClasspath")
-    //configuration("prodReleaseRuntimeClasspath")
+
+    configuration("demoDebugCompileClasspath"){
+        tree = true
+    }
+    configuration("demoDebugRuntimeClasspath")
+    configuration("prodDebugCompileClasspath")
+    configuration("prodDebugRuntimeClasspath")
+
+    /*configuration("demoDebugAndroidTestCompileClasspath")
+    configuration("demoDebugAndroidTestRuntimeClasspath")
+    configuration("demoDebugCompileClasspath")
+    configuration("demoDebugRuntimeClasspath")
+    configuration("demoDebugUnitTestCompileClasspath")
+    configuration("demoDebugUnitTestRuntimeClasspath")
+    configuration("demoReleaseCompileClasspath")
+    configuration("demoReleaseRuntimeClasspath")
+    configuration("demoReleaseUnitTestCompileClasspath")
+    configuration("demoReleaseUnitTestRuntimeClasspath")
+    configuration("prodDebugAndroidTestCompileClasspath")
+    configuration("prodDebugAndroidTestRuntimeClasspath")
+    configuration("prodDebugCompileClasspath")
+    configuration("prodDebugRuntimeClasspath")
+    configuration("prodDebugUnitTestCompileClasspath")
+    configuration("prodDebugUnitTestRuntimeClasspath")
+    configuration("prodReleaseCompileClasspath")
+    configuration("prodReleaseRuntimeClasspath")
+    configuration("prodReleaseUnitTestCompileClasspath")
+    configuration("prodReleaseUnitTestRuntimeClasspath")*/
 }
+
 
 moduleGraphAssert {
     maxHeight = 4
