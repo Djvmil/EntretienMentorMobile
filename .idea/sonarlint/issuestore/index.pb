@@ -87,3 +87,7 @@ c
 .app/dependencies/prodDebugCompileClasspath.txt,5/3/539e17985e590246c12c358ec9b2f5317b907a39
 L
 .github/ci-gradle.properties,8/6/86f581e3b66ce604a478ea36f5ddfe8d53c1e300
+K
+.github/workflows/Sonar.yml,e/f/efde0c8c71fb9fe77e57e2de847edd19b5afe70f
+M
+gradle/libs.versions.toml-old,c/5/c596ac5412e3a1d41825e68cb9ae6e8fd2e9bf7d
