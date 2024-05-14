@@ -91,3 +91,5 @@ K
 .github/workflows/Sonar.yml,e/f/efde0c8c71fb9fe77e57e2de847edd19b5afe70f
 M
 gradle/libs.versions.toml-old,c/5/c596ac5412e3a1d41825e68cb9ae6e8fd2e9bf7d
+F
+app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
