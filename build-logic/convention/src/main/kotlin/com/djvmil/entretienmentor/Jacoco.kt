@@ -46,18 +46,25 @@ internal fun Project.configureJacoco(
     }
 
     androidComponentsExtension.onVariants { variant ->
+        println("jacoco: variant.name = ${variant.name}")
         val myObjFactory = project.objects
+        println("jacoco: project.objects = ${project.objects}")
         val buildDir = layout.buildDirectory.get().asFile
         val allJars: ListProperty<RegularFile> = myObjFactory.listProperty(RegularFile::class.java)
         val allDirectories: ListProperty<Directory> = myObjFactory.listProperty(Directory::class.java)
+
+        println("jacoco: allDirectories = ${allDirectories}")
         val reportTask =
             tasks.register("create${variant.name.capitalize()}CombinedCoverageReport", JacocoReport::class) {
 
                 classDirectories.setFrom(
                     allJars,
                     allDirectories.map { dirs ->
+
                         dirs.map { dir ->
-                            myObjFactory.fileTree().setDir(dir).exclude(coverageExclusions)
+                            val dirV = myObjFactory.fileTree().setDir(dir).exclude(coverageExclusions)
+                            println("jacoco: dirV = ${dirV}")
+                            dirV
                         }
                     }
                 )
@@ -69,6 +76,7 @@ internal fun Project.configureJacoco(
                 // TODO: This is missing files in src/debug/, src/prod, src/demo, src/demoDebug...
                 sourceDirectories.setFrom(files("$projectDir/src/main/java", "$projectDir/src/main/kotlin"))
 
+                println("jacoco: dirV = $buildDir/outputs/unit_test_code_coverage/${variant.name}UnitTest")
                 executionData.setFrom(
                     project.fileTree("$buildDir/outputs/unit_test_code_coverage/${variant.name}UnitTest")
                         .matching { include("**/*.exec") },

@@ -93,3 +93,5 @@ M
 gradle/libs.versions.toml-old,c/5/c596ac5412e3a1d41825e68cb9ae6e8fd2e9bf7d
 F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
+O
+build-logic/settings.gradle.kts,8/a/8a9538c8795ca8e7ea13540a81b1a74a99df58e8

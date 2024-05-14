@@ -12,8 +12,7 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
 
-    testImplementation(projects.core.testing)
-
     implementation(libs.koin.android)
 
+    testImplementation(projects.core.testing)
 }
