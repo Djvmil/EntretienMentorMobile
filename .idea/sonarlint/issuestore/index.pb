@@ -85,3 +85,5 @@ c
 .app/dependencies/demoDebugRuntimeClasspath.txt,e/4/e4f79ca66add1addea30840d0099ee8049376d26
 ^
 .app/dependencies/prodDebugCompileClasspath.txt,5/3/539e17985e590246c12c358ec9b2f5317b907a39
+L
+.github/ci-gradle.properties,8/6/86f581e3b66ce604a478ea36f5ddfe8d53c1e300
