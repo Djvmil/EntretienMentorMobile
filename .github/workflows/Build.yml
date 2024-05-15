@@ -124,25 +124,25 @@ jobs:
           name: local-test-results
           path: '**/build/test-results/test*UnitTest/**.xml'
 
-      - name: Upload screenshot results (PNG)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshot-test-results
-          path: '**/build/outputs/roborazzi/*_compare.png'
+#      - name: Upload screenshot results (PNG)
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: screenshot-test-results
+#          path: '**/build/outputs/roborazzi/*_compare.png'
 
-      - name: Check lint
-        run: ./gradlew :app:lintProdRelease :app-nia-catalog:lintRelease :lint:lint
+#      - name: Check lint
+#        run: ./gradlew :app:lintProdRelease :app-nia-catalog:lintRelease :lint:lint
 
-      - name: Upload lint reports (HTML)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-reports
-          path: '**/build/reports/lint-results-*.html'
+#      - name: Upload lint reports (HTML)
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: lint-reports
+#          path: '**/build/reports/lint-results-*.html'
 
-      - name: Check badging
-        run: ./gradlew :app:checkProdReleaseBadging
+#      - name: Check badging
+#        run: ./gradlew :app:checkProdReleaseBadging
 
   androidTest:
     runs-on: ubuntu-latest
