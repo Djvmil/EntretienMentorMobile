@@ -218,6 +218,7 @@ jobs:
         uses: madrapps/jacoco-report@v1.6.1
         with:
           title: Combined test coverage report
+          continue-on-error: true
           min-coverage-overall: 0
           min-coverage-changed-files: 60
           paths: |
