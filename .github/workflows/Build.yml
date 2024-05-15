@@ -220,6 +220,9 @@ jobs:
           title: Combined test coverage report
           continue-on-error: true
           min-coverage-overall: 0
+          pass-emoji: ':green_circle:'
+          fail-emoji: ':red_circle:'
+          debug-mode: true
           min-coverage-changed-files: 60
           paths: |
             ${{ github.workspace }}/**/build/reports/jacoco/**/*Report.xml
