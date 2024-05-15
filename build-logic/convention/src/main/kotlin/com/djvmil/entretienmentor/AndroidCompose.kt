@@ -39,7 +39,7 @@ internal fun Project.configureAndroidCompose(
     }
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            //freeCompilerArgs += stabilityConfiguration()
+            freeCompilerArgs += stabilityConfiguration()
             freeCompilerArgs += strongSkippingConfiguration()
         }
     }

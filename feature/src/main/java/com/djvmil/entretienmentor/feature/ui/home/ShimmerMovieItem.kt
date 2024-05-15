@@ -14,27 +14,21 @@ import com.djvmil.entretienmentor.feature.util.ShimmerRectangleHeight
 
 @Composable
 fun ShimmerMovieItem(isEnableShimmer: Boolean) {
-  Column(
-      modifier = Modifier
-       .width(100.dp)
-       .clip(RoundedCornerShape(size = 10.dp))
-      ) {
-        ShimmerRectangle(
-            isEnableShimmer = isEnableShimmer,
-            width = 100.dp,
-            height = 100.dp,
-            round = 10.dp,
-            padding = SmallPadding
-        )
+  Column(modifier = Modifier.width(100.dp).clip(RoundedCornerShape(size = 10.dp))) {
+    ShimmerRectangle(
+        isEnableShimmer = isEnableShimmer,
+        width = 100.dp,
+        height = 100.dp,
+        round = 10.dp,
+        padding = SmallPadding)
 
-        ShimmerRectangle(
-            isEnableShimmer = isEnableShimmer,
-            width = 100.dp,
-            height = ShimmerRectangleHeight,
-            round = 10.dp,
-            padding = SmallPadding
-        )
-      }
+    ShimmerRectangle(
+        isEnableShimmer = isEnableShimmer,
+        width = 100.dp,
+        height = ShimmerRectangleHeight,
+        round = 10.dp,
+        padding = SmallPadding)
+  }
 }
 
 @Preview @Composable private fun ShimmerMovieItemPreview() = ShimmerMovieItem(true)

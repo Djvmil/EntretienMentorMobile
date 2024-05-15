@@ -61,5 +61,13 @@ gradlePlugin {
             id = "djvmil.e-mentor.app.flavors"
             implementationClass = "EMentorAppFlavorsConventionPlugin"
         }
+        register("androidApplicationJacoco") {
+            id = "djvmil.e-mentor.app.jacoco"
+            implementationClass = "EMentorAppJacocoConventionPlugin"
+        }
+        register("androidLibraryJacoco") {
+            id = "djvmil.e-mentor.library.jacoco"
+            implementationClass = "EMentorLibraryJacocoConventionPlugin"
+        }
     }
 }

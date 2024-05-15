@@ -5,7 +5,10 @@ plugins {
     alias(libs.plugins.djvmil.ementor.app.compose)
     alias(libs.plugins.djvmil.ementor.app.flavors)
     alias(libs.plugins.module.graph) apply true // Plugin applied to allow module graph generation
+    alias(libs.plugins.djvmil.ementor.app.jacoco)
 }
+
+//apply("$project.rootDir/tools/script-jacoco.gradle")
 
 android {
     namespace = "com.djvmil.entretienmentor"
@@ -108,9 +111,36 @@ configurations.configureEach {
 }
 
 dependencyGuard {
-    configuration("releaseRuntimeClasspath")
-    //configuration("prodReleaseRuntimeClasspath")
+
+    configuration("demoDebugCompileClasspath"){
+        tree = true
+    }
+    configuration("demoDebugRuntimeClasspath")
+    configuration("prodDebugCompileClasspath")
+    configuration("prodDebugRuntimeClasspath")
+
+    /*configuration("demoDebugAndroidTestCompileClasspath")
+    configuration("demoDebugAndroidTestRuntimeClasspath")
+    configuration("demoDebugCompileClasspath")
+    configuration("demoDebugRuntimeClasspath")
+    configuration("demoDebugUnitTestCompileClasspath")
+    configuration("demoDebugUnitTestRuntimeClasspath")
+    configuration("demoReleaseCompileClasspath")
+    configuration("demoReleaseRuntimeClasspath")
+    configuration("demoReleaseUnitTestCompileClasspath")
+    configuration("demoReleaseUnitTestRuntimeClasspath")
+    configuration("prodDebugAndroidTestCompileClasspath")
+    configuration("prodDebugAndroidTestRuntimeClasspath")
+    configuration("prodDebugCompileClasspath")
+    configuration("prodDebugRuntimeClasspath")
+    configuration("prodDebugUnitTestCompileClasspath")
+    configuration("prodDebugUnitTestRuntimeClasspath")
+    configuration("prodReleaseCompileClasspath")
+    configuration("prodReleaseRuntimeClasspath")
+    configuration("prodReleaseUnitTestCompileClasspath")
+    configuration("prodReleaseUnitTestRuntimeClasspath")*/
 }
+
 
 moduleGraphAssert {
     maxHeight = 4

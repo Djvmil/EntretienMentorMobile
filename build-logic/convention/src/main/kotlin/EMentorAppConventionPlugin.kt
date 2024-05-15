@@ -1,8 +1,12 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
+import com.android.build.gradle.BaseExtension
 import com.djvmil.entretienmentor.configureKotlinAndroid
+import com.djvmil.entretienmentor.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.getByType
 
 class EMentorAppConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -18,6 +22,9 @@ class EMentorAppConventionPlugin : Plugin<Project> {
                 defaultConfig.targetSdk = 34
                 @Suppress("UnstableApiUsage")
                 testOptions.animationsDisabled = true
+            }
+            extensions.configure<ApplicationAndroidComponentsExtension> {
+                configurePrintApksTask(this)
             }
         }
     }

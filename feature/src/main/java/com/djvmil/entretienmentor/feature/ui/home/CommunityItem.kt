@@ -40,8 +40,7 @@ fun CommunityItem(community: CommunityUiModel, onShowDetail: (movieId: Int) -> U
       tonalElevation = SmallEvelation) {
         ConstraintLayout(
             modifier = Modifier.wrapContentSize().clickable { onShowDetail(community.id!!) }) {
-              val (image, gradiant, textComment, iconComment, textLike, iconLike) =
-                  createRefs()
+              val (image, gradiant, textComment, iconComment, textLike, iconLike) = createRefs()
 
               Image(
                   modifier =
