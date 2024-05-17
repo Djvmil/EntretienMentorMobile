@@ -9,6 +9,7 @@ on:
 name: Sonar Workflow
 jobs:
   sonarcloud:
+    #needs: [Build]
     runs-on: ubuntu-latest
     environment: develop
     steps:
